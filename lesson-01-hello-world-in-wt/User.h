@@ -20,7 +20,8 @@
 
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
-
+#include <Wt/Dbo/Dbo>
+#include <string>
 namespace dbo = Wt::Dbo;
 using namespace std ;
 /** An enum type. defining the status of the User
@@ -31,6 +32,35 @@ using namespace std ;
                 Admin , /**< the user is log in and is Admin value 1 */
                 Alien  /**< the user is nothing  value 2 */
                };
+    class Post;
+    class User;
+
+    /*! A Post   class
+    * \details This class is  a document contents created by a user of app
+    * this class has dbo support example of Many-to-One relations with user.
+            * \author Lyase damasked from wt/dbo/tutorial.html
+            * \version 4.1a
+            * \date 1990-2012
+            * \pre First initialize the system.
+            * \bug .
+    *
+    */
+
+    /*! \brief  this class defines a User object  of the application
+     */
+
+    class Post {
+    public:
+      dbo::ptr<User> user;
+
+
+      template<class Action>
+      void persist(Action& a)
+      {
+        dbo::belongsTo(a, user, "user");
+
+      }
+    };
 /*! A User   class
 * \details This class is used to demonstrate a number of section commands.
  	* \author John Doe
@@ -43,6 +73,7 @@ using namespace std ;
 */
 
 /*! \brief  this class defines a User object  of the application
+  this class now has  Posts as children
  */
 class User 
 {
@@ -60,6 +91,7 @@ class User
                             dbo::field(a, m_password, "password");
                             dbo::field(a, m_role,     "role");
                             dbo::field(a, m_karma,    "karma");
+                            dbo::hasMany(a, posts, dbo::ManyToOne, "user");
                             }
     User();
     ~User();
@@ -115,6 +147,7 @@ class User
     string m_password;/*!< variable is password in  clear  */
     Role        m_role; /*!< represents the identified status of the user admin.... */
     int         m_karma; /*!< an integer value */
+    dbo::collection< dbo::ptr<Post> > posts;
 };
 /*!\var Users
  * *\brief collection of user
