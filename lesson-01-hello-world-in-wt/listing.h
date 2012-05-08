@@ -1,4 +1,4 @@
-/** \file  liingst.h
+/** \file  listing.h
 *    header for minimal dbo app
 *\b compiles with \code g++ listing.cpp User.cpp -o test -l wtdbosqlite3 \endcode
 *\n

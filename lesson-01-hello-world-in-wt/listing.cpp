@@ -13,7 +13,8 @@
  *        Company:  
  *
  * =====================================================================================
- */#include <Wt/Dbo/Dbo>
+ */
+#include <Wt/Dbo/Dbo>
 #include "listing.h"
 #include "User.h"
 #include <string>
@@ -83,7 +84,7 @@ cout<<" looking for all user objects\n";
 Users users = session->find<User>();
 
 cerr << "We have " << users.size() << " users:" << std::endl;
-
+cerr <<"listing the user i found in database"<<std::endl ; 
 for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
         cerr << " user " << (*i)->getName()
               << " with karma of " << (*i)->getKarma() << endl

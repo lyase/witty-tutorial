@@ -62,27 +62,27 @@ class User
                             }
     User();
     ~User();
-/*! \fn int setName(string str)
+/*! \fn void setName(string str)
 * \brief A setter for private member name.
 * \param str a string .
-* \return a int if all ok.
+* \return a void if all ok.
 */
-    int setName(string);
-/*! \fn int setPassword(string str)
+    void setName(string);
+/*! \fn void setPassword(string str)
 * \brief A setter for private member password.
 * \param str a string with password.
-* \return a int with status.
-*/   int setPassword(string);
-    /*! \fn  int setRole(Role Role)
+* \return a void with status.
+*/   void setPassword(string);
+    /*! \fn  void setRole(Role Role)
 * \brief A setter for private member Role.
 * \param Role a Role .
-* \return a int if all ok.
-*/    int setRole(Role);
+* \return a void if all ok.
+*/    void setRole(Role);
     /*! \fn  int setKarma(int)
 * \brief A setter for private member Karma.
 
-* \return a int if all ok.
-*/    int setKarma(int);
+* \return a void  if all ok.
+*/    void setKarma(int);
   /*! \fn  string getName() const;
 * \brief A getter for private member Name.
 

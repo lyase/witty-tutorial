@@ -50,42 +50,42 @@ cout<<"creating new user\n";
 User::~User()
 {
     cout <<"destroying user\n ";
-};
-int User::setName(string myName)
+}
+void User::setName(string myName)
 {
     m_name=myName;
-    return 0; 
-};
-int User::setPassword(string myPass)
+    return ; 
+}
+void User::setPassword(string myPass)
 {
     m_password=myPass;
-    return 0;
-};
-int User::setRole(Role myRole)
+    return ;
+}
+void User::setRole(Role myRole)
 {
     m_role=myRole;
-    return 0;
-};
-int User::setKarma(int myKarma)
+    return ;
+}
+void User::setKarma(int myKarma)
 {
     m_karma=myKarma;
-    return 0;
-};
+    return ;
+}
 
 string User::getName() const
 {
     return m_name; 
-};
+}
 string User::getPassword() const
 {
    
     return m_password;
-};
+}
 Role User::getRole() const
 {
     return m_role;
-};
+}
 int User::getKarma() const
 {
     return m_karma;
-};
+}
