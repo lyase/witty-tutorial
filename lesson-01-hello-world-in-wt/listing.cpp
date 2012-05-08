@@ -19,14 +19,16 @@
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
-// compile with g++ listing.cpp -o test -l wtdbosqlite3
-//g++ listing.cpp User.cpp -o test -l wtdbosqlite3
-
 
 namespace dbo = Wt::Dbo;
 using namespace std ;
 
-
+/*! \fn int createTableForUser(dbo::Session* session)
+* \brief Creating the table fo Object User
+*
+* \param session a handle to a dbo database 
+* \return nothing 
+*/ 
 int createTableForUser(dbo::Session* session)
 {
     cout<<" Create table for user\n" ;
@@ -39,15 +41,16 @@ session->mapClass<User>("user");
   session->createTables();
   transaction.commit();
 }
+ /*! \fn int createUserJoe(dbo::Session* session )
+ * \brief Creating the user and save object to database
+ *
+ * \param session a handle to a dbo database 
+ * \return nothing 
+*/ 
 
 int createUserJoe(dbo::Session* session )
 {
-
-dbo::Transaction transaction(*session);
-// creating a user and saving to database
-   
-//session->mapClass<User>("user");
-  
+dbo::Transaction transaction(*session);  
   cout<<" Create  a userJoe\n ";
   User *user;
   user = new User();
@@ -61,24 +64,22 @@ dbo::Transaction transaction(*session);
 
   cout<<" Commit to database \n ";
   transaction.commit();
-//  delete  user;
-//  user=0;
-  }
+}
+ /*! \fn int readUserAllUser(dbo::Session* session)
+ * \brief getting all user from database
+ * for each user prints the values
+ * \param session a handle to a dbo database 
+ * \return nothing 
+*/ 
 
-
-
-int readUserJoe(dbo::Session* session)
+int readUserAllUser(dbo::Session* session)
 {
-  cout<<" Reading user \n ";
-/*    cout<<" i will create database connection to read\n";
-dbo::backend::Sqlite3 sqlite3("blog.db");
-dbo::Session session;
-session.setConnection(sqlite3);
-*/
+cout<<" Reading user \n ";
 dbo::Transaction transaction(*session);
-//session->mapClass<User>("user");
-  // now finding an object 
-cout<<" looking for  user objects\n";
+  // now getting all user objects you may use filter like 
+// Wt::Dbo::ptr<User> bart = session.find<User>().where("name = ?").bind("Bart");
+// but does not work with all wt version
+cout<<" looking for all user objects\n";
 Users users = session->find<User>();
 
 cerr << "We have " << users.size() << " users:" << std::endl;
@@ -89,6 +90,14 @@ for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
               << " with Role of " << (*i)->getRole() << endl;
   transaction.commit();
 }
+ /*! \fn int main ()
+ * \brief a complete database operation
+ * create database \n
+ * create table for user \n
+ * create & store a user \n
+ * get and display all User object from database \n
+ * \return nothing 
+*/ 
 int main ()
 {
 cout<<" Create database connection \n";
@@ -97,5 +106,5 @@ dbo::Session session;
 session.setConnection(sqlite3);
 createTableForUser(&session);
 createUserJoe(&session);
-readUserJoe(&session);
+readUserAllUser(&session);
 }

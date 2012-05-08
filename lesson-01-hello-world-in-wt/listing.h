@@ -27,6 +27,6 @@ using namespace std ;
 int createTableForUser (dbo::Session*);
 int createDatabase(dbo::Session*);
 int createUserJoe(dbo::Session*);
-int readUserJoe(dbo::Session* );
+int readUserAllUser(dbo::Session* );
 
 int main ();
