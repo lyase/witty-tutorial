@@ -18,6 +18,7 @@
 #include <Wt/WApplication>
 #include <Wt/WText>
 #include <Wt/WContainerWidget>
+#include "MainWindow.hpp"
 /*! \class HelloAp
    * \brief A simple hello world application class which demonstrates how to display hello world on client browser
     *  more documentation of the class
@@ -27,6 +28,7 @@
 class HelloApp : public Wt::WApplication {
 public:
   Wt::WText* msg;
+      MainWindow* mainWindow; /*! \brief a window that can ask name of user and greet user by name */
        /**
  * \fn HelloApp(const WEnvironment& env)
  * \brief Constructor Fonction
@@ -38,9 +40,14 @@ public:
  * \return nothing 
 */ 
     HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+              setTitle("Hello world");
+        mainWindow = new MainWindow(root());
+/*
+ * plain hello world
         setTitle("Hello world");
         msg = new Wt::WText("Hello World");
         root()->addWidget(msg);
+        */
     }
 };
 

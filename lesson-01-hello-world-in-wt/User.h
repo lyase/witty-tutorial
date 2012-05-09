@@ -17,7 +17,7 @@
 #ifndef USER_H
 #define USER_H
 #include <Wt/Dbo/Dbo>
-#include <string>
+
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
 
