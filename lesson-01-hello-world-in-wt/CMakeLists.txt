@@ -46,4 +46,25 @@ SET(usertest_src ${usertest_src} testUser_Class.cpp)
 add_executable(usertest ${usertest_src} )
     TARGET_LINK_LIBRARIES(usertest boost_unit_test_framework  )
 #    TARGET_LINK_LIBRARIES(usertest {Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
+#------------------------------------------------------------------------------------------------------
+
+PROJECT(user_dbo_demo)
+# to check no functionality of class user is broken
+# you should run this ./usertest --log_level=test_suite --report_level=short
+# to check class user does not leak
+# and valgrind ./usertest
+find_package(Boost COMPONENTS system thread signals)
+
+find_library(wt wt)
+find_library(wthttp wthttp)
+
+# This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
+#setting the source files of the project one by one.
+SET(user_dbo_demo_src  )
+
+SET(user_dbo_demo_src ${user_dbo_demo_src} User.cpp)
+SET(user_dbo_demo_src ${user_dbo_demo_src} testUser_Class_dbo.cpp)
+add_executable(user_dbo_demo ${user_dbo_demo_src} )
+TARGET_LINK_LIBRARIES(user_dbo_demo wtdbosqlite3  )
+
 
