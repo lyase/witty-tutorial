@@ -12,16 +12,16 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     _nameInput->setFocus();
     _inputLabel->setBuddy(_nameInput);
     _btnHi = new Wt::WPushButton("Say Hi", this);
-    user->setName(   Wt::WText(this));
-    _btnHi->clicked().connect(this, &MainWindow::sayHi);
 
+    _btnHi->clicked().connect(this, &MainWindow::sayHi);
+// because of the following  you need to delete user memory del user in destructor to prevent memory leak
   user = new User();
 }
 
 void MainWindow::sayHi() {
-    _lastNameEntered = _nameInput->valueText();
-    if (_lastNameEntered.empty())
-        _nameOutput->setText("");
+    user->setName(_nameInput->valueText());
+    if( (user->getName()=="") or(user->getName()=="Joe")) 
+        user->setName(" visiteur inconnu");
     else
         _nameOutput->setText("Hi there " + user->getName());
 }

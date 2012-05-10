@@ -42,7 +42,7 @@ using namespace std ;
 User::User()
 {
 cout<<"creating new user\n";
-    m_name="aUserName";
+    m_name="Joe";
     m_password="aUserpassword";
     setRole(Visitor);
     m_karma=1;
