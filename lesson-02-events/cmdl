@@ -1,4 +1,6 @@
-#this script will turn an application as a service so it can be started stop from the command line (using pid)
+#this script will turn an application 
+#into  a service 
+#so it can be started and  stopped from the command line (using pid) or are boot up
 #! /bin/sh
 ### BEGIN INIT INFO
 # Provides:          BigBrotherBot
