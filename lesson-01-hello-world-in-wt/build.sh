@@ -24,3 +24,11 @@ echo running functional test for class user
 ./usertest --log_level=test_suite --report_level=short
 echo checking memory for user class
 valgrind ./usertest   --log_level=test_suite --report_level=short
+echo loop updating on src change
+ while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done
+echo deploying
+ssh desafder@debian-witty-prod-srv "./cmdl stop" 
+scp hellowt desafder@debian-witty-prod-srv:
+ssh desafder@debian-witty-prod-srv "./cmdl start" 
+echo done.
+

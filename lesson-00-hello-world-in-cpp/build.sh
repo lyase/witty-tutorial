@@ -7,5 +7,9 @@ cmake ..
 echo building...
 make
 echo running...
-./hello
+#./hello
+echo deploying
+ssh desafder@debian-witty-prod-srv "./cmdl stop" 
+scp hellowt desafder@debian-witty-prod-srv:
+ssh desafder@debian-witty-prod-srv "./cmdl start" 
 echo done.
