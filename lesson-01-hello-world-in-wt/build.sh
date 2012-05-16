@@ -28,9 +28,13 @@ echo loop updating on src change
 # while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done
 echo deploying
 scp ../cmdl desafder@debian-witty-prod-srv:
-ssh desafder@debian-witty-prod-srv "./cmdl stop" 
+#ssh desafder@debian-witty-prod-srv "./cmdl stop" 
+ssh desafder@debian-witty-prod-srv "killall hellowt" 
 scp hellowt desafder@debian-witty-prod-srv:
+scp -r ../doc desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
-ssh desafder@debian-witty-prod-srv "./cmdl start" 
+#ssh desafder@debian-witty-prod-srv "./cmdl start" 
+ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt   --docroot doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080       "
+#ssh desafder@debian-witty-prod-srv "/home/desafder/hellowt   --docroot doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080      &"
 echo done.
 

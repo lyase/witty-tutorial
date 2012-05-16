@@ -19,7 +19,7 @@ NAME=hello
 #SCRIPTNAME=/etc/init.d/cmd.sh
 SCRIPTNAME=/home/desafder/hellowt
 DAEMON=`which bash`
-DAEMON=/home/desafder/hellowt
+DAEMON="screen -d -m /home/desafder/hellowt"
 #DAEMON_USER=place here the name of the user that is to be used to run b3
 DAEMON_USER=desafder
 
@@ -33,15 +33,16 @@ B3_BASEDIR=/etc/init.d/
 # for some strange reason you can not add  -c hellowt.xml in the options  
 #DAEMON_ARGS="$B3_BASEDIR/$NAME.sh -c $B3_CONFIGFILE"
 #DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0  -c hellowt.xml --http-port=8080 "
+DAEMON_ARGS="     --docroot=./doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080   "
 #next line is good solution 
-DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0 --http-port=8080   "
+#DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0 --http-port=8080   "
 B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
 {
         echo "Couldn't find $DAEMON"
-        exit 99
+#        exit 99
 }
 fi
 
@@ -89,11 +90,11 @@ do_start()
    #start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
    #   2 if daemon could not be started
    start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS; 
+        --background --chdir $B3_BASEDIR  --exec $DAEMON   $DAEMON_ARGS; 
 echo"" ;
 echo " started serveur with command: "
 echo "start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS;   "
+        --background --chdir $B3_BASEDIR  --exec $DAEMON   $DAEMON_ARGS;   "
 
 
     return $?

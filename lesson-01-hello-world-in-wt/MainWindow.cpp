@@ -16,18 +16,20 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     _inputLabel->setBuddy(_nameInput);
     _btnHi = new Wt::WPushButton("Say Hi", this);
          _nameOutput = new Wt::WText(this);
+         _debugOutput = new Wt::WText(this);
     _btnHi->clicked().connect(this, &MainWindow::sayHi);
 // because of the following  you need to delete user memory del user in destructor to prevent memory leak
   user = new User();
   std::string buildinfo;
-  buildinfo=" i was in ";
+  buildinfo="  ";
 #define WRNG_PRIVATE_STR2(z) #z
 #define WRNG_PRIVATE_STR1(x) WRNG_PRIVATE_STR2(x)
-#define WRNG __FILE__ "Compiled at:("WRNG_PRIVATE_STR1(__TIME__)")line:("WRNG_PRIVATE_STR1(__LINE__)"): ------------ : "
+#define WRNG __FILE__ " Compiled at:("WRNG_PRIVATE_STR1(__TIME__)")line:("WRNG_PRIVATE_STR1(__LINE__)"): ------------ : "
 
 //#define WRNG __FILE__ "("WRNG_PRIVATE_STR1(__LINE__)"): ------------ : "
 buildinfo+=WRNG ;
-    new Wt::WAnchor(Wt::WLink("/docs.html"), "Show Docs"+buildinfo, this);
+        _debugOutput->setText("debug info "+buildinfo);
+    new Wt::WAnchor(Wt::WLink("/index.html"), "show docs", this);
 }
 void MainWindow::sayHi() {
     user->setName(_nameInput->valueText().toUTF8());
