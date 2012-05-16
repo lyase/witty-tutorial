@@ -40,7 +40,7 @@ public:
  * \return nothing 
 */ 
     HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
-              setTitle("Hello world");
+              setTitle("Hello world auto deploy");
         mainWindow = new MainWindow(root());
 /*
  * plain hello world

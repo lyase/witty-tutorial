@@ -30,8 +30,11 @@ DAEMON_GROUP=desafder
 B3_BASEDIR=/etc/init.d/
 #B3_CONFIGFILE="place here the path of the b3.xml config file you want to use"
 
-DAEMON_ARGS="$B3_BASEDIR/$NAME.sh -c $B3_CONFIGFILE"
-DAEMON_ARGS="--docroot=/var/www/wt --http-address=0.0.0.0 --http-port=8080"
+# for some strange reason you can not add  -c hellowt.xml in the options  
+#DAEMON_ARGS="$B3_BASEDIR/$NAME.sh -c $B3_CONFIGFILE"
+#DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0  -c hellowt.xml --http-port=8080 "
+#next line is good solution 
+DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0 --http-port=8080   "
 B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 
 # Exit if the package is not installed
@@ -83,14 +86,15 @@ do_start()
    # Return
    #   0 if daemon has been started
    #   1 if daemon was already running
+   #start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
    #   2 if daemon could not be started
-echo " new version 9h52 "
    start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR --startas $DAEMON  --exec $DAEMON -- \
-                $DAEMON_ARGS \
+        --background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS; 
+echo"" ;
+echo " started serveur with command: "
+echo "start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
+        --background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS;   "
 
-   echo "start-stop-daemon --start --quiet"   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR --startas $DAEMON  --exec $DAEMON --  $DAEMON_ARGS 
 
     return $?
 }

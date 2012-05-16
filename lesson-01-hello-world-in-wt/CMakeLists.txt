@@ -22,6 +22,7 @@ SET(hellowt_src ${hellowt_src} User.cpp)
 #FILE(GLOB ALL_CPP_SRCS *.cpp)
 #SET(hellowt_src ${hellowt_src} ${ALL_CPP_SRCS})
 add_executable(hellowt ${hellowt_src} )
+configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
 		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
 		      wt wthttp)

@@ -14,8 +14,8 @@ echo buil documentation
 cd ..
 doxygen doxy.config 
 cd build
-echo running...
-./hellowt --docroot . --http-address 0.0.0.0 --http-port 8080
+echo runningon build machine...
+#./hellowt --docroot . --http-address 0.0.0.0 --http-port 8080
 echo build user dbo demo
  make user_dbo_demo
 echo running demo dbo functionality class user
@@ -30,6 +30,7 @@ echo deploying
 scp ../cmdl desafder@debian-witty-prod-srv:
 ssh desafder@debian-witty-prod-srv "./cmdl stop" 
 scp hellowt desafder@debian-witty-prod-srv:
+scp hellowt.xml desafder@debian-witty-prod-srv:
 ssh desafder@debian-witty-prod-srv "./cmdl start" 
 echo done.
 
