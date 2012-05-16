@@ -34,14 +34,15 @@ using namespace std ;
 /*! A User   class
 * \details This class is used to demonstrate a number of section commands.
  	* \author John Doe
- 	* \author Jan Doe
  	* \version 4.1a
  	* \date 1990-2011
  	* \pre First initialize the system.
- 	* \bug Not all memory is freed when deleting an object of this class.
- 	* \warning Improper use can crash your application.
+ 	* \bug  should be bug free was check with valgrind  in prg testUser_Class_dbo.cpp 
+    * \warning Improper use can crash your application.
+*
+*/
 
-i* this class defines a User object  of the application
+/*! \brief  this class defines a User object  of the application
  */
 class User 
 {
@@ -96,12 +97,13 @@ class User
 /*! \fn   Role getRole() const
 * \brief A getter for private member Name.
 
-* \return the role as role (int) if all ok.
+* \return the role as role (int) if all ok. should throw exception otherwise
 */    Role getRole() const;
 /*! \fn       int getKarma() const;
 * \brief A getter for private member karma.
 
-* \return the role as role (int) if all ok.
+* \return the role as role (int) if all ok.should throw exception otherwise
+
 */    int getKarma() const;
 
     private:

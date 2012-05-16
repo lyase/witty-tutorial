@@ -29,7 +29,7 @@ echo loop updating on src change
 echo deploying
 scp ../cmdl desafder@debian-witty-prod-srv:
 #ssh desafder@debian-witty-prod-srv "./cmdl stop" 
-ssh desafder@debian-witty-prod-srv "killall hellowt" 
+ssh desafder@debian-witty-prod-srv "killall hellowt " 
 scp hellowt desafder@debian-witty-prod-srv:
 scp -r ../doc desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:

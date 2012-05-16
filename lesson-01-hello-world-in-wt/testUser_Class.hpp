@@ -1,7 +1,7 @@
 /** \file  testUser_Class.cpp
 *    Description:  tests(boost framework)
 *checking functionality and documenting basic usage of User class 
-to be really complete I need to add tests for dbo functionality of the user class but so far it is too hard for me .
+to be really complete I need to add tests for dbo functionality (create read update.... of the user class but so far it is too hard for me but you can check testUser_Class_dbo.cpp ( a demo using dbo function of class User) .
 *\b compiles & run  with : \code //g++ -g -lboost_unit_test_framework  -o tests testUser_Class.cpp && ./tests --log_level=test_suite --report_level=short \endcode
 *\n
 *\version  1.0
@@ -21,17 +21,17 @@ to be really complete I need to add tests for dbo functionality of the user clas
 #include <iostream>
 #include <boost/test/unit_test.hpp>
 using namespace std ;
-/** a structure used to have fixture for test \n 
-     *the contructor can be seen as the setup() \n
-     the destructor as teardown().
-  */
+/** a structure used to have fixture for the  tests \n 
+*the constructor will be called before each test should be used  as the setup() \n
+*the destructor will be called after every test should be used as teardown().
+*/
 
 struct CMyFooTestFixture
 {
-  /*! \fn CMyFooTestFixture()
- * \brief constructor 
- * to be used as fixture setup() \n 
- * initialise here all you need in the tests
+/*! \fn CMyFooTestFixture()
+* \brief constructor 
+* to be used as fixture setup() \n 
+* initialise here all you need for  the tests
 */ 
     CMyFooTestFixture()
     {
@@ -39,19 +39,19 @@ struct CMyFooTestFixture
 
 	  user = new User();
     }
-  /*! \fn ~CMyFooTestFixture()
- * \brief destructor  
- * to be used as fixture teardown() \n 
- * clean all here
+/*! \fn ~CMyFooTestFixture()
+* \brief destructor  
+* to be used as fixture teardown() \n 
+* clean all here
 */ 
 
     ~CMyFooTestFixture()
     {
-        // TODO: Common tear-down for each test case here.
+        // TODO: Common tear-down after  each test case here.
 	delete user;
 	user=0;
     }
-    // TODO: Possibly put some common tests.
+    // TODO: Possibly put some function common to  tests.
     void TestSaveLoad(User& user, bool asBinary)
     {
     }
@@ -63,10 +63,17 @@ struct CMyFooTestFixture
 BOOST_FIXTURE_TEST_SUITE(UserTestSuite, CMyFooTestFixture);
 BOOST_AUTO_TEST_CASE(readdefaultUserKarma)
 {
+/*! 
+* will test a user has a karma
+*
+*/
     BOOST_REQUIRE(user->getKarma());   // Stop here if it fails.
-//	BOOST_CHECK_THROW(foo.Save(nullptr), exception);
+//	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
 }
-
+/*! 
+* will test a user can get a new name
+*
+*/
 BOOST_AUTO_TEST_CASE(SettingUserName)
 {
     user->setName("  foooooo ");
