@@ -8,8 +8,8 @@ cd build
 echo Running cmake...
 cmake ..
 echo building...
-make
-make usertest
+make hellowt
+#make usertest
 echo buil documentation
 cd ..
 doxygen doxy.config 
@@ -21,9 +21,9 @@ echo build user dbo demo
 echo running demo dbo functionality class user
  ./user_dbo_demo
 echo running functional test for class user
-./usertest --log_level=test_suite --report_level=short
+#./usertest --log_level=test_suite --report_level=short
 echo checking memory for user class
-valgrind ./usertest   --log_level=test_suite --report_level=short
+#valgrind ./usertest   --log_level=test_suite --report_level=short
 echo loop updating on src change
 # while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done
 echo deploying

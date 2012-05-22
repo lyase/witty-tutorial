@@ -3,6 +3,9 @@
 *checking functionality and documenting basic usage of User class 
 to be really complete I need to add tests for dbo functionality (create read update.... of the user class but so far it is too hard for me but you can check testUser_Class_dbo.cpp ( a demo using dbo function of class User) .
 *\b compiles & run  with : \code //g++ -g -lboost_unit_test_framework  -o tests testUser_Class.cpp && ./tests --log_level=test_suite --report_level=short \endcode
+We run our tests with --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml. You need both stderr and stdout, then we replace <TestLog> with <xml><TestLog> and replace </TestResult> with </TestResult><xml>. After that we run it though tidy and finally run that though this xslt.
+
+./tests --log_format=XML --report_level=detailed or see http://www.boost.org/doc/libs/1_35_0/libs/test/doc/components/utf/parameters/index.html for more options running the tests
 *\n
 *\version  1.0
  *\date 01/05/12 10:06:50
