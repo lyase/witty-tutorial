@@ -23,7 +23,7 @@
 
 namespace dbo = Wt::Dbo;
 using namespace std ;
-
+/** \copydoc createTableForUser */
 /*! \fn int createTableForUser(dbo::Session* session)
 * \brief Creating the table fo Object User
 *
