@@ -1,6 +1,6 @@
 /** \file  listing.h
-*    header for minimal dbo app
-*\b compiles with \code g++ listing.cpp User.cpp -o test -l wtdbosqlite3 \endcode
+*    Description:  header for CRUD function for USER  class using wt:dbo Hello world in c++
+*\b compiles with \code g++listing.cpp User.cpp testUser_Class_dbo.cpp -o test -l wtdbosqlite3 \endcode
 *\n
 *then run with 
 *\code  ./test \endcode
@@ -23,10 +23,15 @@
 
 namespace dbo = Wt::Dbo;
 using namespace std ;
-
-int createTableForUser (dbo::Session*);
-int createDatabase(dbo::Session*);
-int createUserJoe(dbo::Session*);
-int readUserAllUser(dbo::Session* );
-
+/*!
+* \fn void createTableForUser(dbo::Session* session)
+*\brief Creating the table fo Object User \n
+*\param session a handle to a dbo database 
+*\return nothing
+*/
+void createTableForUser (dbo::Session*);
+void createDatabase(dbo::Session*);
+void  createUserJoe(dbo::Session*);
+void  readUserAllUser(dbo::Session* );
+void readUserJoe(dbo::Session* session);
 int main ();

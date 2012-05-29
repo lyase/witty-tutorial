@@ -65,6 +65,7 @@ SET(user_dbo_demo_src  )
 
 SET(user_dbo_demo_src ${user_dbo_demo_src} User.cpp)
 SET(user_dbo_demo_src ${user_dbo_demo_src} testUser_Class_dbo.cpp)
+SET(user_dbo_demo_src ${user_dbo_demo_src} listing.cpp)
 add_executable(user_dbo_demo ${user_dbo_demo_src} )
 TARGET_LINK_LIBRARIES(user_dbo_demo wtdbosqlite3  )
 
