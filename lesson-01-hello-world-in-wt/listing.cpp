@@ -61,13 +61,13 @@ dbo::Transaction transaction(*session);
 
   cout<<" Adding  user to database \n ";
   dbo::ptr<User> userPtr = session->add(user);
-
+//opposite operation is ptr<Dbo>::remove(): it deletes
   cout<<" Commit to database \n ";
   transaction.commit();
  // delete  user;
  // user=0;
 }
- /*! \fn int readUserAllUser(dbo::Session* session)
+ /*! \fn void readUserAllUser(dbo::Session* session)
  * \brief getting all user from database
  * for each user prints the values
  * \param session a handle to a dbo database 
@@ -119,14 +119,106 @@ for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
               << " with Role of " << (*i)->getRole() << endl;
   transaction.commit();
 }
-/*
-   * Try to create the schema (will fail if already exists).
-   */
- /*! \fn int main ()
- * \brief a complete database operation
- * create database \n
- * create table for user \n
- * create & store a user \n
- * get and display all User object from database \n
- * \return nothing 
-*/ 
+/*! \fn void readUserJoeOnly(dbo::Session* session)
+* \brief getting all user from database
+* for each user prints the values
+* \param session a handle to a dbo database
+*example creating the session object \n
+*cout<<" Create database connection \n";\n
+*dbo::backend::Sqlite3 sqlite3("blog.db");\n
+*dbo::Session session;\n
+*readUserAllUser(&session);
+* \return nothing
+*/
+void readUserJoeOnly(dbo::Session* session)
+{
+  cout<<" start transaction \n ";
+
+dbo::Transaction transaction(*session);
+cout<<" looking for  user Joe in database may throw exception if not found " <<std::endl;
+// bind parameter this way does not work with all wt version
+dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
+int count = session->query<int>("select count(1) from user").where("name = ?").bind("Joe");
+if(joe& count==1)
+{   cout <<"we found 1 user joe"<< std::endl;
+
+    cout << "here is  Joe:" << std::endl;
+    cout << " user name: " << joe->getName()
+              << " with karma of " << joe->getKarma() << endl
+              << " with Role of " << joe->getRole() << endl;
+
+}
+cout <<" done i am closing transaction"<< std::endl;
+        transaction.commit();
+}
+/*! \fn void update UserJoeOnly(dbo::Session* session)
+* \brief getting all user from database
+* for each user prints the values
+* \param session a handle to a dbo database
+*example creating the session object \n
+*cout<<" Create database connection \n";\n
+*dbo::backend::Sqlite3 sqlite3("blog.db");\n
+*dbo::Session session;\n
+
+* \return nothing
+*/
+void updateUserJoeOnly(dbo::Session* session)
+{
+  cout<<" start transaction to update values of user joe  "<< std::endl;
+
+dbo::Transaction transaction(*session);
+cout<<" looking for  user Joe in database may throw exception if not found " <<std::endl;
+int count = session->query<int>("select count(1) from user").where("name = ?").bind("Joe");
+
+if( count==1)
+{
+    cout<<"I can update safely I have one matching record" << std::endl;
+// bind parameter this way does not work with all wt version
+dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
+
+if(joe)
+{   cout <<"we found joe updating karma now"<< std::endl;
+joe.modify()->setKarma(joe->getKarma() +1);
+cout<< "flush to database" <<std::endl;
+session->flush();
+cout <<" done i am closing transaction"<< std::endl;
+
+        transaction.commit();
+}
+}
+}
+/*! \fn void delete UserJoeOnly(dbo::Session* session)
+* \brief deleting a  user from database note wt doesn't cascade delete
+*
+* \param session a handle to a dbo database
+*example creating the session object \n
+*cout<<" Create database connection \n";\n
+*dbo::backend::Sqlite3 sqlite3("blog.db");\n
+*dbo::Session session;\n
+* \return nothing
+*/
+void deleteUserJoeOnly(dbo::Session* session)
+{
+  cout<<" start transaction to update values of user joe  "<< std::endl;
+
+dbo::Transaction transaction(*session);
+cout<<" looking for  user Joe in database may throw exception if not found " <<std::endl;
+int count = session->query<int>("select count(1) from user").where("name = ?").bind("Joe");
+
+if( count==1)
+{
+    cout<<"I can delete safely I have one matching record" << std::endl;
+// bind parameter this way does not work with all wt version
+dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
+
+if(joe)
+{   cout <<"we found joe udelete user now"<< std::endl;
+    joe.remove();
+    cout<< "flush to database" <<std::endl;
+    session->flush();
+    cout <<" done i am closing transaction"<< std::endl;
+
+    transaction.commit();
+}
+}
+}
