@@ -43,7 +43,7 @@ find_library(wthttp wthttp)
 SET(usertest_src  )
 
 SET(usertest_src ${usertest_src} User.cpp)
-SET(usertest_src ${usertest_src} testUser_Class.hpp)
+SET(usertest_src ${usertest_src} testUser_Class.cpp)
 add_executable(usertest ${usertest_src} )
     TARGET_LINK_LIBRARIES(usertest boost_unit_test_framework  )
 #    TARGET_LINK_LIBRARIES(usertest {Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
