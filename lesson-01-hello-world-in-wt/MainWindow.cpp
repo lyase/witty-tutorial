@@ -33,7 +33,9 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
   buildinfo+=WRNG ;
   _debugOutput->setText("debug info "+buildinfo);
   addWidget(new Wt::WBreak());
-  new Wt::WAnchor(Wt::WLink("/index.html"), "show docs", this);
+  new Wt::WAnchor(Wt::WLink("/doc/html/index.html"), "show docs", this);
+   addWidget(new Wt::WBreak());
+   new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name", this);
 }
 void MainWindow::sayHi() {
 user->setName(_nameInput->valueText().toUTF8());

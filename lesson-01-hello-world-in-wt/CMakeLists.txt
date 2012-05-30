@@ -16,7 +16,7 @@ find_library(wthttp wthttp)
 #setting the source files of the project one by one.
 SET(hellowt_src  )
 SET(hellowt_src ${hellowt_src} main.cpp)
-SET(hellowt_src ${hellowt_src} MainWindow.cpp)
+SET(hellowt_src ${hellowt_src} MainWindow.cpp  HelloApp.cpp AskWindow.cpp SayWindow.cpp)
 SET(hellowt_src ${hellowt_src} User.cpp)
 # or add all cpp files  to source file list  
 #FILE(GLOB ALL_CPP_SRCS *.cpp)
