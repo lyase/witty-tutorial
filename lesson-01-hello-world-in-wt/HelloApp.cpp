@@ -17,12 +17,14 @@
 #include "MainWindow.hpp"
 #include "IWebPageFactory.h"
 
-HelloApp::HelloApp(const Wt::WEnvironment& env, WebPageFactory* theFactory) : Wt::WApplication(env) {
-    setTitle("Hello world");
-  user = new User();
-    internalPathChanged().connect(this, &HelloApp::handlePathChanged);
+HelloApp::HelloApp(const Wt::WEnvironment& env, WebPageFactory* theFactory) : Wt::WApplication(env) 
+{
+setTitle("Hello world");
+user = new User();
+mFactory=theFactory;
+internalPathChanged().connect(this, &HelloApp::handlePathChanged);
     // The user could enter our app on any url, so let's show the correct thing
-    handlePathChanged(internalPath());
+handlePathChanged(internalPath());
 }
 /**
 * \fn void void HelloApp::handlePathChanged(const std::string& newPath)
@@ -32,9 +34,10 @@ HelloApp::HelloApp(const Wt::WEnvironment& env, WebPageFactory* theFactory) : Wt
 *
  * \return nothing
 */
-void HelloApp::handlePathChanged(const std::string& newPath) {
-    root()->clear();
-    theFactory->createWebPage(newPath);
+void HelloApp::handlePathChanged(const std::string& newPath) 
+{
+root()->clear();
+mFactory->createWebPage(newPath);
     /* manual  way of doing things now implemented in the Factory
     if (newPath == "/ask")
         new AskWindow(root());

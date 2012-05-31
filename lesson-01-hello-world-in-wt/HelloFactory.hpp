@@ -34,9 +34,7 @@ public:
       { 
         std::cout<<"destroying a  helloFactory\n";
       }
-
-      // the  implementation could be better in a cpp file
-      public:
+// the  implementationof the function required by interface definition could be better in a cpp file
     virtual void createWebPage(const std::string newPath, Wt::WContainerWidget* aroot )
       { 
 // you can add more pages here such as the admin page
@@ -46,6 +44,7 @@ public:
         new SayWindow(aroot);
         else
         new MainWindow(aroot);
-      };
 }
-          #endif
+
+};
+#endif

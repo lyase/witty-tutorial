@@ -11,10 +11,11 @@ class HelloApp : public Wt::WApplication {
 private:
     Wt::WString _userName;
     User *user;
+    WebPageFactory* mFactory ;
     void handlePathChanged(const std::string& newPath);
     MainWindow* mainWindow;
 public:
-    HelloApp(const Wt::WEnvironment& env,WebPageFactory&);
+    HelloApp(const Wt::WEnvironment& env,WebPageFactory*);
     void setUserName(const Wt::WString& newName) 
     { user->setName( newName.toUTF8()); }
     const Wt::WString userName()
