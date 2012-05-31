@@ -17,9 +17,14 @@
  */
 
 #include "HelloApp.hpp"
+#include "HelloFactory.hpp"
+#include"IWebPageFactory.h"
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-    return new HelloApp(env);
+WebPageFactory* mFactory;
+HelloFactory _aFactory();
+mFactory=&_aFactory;
+    return new HelloApp(env,mFactory);
 }
 
 int main(int argc, char** argv) {
