@@ -37,7 +37,7 @@ handlePathChanged(internalPath());
 void HelloApp::handlePathChanged(const std::string& newPath) 
 {
 root()->clear();
-mFactory->createWebPage(newPath);
+mFactory->createWebPage(newPath, root());
     /* manual  way of doing things now implemented in the Factory
     if (newPath == "/ask")
         new AskWindow(root());
