@@ -22,10 +22,10 @@
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 WebPageFactory* mFactory;
-HelloFactory _aHelloFactory();
-//mFactory=&_aHelloFactory;
+HelloFactory _aWebPageFactoryHelloWebsite();
+mFactory=&_aWebPageFactoryHelloWebsite;
     return new HelloApp(env,mFactory);
-//    return new HelloApp(env,&aHelloFactory);
+return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
 }
 
 int main(int argc, char** argv) {
