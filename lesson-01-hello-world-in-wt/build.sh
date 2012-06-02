@@ -43,7 +43,7 @@ scp -r ../doc desafder@debian-witty-prod-srv:
 scp -r ../generetedStatic desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
 #ssh desafder@debian-witty-prod-srv "./cmdl start" 
-ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt -c hellowt.xml  --docroot "generetedStatic"    --approot .     --http-address=0.0.0.0 --http-port=8080       "
+ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt -c hellowt.xml  --docroot \".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
 #ssh desafder@debian-witty-prod-srv "/home/desafder/hellowt   --docroot doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080      &"
 echo done.
 
