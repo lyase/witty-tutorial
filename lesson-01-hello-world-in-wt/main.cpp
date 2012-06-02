@@ -21,11 +21,11 @@
 #include"IWebPageFactory.h"
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
+HelloFactory aWebPageFactoryForHelloWebsite;
 WebPageFactory* mFactory;
-HelloFactory _aWebPageFactoryHelloWebsite();
-mFactory=&_aWebPageFactoryHelloWebsite;
+mFactory=&aWebPageFactoryForHelloWebsite;
     return new HelloApp(env,mFactory);
-return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
+//return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
 }
 
 int main(int argc, char** argv) {

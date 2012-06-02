@@ -17,7 +17,7 @@
 #define IWEBPAGEFACTORY_H
 // need the interface helper
 #include <Wt/WContainerWidget>
-#include"CppInterfaces_helpers.h"// helper for interfaces
+#include"CppInterfaces_helpers.h"// helper to define interfaces
 // IWebPageFactory.h
 // this will create the interface 
 // so in  //class Foo :  implements IWebPageFactory will add the IWebPageFactory interface to class
@@ -27,12 +27,14 @@ DeclareInterface(WebPageFactory)
 
         //{  };
 //you  can implement here if not pure virtual remove =0 at declaration of function
-// if pure virtual you can not instanciate this object but you can create a pointer and instanciate the class 
+// if pure virtual you can not instanciate this object
+//it is an interface no object should be created from this definition
+//but you can create a pointer and instanciate the class 
 /*
 example below create a pointer on interface with pure virtual
-create objects implementing interface
+ithen create objects implementing interface
 set pointer to objects
-use functions 
+use functions of the interface 
 Command* mcmdswitch;
 TurnOn a(mlight);
 TurnOff b(mlight);
