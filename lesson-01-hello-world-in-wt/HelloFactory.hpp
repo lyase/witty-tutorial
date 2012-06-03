@@ -42,13 +42,24 @@ public:
 // the  implementation of the function required by interface definition could be better in a cpp file
     virtual void createWebPage(const std::string newPath, Wt::WContainerWidget* aroot )
       { 
-// you can add more pages here such as the admin page
-        if (newPath == "/ask")
+// you can add more pages here such as the admin page best implementation with a Map
+// see https://github.com/matiu2/witty-plus/blob/master/wittyPlus/base/URLs.hpp
+
+switch (newPath) {
+case "/ask":
         new AskWindow(aroot);
-        else if (newPath == "/say")
+        break;
+case "/say":
         new SayWindow(aroot);
-        else
+        break;
+case "/admin":
+        new AdminWindow(aroot);
+        break;
+case default:
         new MainWindow(aroot);
+        break;
+
+}
 }
 
 };
