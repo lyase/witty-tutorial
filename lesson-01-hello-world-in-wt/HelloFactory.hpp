@@ -24,43 +24,50 @@
 * to build a hello web site
 *   two pages   url:/ask =>a web page asking user name \n
 *               url:/say=>a web page welcoming user by name*/
+enum string_code {say,ask,admin,landing};
+
 class HelloFactory :  implements WebPageFactory
 {
-
 // Construction & Destruction
 public:
-  
     HelloFactory()
     {
     std::cout<< " creating  helloFactory a concrete  WebPageFactory\n";
     }
-      
-      ~HelloFactory()
-      { 
-        std::cout<<"destroying a helloFactory\n";
-      }
+     ~HelloFactory()
+    { 
+    std::cout<<"destroying a helloFactory\n";
+    }
+     string_code hashit (std::string const& inString) 
+    {
+    if (inString == "/ask") return ask;
+    if (inString == "/say") return say;
+    if (inString == "/admin") return admin;
+    /* default page will be the landing the MainWindow*/ 
+    return landing;
+    }
+
 // the  implementation of the function required by interface definition could be better in a cpp file
     virtual void createWebPage(const std::string newPath, Wt::WContainerWidget* aroot )
-      { 
-// you can add more pages here such as the admin page best implementation with a Map
+    { 
+// we are using an enum you can  add more pages here but  best implementation with a Map
 // see https://github.com/matiu2/witty-plus/blob/master/wittyPlus/base/URLs.hpp
-
-switch (newPath) {
-case "/ask":
-        new AskWindow(aroot);
-        break;
-case "/say":
-        new SayWindow(aroot);
-        break;
-case "/admin":
-        new AdminWindow(aroot);
-        break;
-case default:
-        new MainWindow(aroot);
-        break;
-
-}
-}
-
+    switch (hashit(newPath)) 
+        {
+        case ask:
+            new AskWindow(aroot);
+            break;
+        case say:
+            new SayWindow(aroot);
+            break;
+        case admin:
+            new AdminWindow(aroot);
+            break;
+        case landing:
+            new MainWindow(aroot);
+            break;
+            
+        }
+    }
 };
 #endif

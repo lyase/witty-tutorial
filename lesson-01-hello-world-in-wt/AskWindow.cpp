@@ -17,7 +17,6 @@ AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
     _btnHi = new Wt::WPushButton("Say Hi", this);
     _nameOutput = new Wt::WText(this);
     _btnHi->clicked().connect(this, &AskWindow::sayHi);
-    new Wt::WAnchor(Wt::WLink("/docs.html"), "Show Docs", this);
 }
 
 void AskWindow::sayHi() {
