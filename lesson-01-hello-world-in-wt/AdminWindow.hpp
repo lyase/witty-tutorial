@@ -15,6 +15,7 @@ namespace Wt {
 
 class AdminWindow : public Wt::WContainerWidget {
 private:
+    Wt::WText* _debugOutput;
     void handlePathChanged(const std::string& newPath);
 public:
     AdminWindow(Wt::WContainerWidget* parent=0);

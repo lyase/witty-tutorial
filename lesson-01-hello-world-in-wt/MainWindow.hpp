@@ -16,7 +16,6 @@ private:
     Wt::WLabel* _inputLabel;
     Wt::WLineEdit* _nameInput;
     Wt::WText* _nameOutput;
-    Wt::WText* _debugOutput;
     Wt::WPushButton* _btnHi;
           User *user;
     Wt::WString _lastNameEntered;
