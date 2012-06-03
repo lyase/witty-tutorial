@@ -24,6 +24,8 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
   user = new User();
    addWidget(new Wt::WBreak());
    new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
+   addWidget(new Wt::WBreak());
+   new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
 }
 void MainWindow::sayHi() {
 user->setName(_nameInput->valueText().toUTF8());
