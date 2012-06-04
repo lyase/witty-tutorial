@@ -17,6 +17,7 @@
 #include "AskWindow.hpp"
 #include "SayWindow.hpp"
 #include "AdminWindow.hpp"
+#include "MainWindow.hpp"
 #include <iostream>
 /*! \class HelloFactory
 *      \brief this class is a WebPage Factory\n

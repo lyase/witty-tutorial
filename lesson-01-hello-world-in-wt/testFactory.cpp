@@ -14,10 +14,10 @@
 
 #include"HelloFactory.hpp"
 int main(int argc, char** argv) {
-WebPageFactory* mfactory;
-HelloFactory a();
-mfactory=&a;
+WebPageFactory* mFactory;
+HelloFactory a;
+mFactory=&a;
 
-mfacttory->createWebPage();
+mFactory->createWebPage();
 return 0;
 }
