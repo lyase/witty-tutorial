@@ -16,12 +16,13 @@
 #include "SayWindow.hpp"
 #include "MainWindow.hpp"
 #include "IWebPageFactory.h"
+#include "HelloFactory.hpp"
 
-HelloApp::HelloApp(const Wt::WEnvironment& env, WebPageFactory* theFactory) : Wt::WApplication(env) 
+HelloApp::HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env)
 {
 setTitle("Hello world");
 user = new User();
-mFactory=theFactory;
+mFactory=new HelloFactory(this);
 internalPathChanged().connect(this, &HelloApp::handlePathChanged);
     // The user could enter our app on any url, so let's show the correct thing
 handlePathChanged(internalPath());

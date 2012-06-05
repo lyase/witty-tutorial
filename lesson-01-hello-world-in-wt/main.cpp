@@ -17,14 +17,9 @@
  */
 
 #include "HelloApp.hpp"
-#include "HelloFactory.hpp"
-#include"IWebPageFactory.h"
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-HelloFactory aWebPageFactoryForHelloWebsite;
-WebPageFactory* mFactory;
-mFactory=&aWebPageFactoryForHelloWebsite;
-    return new HelloApp(env,mFactory);
+    return new HelloApp(env);
 //return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
 }
 

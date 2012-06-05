@@ -13,6 +13,7 @@
  */
 #ifndef HELLOFACTORY_H_
 #define HELLOFACTORY_H_
+#include <Wt/WObject>
 #include"IWebPageFactory.h"
 #include "AskWindow.hpp"
 #include "SayWindow.hpp"
@@ -27,11 +28,11 @@
 *               url:/say=>a web page welcoming user by name*/
 enum string_code {say,ask,admin,landing};
 
-class HelloFactory :  implements WebPageFactory
+class HelloFactory :  public Wt::WObject, implements WebPageFactory
 {
 // Construction & Destruction
 public:
-    HelloFactory()
+    HelloFactory(Wt::WObject* parent) : Wt::WObject(parent)
     {
     std::cout<< " creating  helloFactory a concrete  WebPageFactory\n";
     }
