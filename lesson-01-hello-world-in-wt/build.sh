@@ -35,15 +35,22 @@ echo loop updating on src change
 # while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done
 echo deploying
 scp ../cmdl desafder@debian-witty-prod-srv:
-#ssh desafder@debian-witty-prod-srv "./cmdl stop" 
-ssh desafder@debian-witty-prod-srv "killall hellowt " 
+#using script management
+ssh desafder@debian-witty-prod-srv "./cmdl stop" 
+# using start stop commands
+#ssh desafder@debian-witty-prod-srv "/sbin/start-stop-daemon --stop --signal 15 --retry 5 --quiet --pidfile /var/run/Myscript/hello.pid "
+# manual management 
+#ssh desafder@debian-witty-prod-srv "killall hellowt " 
 scp hellowt desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
-scp -r ../doc desafder@debian-witty-prod-srv:
 scp -r ../generetedStatic desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
-#ssh desafder@debian-witty-prod-srv "./cmdl start" 
-ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt -c hellowt.xml  --docroot \".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
+#using script management
+ssh desafder@debian-witty-prod-srv "rm /var/run/Myscript/hellowt.pid ; ./cmdl start" 
+# using start stop commands
+#ssh desafder@debian-witty-prod-srv "/sbin/start-stop-daemon --start --quiet   --chuid desafder:desafder --pidfile /var/run/Myscript/hello.pid --make-pidfile         --background   --exec  /home/desafder/hellowt --        --docroot=\".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
+# manual management 
+#ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt -c hellowt.xml  --docroot \".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
 #ssh desafder@debian-witty-prod-srv "/home/desafder/hellowt   --docroot doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080      &"
 echo done.
 

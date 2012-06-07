@@ -22,7 +22,7 @@
 // this will create the interface 
 // so in  //class Foo :  implements IWebPageFactory will add the IWebPageFactory interface to class
 class testing;
-DeclareInterface(WebPageFactory)
+DeclareInterface(IWebPageFactory)
         virtual void createWebPage(const std::string, Wt::WContainerWidget* ) = 0;
 
         //{  };

@@ -12,7 +12,6 @@
 AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
   _debugOutput = new Wt::WText(this);
   addWidget(new Wt::WBreak());
-    new Wt::WAnchor(Wt::WLink("/docs.html"), "Show Docs", this);
   std::string buildinfo;
   buildinfo="  ";
 #define WRNG_PRIVATE_STR2(z) #z

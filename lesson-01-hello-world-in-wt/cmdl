@@ -13,13 +13,12 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-DESC="service management for My script "
-NAME=hello
+DESC="service management for My hellowt web app "
+NAME=hellowt
 #SCRIPTNAME=/etc/init.d/$NAME
-#SCRIPTNAME=/etc/init.d/cmd.sh
-SCRIPTNAME=/home/desafder/hellowt
-DAEMON=`which bash`
-DAEMON="screen -d -m /home/desafder/hellowt"
+SCRIPTNAME=cmdl
+#DAEMON=`which bash`
+DAEMON='/home/desafder/hellowt'
 #DAEMON_USER=place here the name of the user that is to be used to run b3
 DAEMON_USER=desafder
 
@@ -27,21 +26,17 @@ DAEMON_USER=desafder
 DAEMON_GROUP=desafder
 
 #B3_BASEDIR=place here the path of the directory containing b3_run.py
-B3_BASEDIR=/etc/init.d/
+B3_BASEDIR=/home/desafder/ 
 #B3_CONFIGFILE="place here the path of the b3.xml config file you want to use"
-
-# for some strange reason you can not add  -c hellowt.xml in the options  
-#DAEMON_ARGS="$B3_BASEDIR/$NAME.sh -c $B3_CONFIGFILE"
-#DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0  -c hellowt.xml --http-port=8080 "
-DAEMON_ARGS="     --docroot=./doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080   "
-#next line is good solution 
-#DAEMON_ARGS="--docroot=/var/www/wt     --http-address=0.0.0.0 --http-port=8080   "
+# strange you can not use quote in the arguments of the daemon 
+# bash will add single quotes when runing the command
+DAEMON_ARGS='  -c hellowt.xml --docroot=generetedStatic --approot .     --http-address=0.0.0.0 --http-port=8080   '
 B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
 {
-        echo "Couldn't find $DAEMON"
+echo "Couldn't find $DAEMON"
 #        exit 99
 }
 fi
@@ -52,12 +47,12 @@ if [ "$PIDDIR" -a "$PIDDIR" != "/var/run" ] ; then
       mkdir "$PIDDIR"
    fi
    if [ "$DAEMON_USER" ] ; then
-       chown "$DAEMON_USER" "$PIDDIR"
+      chown "$DAEMON_USER" "$PIDDIR"
    fi
    if [ "$DAEMON_GROUP" ] ; then
-       chgrp "$DAEMON_GROUP" "$PIDDIR"
+      chgrp "$DAEMON_GROUP" "$PIDDIR"
    fi
-    fi
+fi
 
 # Define LSB log_* functions.
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
@@ -68,15 +63,15 @@ if [ "$PIDDIR" -a "$PIDDIR" != "/var/run" ] ; then
 #
 do_status()
 {
-      NB_PROCESS=`ps ax | grep $NAME.sh | grep "$B3_CONFIGFILE" | grep -v grep | wc -l`
-      if [ $NB_PROCESS -gt 1 ]; then
-         log_warning_msg "WARNING: $NAME is running multiple times"
-            return 0
-      elif [ $NB_PROCESS -eq 1 ]; then
-         return 0
-      else
-            return 1
-      fi
+NB_PROCESS=`ps ax | grep $NAME.sh | grep "$B3_CONFIGFILE" | grep -v grep | wc -l`
+if [ $NB_PROCESS -gt 1 ]; then
+   log_warning_msg "WARNING: $NAME is running multiple times"
+   return 0
+elif [ $NB_PROCESS -eq 1 ]; then
+   return 0
+else
+   return 1
+fi
 }
 
 #
@@ -84,50 +79,45 @@ do_status()
 #
 do_start()
 {
-   # Return
-   #   0 if daemon has been started
-   #   1 if daemon was already running
-   #start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-   #   2 if daemon could not be started
-   start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR  --exec $DAEMON   $DAEMON_ARGS; 
+# Return
+#   0 if daemon has been started
+#   1 if daemon was already running
+#start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
+#   2 if daemon could not be started
+/sbin/start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
+--background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS ; 
 echo"" ;
 echo " started serveur with command: "
-echo "start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
-        --background --chdir $B3_BASEDIR  --exec $DAEMON   $DAEMON_ARGS;   "
-
-
-    return $?
+echo "/sbin/start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
+--background --chdir $B3_BASEDIR  --exec $DAEMON  --  $DAEMON_ARGS ;"
+return $?
 }
-
 #
 # Function that stops the daemon/service
 #
 do_stop()
 {
-   # Return
-   #   0 if daemon has been stopped
-   #   1 if daemon was already stopped
-   #   2 if daemon could not be stopped
-   #   other if a failure occurred
-   start-stop-daemon --stop --signal 15 --retry 5 --quiet --pidfile $B3_PID_FILE
-   RETVAL="$?"
-    [ "$RETVAL" = 0 ] && rm -f $B3_PID_FILE
-   [ "$RETVAL" = 2 ] && return 2
-   return "$RETVAL"
+# Return
+#   0 if daemon has been stopped
+#   1 if daemon was already stopped
+#   2 if daemon could not be stopped
+#   other if a failure occurred
+/sbin/start-stop-daemon --stop --signal 15 --retry 5 --quiet --pidfile $B3_PID_FILE
+RETVAL="$?"
+[ "$RETVAL" = 0 ] && rm -f $B3_PID_FILE
+[ "$RETVAL" = 2 ] && return 2
+return "$RETVAL"
 }
-
 do_kill() {
-        while [ 1 ]; do
-            PID=`ps hax | grep "b3_run" | grep "$B3_CONFIGFILE" | grep -v grep | cut -d' ' -f1 | head -n1`
-            [ "$PID" = "" ] && return
-            log_daemon_msg "killing process [$PID]"
-            kill -9 $PID
-        done
+while [ 1 ]; do
+ PID=`ps hax | grep "b3_run" | grep "$B3_CONFIGFILE" | grep -v grep | cut -d' ' -f1 | head -n1`
+ [ "$PID" = "" ] && return
+ log_daemon_msg "killing process [$PID]"
+ kill -9 $PID
+ done
 }
-
 case "$1" in
-  start)
+start)
    log_daemon_msg "Starting $DESC" "$NAME"
    do_start
    case "$?" in
@@ -135,7 +125,7 @@ case "$1" in
       2)  log_end_msg 1 ;;
    esac
    ;;
-  stop)
+stop)
    log_daemon_msg "Stopping $DESC" "$NAME"
    do_stop
    case "$?" in
@@ -143,19 +133,19 @@ case "$1" in
       2) log_end_msg 1 ;;
    esac
    ;;
-  status)
+status)
    do_status
    case "$?" in
       1) log_success_msg " stopped" ;;
       0) log_success_msg " running" ;;
    esac
    ;;
-  kill)
+kill)
     log_daemon_msg "Killing all process b3_run using $B3_CONFIGFILE"
     do_kill
     log_end_msg 0
     ;;
-  restart|force-reload)
+restart|force-reload)
    log_daemon_msg "Restarting $DESC" "$NAME"
    do_stop
    case "$?" in
@@ -178,4 +168,3 @@ case "$1" in
    exit 3
    ;;
 esac
-

@@ -11,7 +11,7 @@ class HelloApp : public Wt::WApplication {
 private:
     Wt::WString _userName;
     User *user;
-    WebPageFactory* mFactory ;
+    IWebPageFactory* mFactory ;
     void handlePathChanged(const std::string& newPath);
     MainWindow* mainWindow;
 public:

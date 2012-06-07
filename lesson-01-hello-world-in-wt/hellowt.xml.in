@@ -29,6 +29,8 @@
 
       The special location "*" always matches. See below for an example
       of settings specific to a single application.
+      <application-settings location="/home/desafder/generetedStatic/">
+
       -->
     <application-settings location="*">
 

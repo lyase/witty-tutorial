@@ -28,7 +28,7 @@
 *               url:/say=>a web page welcoming user by name*/
 enum string_code {say,ask,admin,landing};
 
-class HelloFactory :  public Wt::WObject, implements WebPageFactory
+class HelloFactory :  public Wt::WObject, public IWebPageFactory
 {
 // Construction & Destruction
 public:
