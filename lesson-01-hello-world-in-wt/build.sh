@@ -46,7 +46,7 @@ scp hellowt.xml desafder@debian-witty-prod-srv:
 scp -r ../generetedStatic desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
 #using script management
-ssh desafder@debian-witty-prod-srv "rm /var/run/Myscript/hellowt.pid ; ./cmdl start" 
+ssh desafder@debian-witty-prod-srv " ./cmdl start" 
 # using start stop commands
 #ssh desafder@debian-witty-prod-srv "/sbin/start-stop-daemon --start --quiet   --chuid desafder:desafder --pidfile /var/run/Myscript/hello.pid --make-pidfile         --background   --exec  /home/desafder/hellowt --        --docroot=\".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
 # manual management 
