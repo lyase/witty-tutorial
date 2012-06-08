@@ -30,7 +30,8 @@ B3_BASEDIR=/home/desafder/
 #B3_CONFIGFILE="place here the path of the b3.xml config file you want to use"
 # strange you can not use quote in the arguments of the daemon 
 # bash will add single quotes when runing the command
-DAEMON_ARGS='  -c hellowt.xml --docroot=generetedStatic --approot .     --http-address=0.0.0.0 --http-port=8080   '
+dqoute='"'
+DAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
 B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 
 # Exit if the package is not installed
