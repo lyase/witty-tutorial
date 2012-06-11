@@ -31,13 +31,14 @@ B3_BASEDIR=/home/desafder/
 # strange you can not use quote in the arguments of the daemon 
 # bash will add single quotes when runing the command
 dqoute='"'
-#good solution DAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
-DAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
-#failed to startDAEMON_ARGS="  -c hellowt.xml --docroot=\".;generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
-#failed to startDAEMON_ARGS="   --docroot=\"generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
-#start ok url=ok docLink=failedDAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
-B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
+#app start ok url ok docs fails DAEMON_ARGS="--  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#app start ok url ok docs failedDAEMON_ARGS=" --  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#app failed to startDAEMON_ARGS=" --  -c hellowt.xml --docroot=\".;generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
+DAEMON_ARGS=" --  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#failed to startDAEMON_ARGS=" --   --docroot=\"generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#start ok url=ok docLink=failedDAEMON_ARGS=" --  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
 
+B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
 {
@@ -90,11 +91,11 @@ do_start()
 #start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
 #   2 if daemon could not be started
 /sbin/start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
---background --chdir $B3_BASEDIR  --exec $DAEMON --  $DAEMON_ARGS ; 
+--background --chdir $B3_BASEDIR  --exec  $DAEMON   $DAEMON_ARGS ; 
 echo"" ;
 echo " started serveur with command: "
 echo "/sbin/start-stop-daemon --start --quiet   --chuid $DAEMON_USER:$DAEMON_GROUP --pidfile $B3_PID_FILE --make-pidfile \
---background --chdir $B3_BASEDIR  --exec $DAEMON  --  $DAEMON_ARGS ;"
+--background --chdir $B3_BASEDIR  --exec  $DAEMON    $DAEMON_ARGS ;"
 return $?
 }
 #
