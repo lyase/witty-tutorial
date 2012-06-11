@@ -31,7 +31,11 @@ B3_BASEDIR=/home/desafder/
 # strange you can not use quote in the arguments of the daemon 
 # bash will add single quotes when runing the command
 dqoute='"'
+#good solution DAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
 DAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#failed to startDAEMON_ARGS="  -c hellowt.xml --docroot=\".;generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#failed to startDAEMON_ARGS="   --docroot=\"generetedStatic\" --approot .     --http-address=0.0.0.0 --http-port=8080   "
+#start ok url=ok docLink=failedDAEMON_ARGS="  -c hellowt.xml --docroot=${dquote}.;generetedStatic${dquote} --approot .     --http-address=0.0.0.0 --http-port=8080   "
 B3_PID_FILE="/var/run/Myscript/${NAME}.pid"
 
 # Exit if the package is not installed
