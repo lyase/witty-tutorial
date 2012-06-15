@@ -15,7 +15,11 @@
  *
  * =====================================================================================
  */
-
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <ctime>
+using namespace std;
 #include "HelloApp.hpp"
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
@@ -24,5 +28,15 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 }
 
 int main(int argc, char** argv) {
+cout<< "started application with logging to file";
+ofstream out("outfile.txt");
+for (int i=0; i<argc; ++i) {
+//   cout << argv[i] << ''<<endl;
+   out << argv[i] << ' '<<endl;
+   }
+out<<"one"<<endl;
+out<<"two"<<endl;
+out.close();
+
     return Wt::WRun(argc, argv, &createApplication);
 }

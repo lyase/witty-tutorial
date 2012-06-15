@@ -49,21 +49,20 @@ scp ../cmdl desafder@debian-witty-prod-srv:
 # stopping app defore upgrade
 #using script management
 ssh desafder@debian-witty-prod-srv "./cmdl stop" 
-# using start stop commands
+# using start stop commands directly here
 #ssh desafder@debian-witty-prod-srv "/sbin/start-stop-daemon --stop --signal 15 --retry 5 --quiet --pidfile /var/run/Myscript/hello.pid "
-# manual iapp stop cmd 
+# manual app stop cmd 
 #ssh desafder@debian-witty-prod-srv "killall hellowt " 
 # deploy new app  to server
-# restarting  app after  upgrade
 
 copy_app2srv
-
+# restarting  app after  upgrade
 #using script management
 ssh desafder@debian-witty-prod-srv " ./cmdl start" 
 # using start stop commands
 #ssh desafder@debian-witty-prod-srv "/sbin/start-stop-daemon --start --quiet   --chuid desafder:desafder --pidfile /var/run/Myscript/hello.pid --make-pidfile         --background   --exec  /home/desafder/hellowt --        --docroot=\".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
-# manual management 
+# manual start app 
 #ssh desafder@debian-witty-prod-srv "screen -d -m /home/desafder/hellowt -c hellowt.xml  --docroot \".;generetedStatic\"    --approot .     --http-address=0.0.0.0 --http-port=8080"
-#manual app start 
+#manual app start not woring
 #ssh desafder@debian-witty-prod-srv "/home/desafder/hellowt   --docroot doc/html    --approot .     --http-address=0.0.0.0 --http-port=8080      &"
 echo done.
