@@ -28,7 +28,7 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 }
 
 int main(int argc, char** argv) {
-cout<< "started application with logging to file";
+cout<< "\nstarted application with logging to file\n";
 ofstream out("outfile.txt");
 for (int i=0; i<argc; ++i) {
 //   cout << argv[i] << ''<<endl;

@@ -24,7 +24,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
   cout <<std::endl<< std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
   //_debugOutput->setText("debug info "+buildinfo);
   addWidget(new Wt::WBreak());
-  new Wt::WAnchor(Wt::WLink("/doc/html/index.html"), "show docs", this);
+  new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", this);
 }
 
 
