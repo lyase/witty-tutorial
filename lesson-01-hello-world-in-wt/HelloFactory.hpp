@@ -26,7 +26,7 @@
 * to build a hello web site
 *   two pages   url:/ask =>a web page asking user name \n
 *               url:/say=>a web page welcoming user by name*/
-enum string_code {say,ask,admin,landing};
+enum WebPage_codeName {say,ask,admin,landing};
 
 class HelloFactory :  public Wt::WObject, public IWebPageFactory
 {
@@ -40,7 +40,7 @@ public:
     { 
     std::cout<<"destroying a helloFactory\n";
     }
-     string_code hashit (std::string const& inString) 
+     WebPage_codeName hashit (std::string const& inString) 
     {
     if (inString == "/ask") return ask;
     if (inString == "/say") return say;
