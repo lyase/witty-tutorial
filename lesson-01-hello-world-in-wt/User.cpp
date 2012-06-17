@@ -1,4 +1,4 @@
-/** \file  User.cpp
+/** \file  User.cpp 
 *source file defining user class
 *\n
  *\version  1.0
