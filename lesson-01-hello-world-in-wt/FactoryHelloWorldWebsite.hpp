@@ -28,15 +28,15 @@
 *               url:/say=>a web page welcoming user by name*/
 enum WebPage_codeName {say,ask,admin,landing};
 
-class HelloFactory :  public Wt::WObject, public IWebPageFactory
+class FactoryHelloWorldWebsite :  public Wt::WObject, public IWebPageFactory
 {
 // Construction & Destruction
 public:
-    HelloFactory(Wt::WObject* parent) : Wt::WObject(parent)
+    FactoryHelloWorldWebsite(Wt::WObject* parent) : Wt::WObject(parent)
     {
     std::cout<< " creating  helloFactory a concrete  WebPageFactory\n";
     }
-     ~HelloFactory()
+     ~FactoryHelloWorldWebsite()
     { 
     std::cout<<"destroying a helloFactory\n";
     }
