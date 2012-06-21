@@ -61,7 +61,7 @@ SET(user_dbo_demo_src ${user_dbo_demo_src} User.cpp)
 SET(user_dbo_demo_src ${user_dbo_demo_src} testUser_Class_dbo.cpp)
 SET(user_dbo_demo_src ${user_dbo_demo_src} listing.cpp)
 add_executable(user_dbo_demo ${user_dbo_demo_src} )
-TARGET_LINK_LIBRARIES(user_dbo_demo ${wt} ${wtdbo} ${wtdbosqlite3}  )
+TARGET_LINK_LIBRARIES(user_dbo_demo ${wt} ${wtdbo} ${wtdbosqlite3}  ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 #------------------------------------------------------------------------------------------------------
 # Tests
