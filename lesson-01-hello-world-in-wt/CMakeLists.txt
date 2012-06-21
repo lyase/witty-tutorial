@@ -68,4 +68,6 @@ TARGET_LINK_LIBRARIES(user_dbo_demo ${wt} ${wdbo} ${wtdbosqlite3}  )
 
 #------------------------------------------------------------------------------------------------------
 # Tests
+enable_testing()
+
 add_subdirectory(tests)
