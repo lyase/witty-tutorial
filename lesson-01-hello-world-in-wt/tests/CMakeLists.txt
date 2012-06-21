@@ -1,0 +1,3 @@
+project(tests)
+
+add_executable(test_user_is_not_mike test_user_is_not_mike.cpp)

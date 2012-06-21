@@ -25,7 +25,7 @@ add_executable(hellowt ${hellowt_src} )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
 		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-		      wt wthttp)
+		      ${wt} ${wthttp})
 #------------------------------------------------------------------------------------------------------
 
 PROJECT(usertest)
@@ -34,9 +34,6 @@ PROJECT(usertest)
 # to check class user does not leak
 # and valgrind ./usertest
 find_package(Boost COMPONENTS system thread signals)
-
-find_library(wt wt)
-find_library(wthttp wthttp)
 
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
@@ -56,8 +53,8 @@ PROJECT(user_dbo_demo)
 # and valgrind ./usertest
 find_package(Boost COMPONENTS system thread signals)
 
-find_library(wt wt)
-find_library(wthttp wthttp)
+find_library(wtdbo wtdbo)
+find_library(wtdbosqlite3 wtdbosqlite3)
 
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
@@ -67,6 +64,8 @@ SET(user_dbo_demo_src ${user_dbo_demo_src} User.cpp)
 SET(user_dbo_demo_src ${user_dbo_demo_src} testUser_Class_dbo.cpp)
 SET(user_dbo_demo_src ${user_dbo_demo_src} listing.cpp)
 add_executable(user_dbo_demo ${user_dbo_demo_src} )
-TARGET_LINK_LIBRARIES(user_dbo_demo wtdbosqlite3  )
+TARGET_LINK_LIBRARIES(user_dbo_demo ${wdbo} ${wtdbosqlite3}  )
 
-
+#------------------------------------------------------------------------------------------------------
+# Tests
+add_subdirectory(tests)
