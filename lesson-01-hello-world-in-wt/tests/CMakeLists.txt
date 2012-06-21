@@ -1,6 +1,11 @@
 project(tests)
 
-#add_executable(test_user_is_not_mike ../testUser_Class_dbo.cpp test_user_is_not_mike.cpp)
-add_executable(test_user_is_not_mike ../testUser_Class_dbo.cpp) 
-TARGET_LINK_LIBRARIES(test_user_is_not_mike ${wt} ${wdbo} ${wtdbosqlite3}  )
-add_test(test_user_is_not_mike test_user_is_not_mike)
+add_executable(test_user_set_name ../User.cpp test_user_is_not_mike.cpp)
+TARGET_LINK_LIBRARIES(test_user_set_name ${wt} ${wdbo} ${wtdbosqlite3}  )
+add_test(NAME test_user_set_name 
+         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+         COMMAND ./test_user_set_name)
+
+add_executable(test_user_full ../User.cpp ../testUser_Class_dbo.cpp ../listing.cpp)
+TARGET_LINK_LIBRARIES(test_user_full ${wt} ${wdbo} ${wtdbosqlite3}  boost_unit_test_framework  )
+add_test(test_user_full ./test_user_full)
