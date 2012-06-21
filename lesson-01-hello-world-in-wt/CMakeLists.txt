@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 2.8) # http://www.cmake.org/cmake/help/cmake-2-8-
 # Sets the name of the project. Additionally this sets the variables <projectName>_BINARY_DIR and <projectName>_SOURCE_DIR to the respective values.
 project ("hello world in wt++")      # http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:project
 # Other Libraries
-find_package(Boost COMPONENTS system thread signals unit_test_framework)
+find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem)
 find_library(wt wt)
 find_library(wthttp wthttp)
 
@@ -41,7 +41,7 @@ SET(usertest_src  )
 SET(usertest_src ${usertest_src} User.cpp)
 SET(usertest_src ${usertest_src} testUser_Class.cpp)
 add_executable(usertest ${usertest_src} )
-    TARGET_LINK_LIBRARIES(usertest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
+    TARGET_LINK_LIBRARIES(usertest ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
 #------------------------------------------------------------------------------------------------------
 
 PROJECT(user_dbo_demo)
@@ -49,7 +49,6 @@ PROJECT(user_dbo_demo)
 # you should run this ./usertest --log_level=test_suite --report_level=short
 # to check class user does not leak
 # and valgrind ./usertest
-find_package(Boost COMPONENTS system thread signals)
 
 find_library(wtdbo wtdbo)
 find_library(wtdbosqlite3 wtdbosqlite3)

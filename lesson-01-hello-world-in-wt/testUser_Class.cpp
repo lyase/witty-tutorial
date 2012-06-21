@@ -24,6 +24,7 @@ or see http://www.boost.org/doc/libs/1_35_0/libs/test/doc/components/utf/paramet
 #include <string>
 #include <iostream>
 #include <boost/test/unit_test.hpp>
+#include <boost/filesystem.hpp>
 using namespace std ;
 /** a structure used to have fixture for the  tests \n 
 *the constructor will be called before each test should be used  as the setup() \n
@@ -54,6 +55,9 @@ struct CMyFooTestFixture
         // TODO: Common tear-down after  each test case here.
 	delete user;
 	user=0;
+    // Delete the sqlite db
+    boost::filesystem::remove("./blog.db");
+
     }
     // TODO: Possibly put some function common to  tests.
     void TestSaveLoad(User& user, bool asBinary)
