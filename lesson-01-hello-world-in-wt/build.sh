@@ -11,7 +11,8 @@ scp -r ../generetedStatic desafder@debian-witty-prod-srv:
 scp hellowt.xml desafder@debian-witty-prod-srv:
 }
 echo cleaning up
-rm -rvf generetedStatic build doc
+rm -rvf generetedStatic build doc testresults.xml
+sleep 12
 
 echo Making build dir...
 mkdir build  generetedStatic
@@ -22,6 +23,7 @@ cmake ..
 echo building...
 make hellowt
 make usertest
+make
 echo buil documentation
 cd ..
 doxygen doxy.config 
@@ -35,7 +37,10 @@ echo running demo dbo functionality class user
  ./user_dbo_demo
 echo running functional test for class user
 ./usertest --log_level=test_suite --report_level=short
-echo generate html report for tests
+echo  running test and generate html report for tests
+make test
+echo  check the  test results 
+sleep 1
 ./usertest --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml  >testresults.xml
 xsltproc ../boost_testRes.xsl testresults.xml   >../generetedStatic/tests/processedtestresults.xml
 # todo: convert  xml report to html report as static page of app
