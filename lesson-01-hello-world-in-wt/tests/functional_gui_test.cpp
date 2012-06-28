@@ -13,7 +13,7 @@ struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
 
-    LiveAppFixture() : env("..", "wt-config.xml"), app(env) {
+    LiveAppFixture() : env(".", "wt-config.xml"), app(env) {
         app.initialize();
     }
 
