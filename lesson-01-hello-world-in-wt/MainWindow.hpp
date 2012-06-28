@@ -9,6 +9,7 @@ namespace Wt {
     class WText;
     class WLabel;
     class WButton;
+    class WAnchor;
 }
 
 class MainWindow : public Wt::WContainerWidget {
@@ -19,6 +20,8 @@ private:
     Wt::WPushButton* _btnHi;
           User *user;
     Wt::WString _lastNameEntered;
+    Wt::WAnchor* _askLink;
+    Wt::WAnchor* _adminLink;
 /*! \fn MainWindow::sayHi()
 * \brief a event handler behind the sayhi button on this page\n
 *this function will update theuser model with input widget\n

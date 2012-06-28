@@ -17,13 +17,9 @@
 *
 * =====================================================================================
 */
-//#define BOOST_TEST_MODULE UserTestSuite
-//#define BOOST_TEST_DYN_LINK
 #include "User.h"
 #include <string>
 #include <iostream>
-#include <boost/test/unit_test.hpp>
-#include <boost/filesystem.hpp>
 #include <Wt/Dbo/Dbo>
 #include "listing.h"
 #include "User.h"

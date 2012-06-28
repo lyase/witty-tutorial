@@ -23,9 +23,9 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
 // because of the following  you need to delete user memory del user in destructor to prevent memory leak
   user = new User();
    addWidget(new Wt::WBreak());
-   new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
+   _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
    addWidget(new Wt::WBreak());
-   new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
+   _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
 }
 void MainWindow::sayHi() {
 user->setName(_nameInput->valueText().toUTF8());

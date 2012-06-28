@@ -1,11 +1,10 @@
-#define BOOST_TEST_MODULE GuiTestSuite
-#define BOOST_TEST_DYN_LINK
-
 #include <boost/test/unit_test.hpp>
 #include <boost/test/test_tools.hpp>
 #include <Wt/WWidget>
 #include <Wt/WContainerWidget>
 #include <Wt/Test/WTestEnvironment>
+#include <Wt/WSignal>
+#include <Wt/WAnchor>
 #include "../HelloApp.hpp"
 #include "../MainWindow.hpp"
 
@@ -24,12 +23,20 @@ struct LiveAppFixture {
     }
 };
 
-BOOST_FIXTURE_TEST_SUITE(GuiTestSuite, LiveAppFixture);
+BOOST_FIXTURE_TEST_SUITE( FunctionalGuiSuite, LiveAppFixture );
 
-BOOST_AUTO_TEST_CASE(testMainWindowExists) {
+BOOST_AUTO_TEST_CASE( testMainWindowExists ) {
     MainWindow* main = getMainWindow();
-    BOOST_ASSERT(main);
+    BOOST_REQUIRE(main);
+}
+
+BOOST_AUTO_TEST_CASE( testAskLink ) {
+    MainWindow* main = getMainWindow();
+    BOOST_REQUIRE(main);
+    Wt::WMouseEvent click;
+    BOOST_REQUIRE( app.internalPath() != "/ask" );
+    main->_askLink->clicked().emit(click);
+    BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
 }
 
 BOOST_AUTO_TEST_SUITE_END();
-
