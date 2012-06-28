@@ -1,5 +1,11 @@
 project(tests)
 
+project(tests)
+
+ADD_DEFINITIONS( -fno-access-control ) # So tests can access private members of the classes they're testing
+
+CONFIGURE_FILE(wt-config.xml wt-config.xml)
+
 find_library(wttest wttest)
 
 add_executable(test_user_set_name ../User.cpp test_user_is_not_mike.cpp)
