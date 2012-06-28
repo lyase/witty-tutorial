@@ -1,0 +1,11 @@
+#include <Wt/WEvent>
+#include <Wt/WApplication>
+#include <Wt/WMenu>
+#include <Wt/WMenuItem>
+#include <wittyPlus/base/InternalLink.hpp>
+#include <wittyPlus/base/ButtonBar.hpp>
+#include <wittyPlus/base/SimpleMenu.hpp>
+#include <Wt/WLink>
+#include <Wt/WString>
+#include <string>
+#include <boost/test/test_tools.hpp>
