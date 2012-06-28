@@ -15,5 +15,5 @@ TARGET_LINK_LIBRARIES(test_user_full ${wt} ${wtdbo} ${wtdbosqlite3} ${Boost_SYST
 add_test(test_user_full ./test_user_full)
 
 add_executable(functional_gui_test ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp functional_gui_test.cpp)
-TARGET_LINK_LIBRARIES(functional_gui_test ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
+TARGET_LINK_LIBRARIES(functional_gui_test ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(functional_gui_test ./functional_gui_test)
