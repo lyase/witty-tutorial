@@ -28,14 +28,27 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 }
 
 int main(int argc, char** argv) {
-cout<< "\nstarted application with logging to file\n";
-ofstream out("outfile.txt");
+cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";
+ofstream out("outfile.txt", fstream::app);
+out<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
+out<<"I am a app starting parent with pid: "<< getpid()<<endl;
+time_t t = time(0);   // get time now
+    struct tm * now = localtime( & t );
+out <<"now year is:"<< (now->tm_year + 1900) << endl\
+<<"month is:" << (now->tm_mon + 1) << endl\
+ <<"day is:"<<  now->tm_mday<< endl\
+ << "The local date and time is: " << asctime(now) << endl;
+tm* gmtm = gmtime(& t);
+if (gmtm != NULL) {
+out << "The UTC date and time is: " << asctime(gmtm) << endl;
+}
+else {
+out << "Failed to get the UTC date and time" << endl;
+}
+out <<"here are the comand line parameters passed to app when started:" << endl;
 for (int i=0; i<argc; ++i) {
-//   cout << argv[i] << ''<<endl;
-   out << argv[i] << ' '<<endl;
+   out <<"parameter["<<i<<"]:="<< argv[i] << " "<<endl;
    }
-out<<"one"<<endl;
-out<<"two"<<endl;
 out.close();
 
     return Wt::WRun(argc, argv, &createApplication);
