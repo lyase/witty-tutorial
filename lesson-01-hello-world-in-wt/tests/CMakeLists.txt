@@ -22,3 +22,7 @@ add_executable(functional_gui_test ../HelloApp.cpp ../MainWindow.cpp ../User.cpp
 TARGET_LINK_LIBRARIES(functional_gui_test ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(test_main_window_exists ./functional_gui_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalGuiSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_gui_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalGuiSuite/testAskLink)
+
+add_executable(usertest ../User.cpp ../testUser_Class.cpp )
+    TARGET_LINK_LIBRARIES(usertest ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
+add_test(usertest ./usertest)

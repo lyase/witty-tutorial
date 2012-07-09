@@ -22,8 +22,8 @@ echo Running cmake...
 cmake ..
 echo building...
 make hellowt
-make usertest
-make
+make 
+make test
 echo buil documentation
 cd ..
 doxygen doxy.config 
@@ -36,17 +36,17 @@ echo build user dbo tests
 echo running  tests  for dbo functionality class user
  ./tests/test_user_full
 echo running functional test for class user
-./usertest --log_level=test_suite --report_level=short
+./tests/usertest --log_level=test_suite --report_level=short
 echo  running test and generate html report for tests
-make test
+
 echo  check the  test results 
 sleep 1
-./usertest --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml  >testresults.xml
-xsltproc ../boost_testRes.xsl testresults.xml   >../generetedStatic/tests/processedtestresults.xml
+./tests/usertest --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml  >testresults.xml
+#xsltproc ../boost_testRes.xsl testresults.xml   >../generetedStatic/tests/processedtestresults.xml
 # todo: convert  xml report to html report as static page of app
 
 echo checking memory for user class
-valgrind ./usertest   --log_level=test_suite --report_level=short
+valgrind ./tests/usertest   --log_level=test_suite --report_level=short
 valgrind ./tests/test_user_full   --log_level=test_suite --report_level=short
 echo loop updating on src change
 # while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done

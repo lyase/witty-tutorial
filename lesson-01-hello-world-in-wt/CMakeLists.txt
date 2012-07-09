@@ -29,20 +29,6 @@ target_link_libraries(hellowt
 		      ${wt} ${wthttp})
 #------------------------------------------------------------------------------------------------------
 
-PROJECT(usertest)
-# to check no functionality of class user is broken
-# you should run this ./usertest --log_level=test_suite --report_level=short
-# to check class user does not leak
-# and valgrind ./usertest
-
-# This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
-#setting the source files of the project one by one.
-SET(usertest_src  )
-
-SET(usertest_src ${usertest_src} User.cpp)
-SET(usertest_src ${usertest_src} testUser_Class.cpp)
-add_executable(usertest ${usertest_src} )
-    TARGET_LINK_LIBRARIES(usertest ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
 #------------------------------------------------------------------------------------------------------
 
 

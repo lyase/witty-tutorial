@@ -19,7 +19,7 @@ or see http://www.boost.org/doc/libs/1_35_0/libs/test/doc/components/utf/paramet
  * =====================================================================================
  */
 #define BOOST_TEST_MODULE UserTestSuite
-#define BOOST_TEST_DYN_LINK
+
 #include "User.h"
 #include <string>
 #include <iostream>

@@ -186,7 +186,7 @@ cout <<" done i am closing transaction"<< std::endl;
         transaction.commit();
 }
 
-/*! \fn void update UserJoeOnly(dbo::Session* session)
+/*! \fn void updateUserJoeOnly(dbo::Session* session)
 * \brief getting all user from database
 * for each user prints the values
 * \param session a handle to a dbo database
@@ -222,7 +222,7 @@ cout <<" done i am closing transaction"<< std::endl;
 }
 }
 }
-/*! \fn void delete UserJoeOnly(dbo::Session* session)
+/*! \fn void deleteUserJoeOnly(dbo::Session* session)
 * \brief deleting a  user from database note wt doesn't cascade delete
 *
 * \param session a handle to a dbo database

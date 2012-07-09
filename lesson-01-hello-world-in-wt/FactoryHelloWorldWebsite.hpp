@@ -1,4 +1,4 @@
-/** \file  HelloFactory.hpp
+/** \file  FactoryHelloWorldWebsite.hpp
 *implementation of the HelloFactory factory a Factory that manages a web site saying hello
 *\n
  *\version  1.0
