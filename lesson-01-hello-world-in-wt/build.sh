@@ -31,10 +31,10 @@ mv doc generetedStatic/
 cd build
 echo runningon build machine...
 #./hellowt --docroot . --http-address 0.0.0.0 --http-port 8080
-echo build user dbo demo
- make user_dbo_demo
-echo running demo dbo functionality class user
- ./user_dbo_demo
+echo build user dbo tests
+ make test_user_full
+echo running  tests  for dbo functionality class user
+ ./tests/test_user_full
 echo running functional test for class user
 ./usertest --log_level=test_suite --report_level=short
 echo  running test and generate html report for tests
@@ -47,6 +47,7 @@ xsltproc ../boost_testRes.xsl testresults.xml   >../generetedStatic/tests/proces
 
 echo checking memory for user class
 valgrind ./usertest   --log_level=test_suite --report_level=short
+valgrind ./tests/test_user_full   --log_level=test_suite --report_level=short
 echo loop updating on src change
 # while true; do (([[ -z $(git status --porcelain) ]] && echo -n .) || (sleep 0.5;clear; date; ((make 2>&1 | tee make_output.txt) ; git commit -a -q -F make_output.txt))); sleep 1; rm make_output.txt; done
 echo deploying
