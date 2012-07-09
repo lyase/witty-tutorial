@@ -101,6 +101,9 @@ readUserJoeOnly(&session);
 cout<< "deleting user joe";
 deleteUserJoeOnly(&session);
 readUserJoe(&session);
+cout <<" looking for unknow user ";
+read_UnknownUserthrowsexception(&session);
+
 }
 /*
 

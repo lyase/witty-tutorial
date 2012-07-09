@@ -35,6 +35,7 @@ void  createUserJoe(dbo::Session*);
 void  readUserAllUser(dbo::Session* );
 void readUserJoe(dbo::Session* session);
 void readUserJoeOnly(dbo::Session* session);
+void read_UnknownUserthrowsexception(dbo::Session* session);
 void updateUserJoeOnly(dbo::Session* session);
 void deleteUserJoeOnly(dbo::Session* session);
 int main ();

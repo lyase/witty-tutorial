@@ -20,20 +20,26 @@
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
-
+#include <Wt/Dbo/Exception>
 namespace dbo = Wt::Dbo;
 using namespace std ;
 void createTableForUser(dbo::Session* session)
 {
     cout<<" Create table for user\n" ;
 dbo::Transaction transaction(*session);
-session->mapClass<User>("user");
+
+  session->mapClass<User>("user");
 
   /*
    * Try to create the schema (will fail if already exists).
    */
+  try{
   session->createTables();
-  transaction.commit();
+}
+catch (Wt::Dbo::Exception e){
+  cout <<"in createTables() caught a Wt::Dbo::Exception "<<" could not createTableForUser check blog.db is empty\n";
+}
+transaction.commit();
 }
  /*! \fn int createUserJoe(dbo::Session* session )
  * \brief Creating the user and save object to database
@@ -90,7 +96,7 @@ cout<<" looking for all user objects\n";
 Users users = session->find<User>();
 
 cerr << "We have " << users.size() << " users:" << std::endl;
-cerr <<"listing the user i found in database"<<std::endl ; 
+cerr <<"listing the user I found in database"<<std::endl ; 
 for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
         cerr << " user " << (*i)->getName()
               << " with karma of " << (*i)->getKarma() << endl
@@ -148,9 +154,38 @@ if(joe& count==1)
               << " with Role of " << joe->getRole() << endl;
 
 }
+}
+/*! \fn void read_UnknownUserthrowsexception(dbo::Session* session)
+* \brief getting read_UnknownUserthrowsexception from database
+* this should fail and throw an exception
+* \param session a handle to a dbo database
+*example creating the session object \n
+*cout<<" Create database connection \n";\n
+*dbo::backend::Sqlite3 sqlite3("blog.db");\n
+*dbo::Session session;\n
+*readUserAllUser(&session);
+* \return nothing
+*/
+void read_UnknownUserthrowsexception(dbo::Session* session)
+{
+  cout<<" start transaction \n ";
+
+dbo::Transaction transaction(*session);
+
+// bind parameter this way does not work with all wt version should throw exception if not found
+dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("unknown");
+
+
+
+int count = session->query<int>("select count(1) from user").where("name = ?").bind("unknown");
+cout <<"we found "<<count <<" user unknow"<< std::endl;
+if( count==0)
+
+{   cout <<"GOOD we found 0 user unknow"<< std::endl;}
 cout <<" done i am closing transaction"<< std::endl;
         transaction.commit();
 }
+
 /*! \fn void update UserJoeOnly(dbo::Session* session)
 * \brief getting all user from database
 * for each user prints the values

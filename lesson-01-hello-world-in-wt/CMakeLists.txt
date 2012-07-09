@@ -11,7 +11,8 @@ project ("hello world in wt++")      # http://www.cmake.org/cmake/help/cmake-2-8
 find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem)
 find_library(wt wt)
 find_library(wthttp wthttp)
-
+find_library(wtdbo wtdbo)
+find_library(wtdbosqlite3 wtdbosqlite3)
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
 SET(hellowt_src  )
@@ -44,24 +45,7 @@ add_executable(usertest ${usertest_src} )
     TARGET_LINK_LIBRARIES(usertest ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
 #------------------------------------------------------------------------------------------------------
 
-PROJECT(user_dbo_demo)
-# to check no functionality of class user is broken
-# you should run this ./usertest --log_level=test_suite --report_level=short
-# to check class user does not leak
-# and valgrind ./usertest
 
-find_library(wtdbo wtdbo)
-find_library(wtdbosqlite3 wtdbosqlite3)
-
-# This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
-#setting the source files of the project one by one.
-SET(user_dbo_demo_src  )
-
-SET(user_dbo_demo_src ${user_dbo_demo_src} User.cpp)
-SET(user_dbo_demo_src ${user_dbo_demo_src} testUser_Class_dbo.cpp)
-SET(user_dbo_demo_src ${user_dbo_demo_src} listing.cpp)
-add_executable(user_dbo_demo ${user_dbo_demo_src} )
-TARGET_LINK_LIBRARIES(user_dbo_demo ${wt} ${wtdbo} ${wtdbosqlite3}  ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 #------------------------------------------------------------------------------------------------------
 # Tests
