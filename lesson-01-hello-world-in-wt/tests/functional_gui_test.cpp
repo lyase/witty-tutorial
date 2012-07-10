@@ -7,6 +7,7 @@
 #include <Wt/WAnchor>
 #include "../HelloApp.hpp"
 #include "../MainWindow.hpp"
+#include "utils/helper.hpp"
 
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
@@ -39,10 +40,9 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists ) {
 BOOST_AUTO_TEST_CASE( testAskLink ) {
     MainWindow* main = getMainWindow();
     BOOST_REQUIRE(main);
-    Wt::WMouseEvent click;
     cout<<"before click path is "<< app.internalPath() << endl;
     BOOST_REQUIRE( app.internalPath() != "/ask" );
-    main->_askLink->clicked().emit(click);
+    test_helpers::click(main->_askLink);
     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
 
 }
