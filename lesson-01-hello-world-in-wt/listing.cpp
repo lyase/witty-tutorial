@@ -172,16 +172,13 @@ void read_UnknownUserthrowsexception(dbo::Session* session)
 
 dbo::Transaction transaction(*session);
 
-// bind parameter this way does not work with all wt version should throw exception if not found
+// bind parameter this way does not work with all wt version no exception thrown  if not found but (joe.get() == 0)
 dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("unknown");
-
-
-
 int count = session->query<int>("select count(1) from user").where("name = ?").bind("unknown");
 cout <<"we found "<<count <<" user unknow"<< std::endl;
-if( count==0)
+if((joe.get() == 0) & count==0)
 
-{   cout <<"GOOD we found 0 user unknow"<< std::endl;}
+{   cout <<"GOOD we found 0 user unknow and joe is empty"<< std::endl;}
 cout <<" done i am closing transaction"<< std::endl;
         transaction.commit();
 }
