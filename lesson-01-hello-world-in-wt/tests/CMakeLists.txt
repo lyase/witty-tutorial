@@ -26,5 +26,8 @@ add_test(test_ask_link ./functional_gui_test -i -s --detect_fp_exceptions=y --lo
 add_executable(usertest ../User.cpp ../testUser_Class.cpp )
     TARGET_LINK_LIBRARIES(usertest ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}  )
 add_test(usertest ./usertest)
+add_executable(dbo_test testdbo.cpp )
+TARGET_LINK_LIBRARIES(dbo_test ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
+add_test(dbo_functions_test ./dbo_test -i -s --detect_fp_exceptions=y --log-level=all --)
 add_test(phptest phpunit /home/desafder/witty-tutorial/lesson-01-hello-world-in-wt/tests/test1.php)
 add_test(pytest /home/desafder/witty-tutorial/lesson-01-hello-world-in-wt/tests/testPass.py)
