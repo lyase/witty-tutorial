@@ -30,4 +30,6 @@ add_executable(dbo_test testdbo.cpp )
 TARGET_LINK_LIBRARIES(dbo_test ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(dbo_functions_test ./dbo_test -i -s --detect_fp_exceptions=y --log-level=all --)
 add_test(phptest phpunit /home/desafder/witty-tutorial/lesson-01-hello-world-in-wt/tests/test1.php)
-add_test(pytest /home/desafder/witty-tutorial/lesson-01-hello-world-in-wt/tests/testPass.py)
+
+file(COPY testPass.py DESTINATION .)
+add_test(pytest ${CMAKE_CURRENT_BINARY_DIR}/testPass.py)
