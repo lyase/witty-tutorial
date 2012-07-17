@@ -176,24 +176,6 @@ void Uninstall()
      }
 }
 
-template<typename Type>
-Type getConfigOption(const std::string& key, Type defaultVal)
-{
-     Session.createTables();
-     Wt::Dbo::Transaction transaction(Session);
-     Wt::Dbo::ptr<DBConfigEntry> result = Session.find<DBConfigEntry>().where("key = ?").bind(key);
-     return result ? *result : defaultVal;
-}
-
-template<>
-std::string getConfigOption<std::string>(const std::string& key, const std::string& defaultVal)
-{
-     Session.createTables();
-     Wt::Dbo::Transaction transaction(Session);
-     Wt::Dbo::ptr<DBConfigEntry> result = Session.find<DBConfigEntry>().where("key = ?").bind(key);
-     return result ? *result : defaultVal;
-}
-
 BOOST_AUTO_TEST_SUITE( dbo_test )
 
 BOOST_AUTO_TEST_CASE( dbo_test1 )
