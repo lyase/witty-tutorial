@@ -167,7 +167,7 @@ void Install()
      }
 }
 
-void Configurations::Uninstall()
+void Uninstall()
 {
      try {
           Session.dropTables();
@@ -175,250 +175,23 @@ void Configurations::Uninstall()
           throw e;
      }
 }
-void Configurations::FetchAll()
-{
-     WRITE_LOCK;
-     //Time at start
-     boost::posix_time::ptime PTStart = boost::posix_time::microsec_clock::local_time();
 
+template<typename Type>
+Type getConfigOption(const std::string& key, Type defaultVal)
+{
+     Session.createTables();
      Wt::Dbo::Transaction transaction(Session);
-     try {
-          ConfigurationsCount = 0;
-          typedef Wt::Dbo::collection< ConfigurationBoolTuples > BoolCollections;
-          typedef Wt::Dbo::collection< ConfigurationDoubleTuples > DoubleCollections;
-          typedef Wt::Dbo::collection< ConfigurationFloatTuples > FloatCollections;
-          typedef Wt::Dbo::collection< ConfigurationIntTuples > IntCollections;
-          typedef Wt::Dbo::collection< ConfigurationStringTuples > StringCollections;
-          BoolCollections BoolCollection;
-          DoubleCollections DoubleCollection;
-          FloatCollections FloatCollection;
-          IntCollections IntCollection;
-          StringCollections StringCollection;
-          //Fetch em all
-          Wt::Dbo::Transaction transaction(Session);
-          BoolCollection = FetchBoolQuery.resultList();
-          for(BoolCollections::const_iterator itr = BoolCollection.begin();
-                    itr != BoolCollection.end();
-                    itr++, ConfigurationsCount++) {
-               std::cerr << itr->get<0>()->Id.Name << std::endl;
-               ConfigurationBoolMap[itr->get<0>()->Id.Application][itr->get<0>()->Id.Name] = itr->get<1>();
-          }
-
-          DoubleCollection = FetchDoubleQuery.resultList();
-          for(DoubleCollections::const_iterator itr = DoubleCollection.begin();
-                    itr != DoubleCollection.end();
-                    itr++, ConfigurationsCount++) {
-               std::cerr << itr->get<0>()->Id.Name << std::endl;
-               ConfigurationDoubleMap[itr->get<0>()->Id.Application][itr->get<0>()->Id.Name] = itr->get<1>();
-          }
-
-          FloatCollection = FetchFloatQuery.resultList();
-          for(FloatCollections::const_iterator itr = FloatCollection.begin();
-                    itr != FloatCollection.end();
-                    itr++, ConfigurationsCount++) {
-               std::cerr << itr->get<0>()->Id.Name << std::endl;
-               ConfigurationFloatMap[itr->get<0>()->Id.Application][itr->get<0>()->Id.Name] = itr->get<1>();
-          }
-
-          IntCollection = FetchIntQuery.resultList();
-          for(IntCollections::const_iterator itr = IntCollection.begin();
-                    itr != IntCollection.end();
-                    itr++, ConfigurationsCount++) {
-               std::cerr << itr->get<0>()->Id.Name << std::endl;
-               ConfigurationIntMap[itr->get<0>()->Id.Application][itr->get<0>()->Id.Name] = itr->get<1>();
-          }
-
-          StringCollection = FetchStringQuery.resultList();
-          for(StringCollections::const_iterator itr = StringCollection.begin();
-                    itr != StringCollection.end();
-                    itr++, ConfigurationsCount++) {
-               std::cerr << itr->get<0>()->Id.Name << std::endl;
-               ConfigurationStringMap[itr->get<0>()->Id.Application][itr->get<0>()->Id.Name] = itr->get<1>();
-          }
-          transaction.commit();
-     } catch(Wt::Dbo::Exception& e) {
-          throw e;
-     }
-
-     //Time at end
-     boost::posix_time::ptime PTEnd = boost::posix_time::microsec_clock::local_time();
-     LoadDuration = boost::posix_time::time_duration(PTEnd - PTStart);
-}
-
-//Boolean getter
-template<>
-bool Configurations::GetBool<bool>(const std::string& Name, const std::string& Application, bool Default)
-{
-     READ_LOCK;
-     return ConfigurationBoolMap[Application][Name] ? ConfigurationBoolMap[Application][Name]->Value : Default;
-}
-
-//Double getter
-template<>
-double Configurations::GetDouble<double>(const std::string& Name, const std::string& Application, double Default)
-{
-     READ_LOCK;
-     return ConfigurationDoubleMap[Application][Name] ? ConfigurationDoubleMap[Application][Name]->Value : Default;
-}
-
-//Float getter
-template<>
-float Configurations::GetFloat<float>(const std::string& Name, const std::string& Application, float Default)
-{
-     READ_LOCK;
-     return ConfigurationFloatMap[Application][Name] ?  ConfigurationFloatMap[Application][Name]->Value : Default;
-}
-
-//Integer getter
-template<>
-int Configurations::GetInt<int>(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     return ConfigurationIntMap[Application][Name] ? ConfigurationIntMap[Application][Name]->Value : Default;
-}
-
-//String getter
-template<>
-std::string Configurations::GetStr<std::string>(const std::string& Name, const std::string& Application, std::string Default)
-{
-     READ_LOCK;
-     if(!ConfigurationStringMap[Application][Name]) {
-          return Default;
-     }
-     if(!ConfigurationStringMap[Application][Name]->Value.is_initialized()) {
-          return "";
-     }
-     return *ConfigurationStringMap[Application][Name]->Value;
-}
-
-//Boolean alternative source getters
-template<>
-bool Configurations::GetBool<double>(const std::string& Name, const std::string& Application, double Default)
-{
-     READ_LOCK;
-     return GetDouble<double>(Name, Application, Default) > 0;
+     Wt::Dbo::ptr<DBConfigEntry> result = Session.find<DBConfigEntry>().where("key = ?").bind(key);
+     return result ? *result : defaultVal;
 }
 
 template<>
-bool Configurations::GetBool<float>(const std::string& Name, const std::string& Application, float Default)
+std::string getConfigOption<std::string>(const std::string& key, const std::string& defaultVal)
 {
-     READ_LOCK;
-     return GetFloat<float>(Name, Application, Default) > 0;
-}
-
-template<>
-bool Configurations::GetBool<int>(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     return GetInt<int>(Name, Application, Default) > 0;
-}
-
-template<>
-bool Configurations::GetBool<std::string>(const std::string& Name, const std::string& Application, std::string Default)
-{
-     READ_LOCK;
-     return ConfigurationStringMap[Application][Name];
-}
-
-bool Configurations::GetBool(const std::string& Name, const std::string& Application, bool Default)
-{
-     READ_LOCK;
-     return GetBool<bool>(Name, Application, Default);
-}
-
-//Double alternative source getters
-template<>
-double Configurations::GetDouble<int>(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     return (double)GetInt<int>(Name, Application, Default);
-}
-
-double Configurations::GetDouble(const std::string& Name, const std::string& Application, double Default)
-{
-     READ_LOCK;
-     return GetDouble<double>(Name, Application, Default);
-}
-
-//Float alternative source getters
-template<>
-float Configurations::GetFloat<double>(const std::string& Name, const std::string& Application, double Default)
-{
-     READ_LOCK;
-     return (float)GetDouble<double>(Name, Application, Default);
-}
-
-template<>
-float Configurations::GetFloat<int>(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     return (float)GetInt<int>(Name, Application, Default);
-}
-
-float Configurations::GetFloat(const std::string& Name, const std::string& Application, float Default)
-{
-     READ_LOCK;
-     return GetFloat<float>(Name, Application, Default);
-}
-
-//Integer alternative source getters
-template<>
-int Configurations::GetInt<bool>(const std::string& Name, const std::string& Application, bool Default)
-{
-     READ_LOCK;
-     return GetBool<bool>(Name, Application, Default) ? 1 : 0;
-}
-
-int Configurations::GetInt(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     return GetInt<int>(Name, Application, Default);
-}
-
-//String alternative source getters
-template<>
-std::string Configurations::GetStr<double>(const std::string& Name, const std::string& Application, double Default)
-{
-     READ_LOCK;
-     std::ostringstream ss;
-     ss << GetDouble<double>(Name, Application, Default);
-     return ss.str();
-}
-
-template<>
-std::string Configurations::GetStr<float>(const std::string& Name, const std::string& Application, float Default)
-{
-     READ_LOCK;
-     std::ostringstream ss;
-     ss << GetFloat<float>(Name, Application, Default);
-     return ss.str();
-}
-
-template<>
-std::string Configurations::GetStr<int>(const std::string& Name, const std::string& Application, int Default)
-{
-     READ_LOCK;
-     std::ostringstream ss;
-     ss << GetInt<int>(Name, Application, Default);
-     return ss.str();
-}
-
-std::string Configurations::GetStr(const std::string& Name, const std::string& Application, std::string Default)
-{
-     READ_LOCK;
-     return GetStr<std::string>(Name, Application, Default);
-}
-
-long long Configurations::GetLoadDurationinMS() const
-{
-     READ_LOCK;
-     return LoadDuration.total_milliseconds();
-}
-
-int Configurations::GetConfigurationsCount() const
-{
-     READ_LOCK;
-     return ConfigurationsCount;
+     Session.createTables();
+     Wt::Dbo::Transaction transaction(Session);
+     Wt::Dbo::ptr<DBConfigEntry> result = Session.find<DBConfigEntry>().where("key = ?").bind(key);
+     return result ? *result : defaultVal;
 }
 
 BOOST_AUTO_TEST_SUITE( dbo_test )
