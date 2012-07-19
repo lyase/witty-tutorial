@@ -28,7 +28,12 @@ struct DBConfigEntry {
 
     // Constructors
 
+    DBConfigEntry() {}
+
     DBConfigEntry(const std::string& key, const std::string& value, const std::string& description="") :
+        key(key), asString(value), valueType(vtString), description(description) {}
+
+    DBConfigEntry(const std::string& key, const char* value, const std::string& description="") :
         key(key), asString(value), valueType(vtString), description(description) {}
 
     DBConfigEntry(const std::string& key, double value, const std::string& description="") :
@@ -38,7 +43,7 @@ struct DBConfigEntry {
         key(key), asInt(value), valueType(vtInt), description(description) {}
 
     DBConfigEntry(const std::string& key, bool value, const std::string& description=""):
-        key(key), asInt(value != 0), valueType(vtInt), description(description) {}
+        key(key), asInt(value ? 1 : 0), valueType(vtInt), description(description) {}
 
     // Cast operations
 
@@ -112,18 +117,8 @@ struct DBConfigEntry {
 };
 
 template<typename Type>
-Type getConfigOption(Wt::Dbo::Session& session, const std::string& key, Type defaultVal)
+Type getConfigOption(Wt::Dbo::Session& session, const std::string& key, Type defaultVal=Type())
 {
-     session.createTables();
-     Wt::Dbo::Transaction transaction(session);
-     Wt::Dbo::ptr<DBConfigEntry> result = session.find<DBConfigEntry>().where("key = ?").bind(key);
-     return result ? *result : defaultVal;
-}
-
-template<>
-std::string getConfigOption<std::string>(Wt::Dbo::Session& session, const std::string& key, const std::string& defaultVal)
-{
-     session.createTables();
      Wt::Dbo::Transaction transaction(session);
      Wt::Dbo::ptr<DBConfigEntry> result = session.find<DBConfigEntry>().where("key = ?").bind(key);
      return result ? *result : defaultVal;
@@ -142,10 +137,14 @@ void install(Wt::Dbo::Session& session)
 
      //BaseURL
      pEntry baseUrl = session.add(new DBConfigEntry("BaseUrl", ""));
-     baseUrl.modify()->description = "This is the base URL that the user can see when browsing. For example, http://www.mywebsite.com/wt .\nThis field may be left empty.";
+     baseUrl.modify()->description =
+            "This is the base URL that the user can see when browsing. "
+            "For example, http://www.mywebsite.com/wt .\nThis field may be left empty.";
      //DosPuzzle
-     pEntry dosPuzzle = session.add(new DBConfigEnty("DosPuzzle", false));
+     pEntry dosPuzzle = session.add(new DBConfigEntry("DosPuzzle", true));
      dosPuzzle.modify()->description = "When enabled the server adds a puzzle to validate Ajax sessions in the first Ajax request. This is a simple measure which avoids Denial-of-Service attacks on Ajax sessions.\n\nDefault value: Off";
+
+     /*
      //JavascriptDebug
      Wt::Dbo::ptr<Configuration> JavascriptDebug = session.add(new Configuration());
      Wt::Dbo::ptr<ConfigurationInt> JavascriptDebugVal = session.add(new ConfigurationInt());
@@ -266,11 +265,8 @@ void install(Wt::Dbo::Session& session)
      LogWarnLevel.modify()->Details = "When enabled warnings will be included in the log file. These warnings indicate that there was something could have caused an error and should be considered.\n\nRecommended Value: On";
      LogWarnLevelVal.modify()->Value = true;
      LogWarnLevel.modify()->ConfigurationBoolDbo.insert(LogWarnLevelVal);
-     try {
-          transaction.commit();
-     } catch(Wt::Dbo::Exception& e) {
-          throw e;
-     }
+     */
+     transaction.commit();
 }
 
 void uninstall(Wt::Dbo::Session& session)
