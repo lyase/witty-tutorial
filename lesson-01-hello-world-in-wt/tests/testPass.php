@@ -1,23 +1,27 @@
 <?php
-class WebTest extends PHPUnit_Extensions_Selenium2TestCase
-{
-protected function setUp()
-{
-$this->a=True;
-$this->setBrowser('iceweasel');
-$this->setBrowserUrl('http://www.google.fr/');
-}
-             
-public function testsetup()
-{
-$this->url('http://www.google.fr/');
-$this->assertEquals($this->a, true);
-}
-public function testTitle()
-{
-$this->url('http://www.google.fr/');
-$this->assertEquals(true, true);
-}
-                                        
-}
+require_once 'PHPUnit/Framework.php';
+class ArrayTest extends PHPUnit_Framework_TestCase
+    {
+    protected $fixture;
+    protected function setUp()
+        {
+        // Create the Array fixture.
+        $this->fixture = array();
+        }
+    public function testNewArrayIsEmpty()
+        {
+        // Assert that the size of the Array fixture is 0.
+        $this->assertEquals(0, sizeof($this->fixture));
+        }
+
+    public function testArrayContainsAnElement()
+        {
+        // Add an element to the Array fixture.
+        $this->fixture[] = 'Element';
+
+        // Assert that the size of the Array fixture is 1.
+        $this->assertEquals(1, sizeof($this->fixture));
+        }
+    }
 ?>
+
