@@ -1,4 +1,16 @@
-/*
+/** \file  testdbo.cpp
+*source file developper test using DBConfig struct
+*\n
+ *\version  0.1
+ *\date 01/07/12 10:
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *\author:  lyase.d, lyase.d@gmail.com
+ *        Company:
+ *
+ * =====================================================================================
+ *//*
  * Copyright (C) 2009 Emweb bvba, Kessel-Lo, Belgium.
  *
  * See the LICENSE file for terms of use.

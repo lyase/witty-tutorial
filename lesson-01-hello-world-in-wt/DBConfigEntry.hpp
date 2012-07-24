@@ -1,3 +1,16 @@
+/** \file  BDConfig.hpp
+*source file defining DBConfig struct
+*\n
+ *\version  0.1
+ *\date 01/07/12 10:
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *\author:  lyase.d, lyase.d@gmail.com
+ *        Company:
+ *
+ * =====================================================================================
+ */
 #ifndef DBCONFIG_HPP
 #define DBCONFIG_HPP
 
@@ -5,7 +18,19 @@
 #include <Wt/Dbo/Dbo>
 
 namespace DBConfig {
-
+    /*! A DBConfigEntry   class
+    * \details This class is a (key,variant) like object with dbo capabilities.
+    * in our application it will be used to store the  config parameters.
+    *usage see developper tests in /** \file  tests/testdbo.cpp bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle"); will fetch the value of DosPuzzle key in our database.
+    * see in this file void install(Wt::Dbo::Session& session) L154 how to create& store keys 
+            * \author Mattew
+            * \version 0.1a
+            * \date 1990-2012
+            * \pre First initialize session obect with a database connection
+            * \bug  non known
+        * \warning all these object are stored in the same table there may not be any checks on unique key.
+    *
+    */
 struct DBConfigEntry {
     enum ValueType { vtString, vtDouble, vtInt };
 
