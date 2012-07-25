@@ -79,9 +79,12 @@ class User
 * \param Role a Role .
 * \return a void if all ok.
 */    void setRole(Role);
-    /*! \fn  int setKarma(int)
-* \brief A setter for private member Karma.
+    /*! \fn  void  render2pdf()
+* \brief render to hello.pdf all information about User */
+    void render2pdf();
 
+    /*! \fn  void setKarma(int)
+* \brief A setter for private member Karma.
 * \return a void  if all ok.
 */    void setKarma(int);
   /*! \fn  string getName() const;

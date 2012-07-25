@@ -16,10 +16,8 @@ private:
     MainWindow* mainWindow;
 public:
     HelloApp(const Wt::WEnvironment& env);
-    void setUserName(const Wt::WString& newName) 
-    { user->setName( newName.toUTF8()); }
-    const Wt::WString userName()
-    { return user->getName(); }
+    void setUserName(const Wt::WString& newName); 
+    const Wt::WString userName();
 };
 
 #endif // HELLOAPP_HPP

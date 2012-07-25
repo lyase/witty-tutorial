@@ -35,6 +35,8 @@
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
+#include <Wt/Render/WPdfRenderer>
+#include <hpdf.h>
 // compile with g++ listing.cpp -o test -l wtdbosqlite3
 
 namespace dbo = Wt::Dbo;
@@ -72,6 +74,13 @@ void User::setKarma(int myKarma)
     return ;
 }
 
+
+void User::render2pdf()
+{
+cout<<"shouldbeImplemented this function should output all user's data to a pdf file or as a mime object  ";
+//    Wt::WPdfImage a(100,100,"my test") ;
+return ;
+}
 string User::getName() const
 {
     return m_name; 

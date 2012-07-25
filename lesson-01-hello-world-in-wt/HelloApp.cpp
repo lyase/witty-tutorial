@@ -40,7 +40,6 @@ void HelloApp::handlePathChanged(const std::string& newPath)
 root()->clear();
  Wt::WContainerWidget* aroot=root();
  mFactory ->createWebPage(newPath, aroot);
-//mFactory->createWebPage(newPath, root());
     /* manual  way of doing things now implemented in the Factory
     if (newPath == "/ask")
         new AskWindow(root());
@@ -50,3 +49,12 @@ root()->clear();
         new MainWindow(root());
         */
 }
+void HelloApp::setUserName(const Wt::WString& newName) 
+{ 
+  user->setName( newName.toUTF8()); 
+}
+const Wt::WString HelloApp::userName()
+{
+return user->getName(); 
+}
+

@@ -27,7 +27,7 @@ namespace DBConfig {
             * \version 0.1a
             * \date 1990-2012
             * \pre First initialize session obect with a database connection
-            * \bug  non known
+            * \bug  none known
         * \warning all these object are stored in the same table there may not be any checks on unique key.
     *
     */
