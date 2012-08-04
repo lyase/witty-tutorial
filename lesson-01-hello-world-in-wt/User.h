@@ -35,6 +35,8 @@ using namespace std ;
     class Post;
     class User;
 
+typedef    dbo::collection< dbo::ptr<Post> > Posts;
+typedef dbo::collection< dbo::ptr<User> > Users;
     /*! A Post   class
     * \details This class is  a document contents created by a user of app
     * this class has dbo support example of Many-to-One relations with user.
@@ -79,6 +81,8 @@ class User
 {
 
     public:
+     Posts posts;
+
       /*! \fn template<class Action> void persist(Action& a)
 * \brief A required function for wt::dbo 
 * it is the field <->var member mapping table
@@ -91,7 +95,8 @@ class User
                             dbo::field(a, m_password, "password");
                             dbo::field(a, m_role,     "role");
                             dbo::field(a, m_karma,    "karma");
-                            dbo::hasMany(a, posts, dbo::ManyToOne, "user");
+                            dbo::hasMany(a, posts,      dbo::ManyToOne, "author");
+
                             }
     User();
     ~User();
@@ -147,7 +152,6 @@ class User
     string m_password;/*!< variable is password in  clear  */
     Role        m_role; /*!< represents the identified status of the user admin.... */
     int         m_karma; /*!< an integer value */
-    dbo::collection< dbo::ptr<Post> > posts;
 };
 /*!\var Users
  * *\brief collection of user
@@ -155,6 +159,5 @@ class User
  * usualy returned after as results of dbo query
  **/
 
-typedef dbo::collection< dbo::ptr<User> > Users;
 
 #endif
