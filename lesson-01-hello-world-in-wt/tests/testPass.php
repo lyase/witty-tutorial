@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+//require_once 'PHPUnit/Framework.php'; not required if using phpunit to run this
 class ArrayTest extends PHPUnit_Framework_TestCase
     {
     protected $fixture;
