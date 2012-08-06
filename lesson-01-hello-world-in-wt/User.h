@@ -54,13 +54,14 @@ typedef dbo::collection< dbo::ptr<User> > Users;
     class Post {
     public:
       dbo::ptr<User> user;
+      string m_contents; /*!< a string with contents of Posts */
 
 
       template<class Action>
       void persist(Action& a)
       {
+          dbo::field(a, m_contents,     "contents");
         dbo::belongsTo(a, user, "user");
-
       }
     };
 /*! A User   class
@@ -81,7 +82,7 @@ class User
 {
 
     public:
-     Posts posts;
+    dbo::collection< dbo::ptr<Post> > posts;
 
       /*! \fn template<class Action> void persist(Action& a)
 * \brief A required function for wt::dbo 
