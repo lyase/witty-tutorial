@@ -7,17 +7,17 @@
     *       Compiler:  gcc
      *
       *\author:  lyase.d, lyase.d@gmail.com
-       *        Company:  
+       *        Company:
         *
          * =====================================================================================
           */
 
 #include"HelloFactory.hpp"
 int main(int argc, char** argv) {
-WebPageFactory* mFactory;
-HelloFactory a;
-mFactory=&a;
+    WebPageFactory* mFactory;
+    HelloFactory a;
+    mFactory=&a;
 
-mFactory->createWebPage();
-return 0;
+    mFactory->createWebPage();
+    return 0;
 }

@@ -1,7 +1,7 @@
 /** \file  functional_test.cpp
 *source file for test of the application  ie. HelloApp object
 * you should put here all test related to the application functionalities
-* think HelloApp object as a Controller providing strategies (methods) to the views to interact with the Apps Objects User..... 
+* think HelloApp object as a Controller providing strategies (methods) to the views to interact with the Apps Objects User.....
 * and updating the views( window) sending the correct window to user as user operates the app
 *\b compiles with \code g++  \endcode
 *\n
@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *\author:  lyase.d, lyase.d@gmail.com
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
@@ -33,10 +33,10 @@ struct LiveAppFixture {
 // put here your setUp for the tests
     LiveAppFixture() : env(".", "wt-config.xml"), app(env) {
         app.initialize();
-	
+
     }
     // the tearDown
-    ~LiveAppFixture(){
+    ~LiveAppFixture() {
     }
     MainWindow* getMainWindow() {
         // We are getting a handle on the MainWindow
@@ -45,35 +45,32 @@ struct LiveAppFixture {
     }
 };
 // we are testing here:
-//if the app can create  it's landing page 
+//if the app can create  it's landing page
 BOOST_FIXTURE_TEST_SUITE( FunctionalSuite, LiveAppFixture );
 
 BOOST_AUTO_TEST_CASE( testMainWindowExists ) {
     MainWindow* main = getMainWindow();
     BOOST_REQUIRE(main);
 }
-// we are testing here: 
+// we are testing here:
 //the application can change the name of the current user
 //this is mostly an developper test howto test a functionality of the app
 BOOST_AUTO_TEST_CASE( testuserNameManagement ) {
-    
-    if (app.userName() == "John")
-    { 
-    std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
-    // pre condition not met test should fail
-    BOOST_CHECK_EQUAL( 0, 1 );
+
+    if (app.userName() == "John") {
+        std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
+        // pre condition not met test should fail
+        BOOST_CHECK_EQUAL( 0, 1 );
+    } else {
+        app.setUserName("John");
+        //std::string name = app.userName();
+        BOOST_CHECK_EQUAL( app.userName(), "John" );
     }
-    else
-    {
-    app.setUserName("John");
-    //std::string name = app.userName();
-    BOOST_CHECK_EQUAL( app.userName(), "John" );
 }
-}
-// we are testing here: 
+// we are testing here:
 //clicking the link to ask page  from the  landing page we
 //can  will change the path to the ask window
-// currently this is not testing the windows funcionality as a user case would 
+// currently this is not testing the windows funcionality as a user case would
 //ultimately this should be tested using something like selenium
 BOOST_AUTO_TEST_CASE( testAskLink ) {
     MainWindow* main = getMainWindow();

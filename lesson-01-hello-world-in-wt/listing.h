@@ -2,7 +2,7 @@
 *    Description:  header for CRUD function for USER  class using wt:dbo Hello world in c++
 *\b compiles with \code g++listing.cpp User.cpp testUser_Class_dbo.cpp -o test -l wtdbosqlite3 \endcode
 *\n
-*then run with 
+*then run with
 *\code  ./test \endcode
  *\version  1.0
  *\date 01/05/12 10:06:50
@@ -10,7 +10,7 @@
  *       Compiler:  gcc
  *
  *\author:  lyase.d, lyase.d@gmail.com
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
@@ -26,7 +26,7 @@ using namespace std ;
 /*!
 * \fn void createTableForUser(dbo::Session* session)
 *\brief Creating the table fo Object User \n
-*\param session a handle to a dbo database 
+*\param session a handle to a dbo database
 *\return nothing
 */
 void createTableForUser (dbo::Session*);

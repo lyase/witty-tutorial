@@ -6,7 +6,7 @@
  *       Compiler:  gcc
  *
  *\author:  Matthew Sherborne (), msherborne@gmail.com
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
@@ -18,14 +18,13 @@
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
 
-HelloApp::HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env)
-{
-setTitle("Hello world");
-user = new User();
-mFactory=new FactoryHelloWorldWebsite(this);
-internalPathChanged().connect(this, &HelloApp::handlePathChanged);
+HelloApp::HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+    setTitle("Hello world");
+    user = new User();
+    mFactory=new FactoryHelloWorldWebsite(this);
+    internalPathChanged().connect(this, &HelloApp::handlePathChanged);
     // The user could enter our app on any url, so let's show the correct thing
-handlePathChanged(internalPath());
+    handlePathChanged(internalPath());
 }
 /**
 * \fn void void HelloApp::handlePathChanged(const std::string& newPath)
@@ -35,11 +34,10 @@ handlePathChanged(internalPath());
 *
  * \return nothing
 */
-void HelloApp::handlePathChanged(const std::string& newPath) 
-{
-root()->clear();
- Wt::WContainerWidget* aroot=root();
- mFactory ->createWebPage(newPath, aroot);
+void HelloApp::handlePathChanged(const std::string& newPath) {
+    root()->clear();
+    Wt::WContainerWidget* aroot=root();
+    mFactory ->createWebPage(newPath, aroot);
     /* manual  way of doing things now implemented in the Factory
     if (newPath == "/ask")
         new AskWindow(root());
@@ -49,12 +47,10 @@ root()->clear();
         new MainWindow(root());
         */
 }
-void HelloApp::setUserName(const Wt::WString& newName) 
-{ 
-  user->setName( newName.toUTF8()); 
+void HelloApp::setUserName(const Wt::WString& newName) {
+    user->setName( newName.toUTF8());
 }
-const Wt::WString HelloApp::userName()
-{
-return user->getName(); 
+const Wt::WString HelloApp::userName() {
+    return user->getName();
 }
 

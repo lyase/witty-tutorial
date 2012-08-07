@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 2.8) # http://www.cmake.org/cmake/help/cmake-2-8-
 # Sets the name of the project. Additionally this sets the variables <projectName>_BINARY_DIR and <projectName>_SOURCE_DIR to the respective values.
 project ("hello world in wt++")      # http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:project
 # Other Libraries
-find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem)
+find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem program_options)
 find_library(wt wt)
 find_library(wthttp wthttp)
 find_library(wtdbo wtdbo)
@@ -19,14 +19,17 @@ SET(hellowt_src  )
 SET(hellowt_src ${hellowt_src} main.cpp)
 SET(hellowt_src ${hellowt_src} MainWindow.cpp  HelloApp.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp FactoryHelloWorldWebsite.hpp )
 SET(hellowt_src ${hellowt_src} User.cpp)
-# or add all cpp files  to source file list  
+# or add all cpp files  to source file list
 #FILE(GLOB ALL_CPP_SRCS *.cpp)
 #SET(hellowt_src ${hellowt_src} ${ALL_CPP_SRCS})
 add_executable(hellowt ${hellowt_src} )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
-	wt wtdbo wtdbosqlite3	      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-		      ${wt} ${wthttp})
+    ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${wt} ${wthttp} ${wtdbo} ${wtdbosqlite3}
+)
 #------------------------------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------------------------------
