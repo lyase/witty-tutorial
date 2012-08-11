@@ -24,10 +24,13 @@
 namespace dbo = Wt::Dbo;
 using namespace std ;
 void createTableForUser(dbo::Session* session) {
-    cout<<" Create table for user\n" ;
+    cout<<" Create table \n" ;
     dbo::Transaction transaction(*session);
-
+        cout<<" Create table for post\n" ;
+    session->mapClass<Post>("post");
+            cout<<" Create table for user\n" ;
     session->mapClass<User>("user");
+
 
     /*
      * Try to create the schema (will fail if already exists).
@@ -35,9 +38,13 @@ void createTableForUser(dbo::Session* session) {
     try {
         session->createTables();
     } catch (Wt::Dbo::Exception e) {
-        cout <<"in createTables() caught a Wt::Dbo::Exception "<<" could not createTableForUser check blog.db is empty\n";
+        cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
     }
+    try {
     transaction.commit();
+    } catch (Wt::Dbo::Exception e) {
+        cout <<"in commit() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
+    }
 }
 /*! \fn int createUserJoe(dbo::Session* session )
 * \brief Creating the user and save object to database
@@ -57,8 +64,8 @@ void createUserJoe(dbo::Session* session ) {
     cout<<" Create  a userJoe\n ";
     User *user;
     user = new User();
-    dbo::ptr<Post> post = session->add(new Post());
-    post.modify()->author = user; // or user.modify()->posts.insert(post);
+    //dbo::ptr<Post> post = session->add(new Post());
+    //post.modify()->author = user; // or user.modify()->posts.insert(post);
     cout << "Joe has " << user->posts.size() << " post(s)." << std::endl;
     user->setName("Joe");
     user->setPassword("Secret");
@@ -68,8 +75,12 @@ void createUserJoe(dbo::Session* session ) {
     cout<<" Adding  user to database \n ";
     dbo::ptr<User> userPtr = session->add(user);
 //opposite operation is ptr<Dbo>::remove(): it deletes
-    cout<<" Commit to database \n ";
-    transaction.commit();
+cout<<" trying Commit to database \n ";
+try {
+ transaction.commit();
+} catch (Wt::Dbo::Exception e) {
+                                cout <<"in createUserJoe comit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";}
+
 // delete  user;
 // user=0;
 }

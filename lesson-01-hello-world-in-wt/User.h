@@ -54,7 +54,7 @@ class User;
 */
 /*! \brief  this class defines a User object  of the application
      */
-class Post : public dbo::Dbo<Post> {
+class Post  {
 public:
     enum State {
         Unpublished = 0,
@@ -70,9 +70,8 @@ public:
     Wt::WString    briefHtml;
     Wt::WString    bodySrc;
     Wt::WString    bodyHtml;
-    std::string permaLink() const {
-        return date.toString("yyyy/MM/dd/'" +  '\'').toUTF8();
-    }
+    std::string permaLink() const {return date.toString("yyyy/MM/dd/'" +  '\'').toUTF8();
+    };
     template<class Action>
     void persist(Action& a) {
         dbo::field(a, state,     "state");
@@ -82,10 +81,11 @@ public:
         dbo::field(a, briefHtml, "brief_html");
         dbo::field(a, bodySrc,   "body_src");
         dbo::field(a, bodyHtml,  "body_html");
-
-        dbo::belongsTo(a, author, "user");
-
+        dbo::belongsTo(a, author, "author");
     }
+    Post(){}
+    ~Post(){}
+
 };
 
 /*! A User   class
@@ -124,6 +124,7 @@ public:
         dbo::field(a, m_role,     "role");
         dbo::field(a, m_karma,    "karma");
         dbo::hasMany(a, posts,      dbo::ManyToOne, "author");
+
 
     }
     User();
