@@ -29,7 +29,7 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 
 int main(int argc, char** argv) {
     cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";
-    ofstream out("outfile.txt", fstream::app);
+    ofstream out("ComandLineParameters.txt", fstream::app);
     out<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
     out<<"I am a app starting parent with pid: "<< getpid()<<endl;
     time_t t = time(0);   // get time now

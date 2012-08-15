@@ -23,6 +23,13 @@
 #include <Wt/Dbo/Exception>
 namespace dbo = Wt::Dbo;
 using namespace std ;
+/*! \fn void createTableForUser(dbo::Session* session)
+      * this should be run before any object is saved to database
+            note you need to create all tables for all Object don't assume children classes will be created
+             * @brief pre-condition to CRUD operation
+              *
+               * @param session
+                */
 void createTableForUser(dbo::Session* session) {
     cout<<" Create table \n" ;
     dbo::Transaction transaction(*session);
@@ -47,7 +54,7 @@ void createTableForUser(dbo::Session* session) {
     }
 }
 /*! \fn int createUserJoe(dbo::Session* session )
-* \brief Creating the user and save object to database
+* \brief Creating the user and a Post  and save objects to database
 *
 * \param session a handle to a dbo database
 *example creating the session object \n
@@ -60,12 +67,15 @@ void createTableForUser(dbo::Session* session) {
 */
 
 void createUserJoe(dbo::Session* session ) {
+ try {
     dbo::Transaction transaction(*session);
     cout<<" Create  a userJoe\n ";
     User *user;
     user = new User();
-    //dbo::ptr<Post> post = session->add(new Post());
-    //post.modify()->author = user; // or user.modify()->posts.insert(post);
+    dbo::ptr<Post> post = session->add(new Post());
+//user->posts.insert(post);// willthrow caught a Wt::Dbo::Exception:/ collection<C>::insert() only for a relational collection./
+//    post.modify()->author = user;  // will segfault
+
     cout << "Joe has " << user->posts.size() << " post(s)." << std::endl;
     user->setName("Joe");
     user->setPassword("Secret");
@@ -73,16 +83,23 @@ void createUserJoe(dbo::Session* session ) {
     user->setKarma(13);
 
     cout<<" Adding  user to database \n ";
-    dbo::ptr<User> userPtr = session->add(user);
+//    dbo::ptr<User> userPtr = session->add(user);
 //opposite operation is ptr<Dbo>::remove(): it deletes
 cout<<" trying Commit to database \n ";
 try {
  transaction.commit();
 } catch (Wt::Dbo::Exception e) {
-                                cout <<"in createUserJoe comit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";}
+                                cout <<"in createUserJoe commit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
+                                }
 
-// delete  user;
-// user=0;
+delete  user;
+user=0;
+} catch (Wt::Dbo::Exception e) {
+                                cout <<"in createUserJoe() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
+                                }
+//note this function can segfault ie i am not catching all exceptions
+//delete  user;
+//user=0;
 }
 /*! \fn void readUserAllUser(dbo::Session* session)
 * \brief getting all user from database
