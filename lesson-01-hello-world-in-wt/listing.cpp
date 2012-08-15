@@ -72,8 +72,12 @@ void createUserJoe(dbo::Session* session ) {
     cout<<" Create  a userJoe\n ";
     User *user;
     user = new User();
+    cout<<" Adding  user to database \n ";
+    dbo::ptr<User> userPtr = session->add(user);
+    cout<<" Adding  post  to database \n ";
     dbo::ptr<Post> post = session->add(new Post());
 //user->posts.insert(post);// willthrow caught a Wt::Dbo::Exception:/ collection<C>::insert() only for a relational collection./
+//    post.modify()->author = userPtr;  // will segfault
 //    post.modify()->author = user;  // will segfault
 
     cout << "Joe has " << user->posts.size() << " post(s)." << std::endl;
