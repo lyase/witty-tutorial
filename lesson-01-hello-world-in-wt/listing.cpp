@@ -67,7 +67,7 @@ void createTableForUser(dbo::Session* session) {
 */
 
 void createUserJoe(dbo::Session* session ) {
- try {
+// try {
     dbo::Transaction transaction(*session);
     cout<<" Create  a userJoe\n ";
     User *user;
@@ -76,7 +76,7 @@ void createUserJoe(dbo::Session* session ) {
     dbo::ptr<User> userPtr = session->add(user);
     cout<<" Adding  post  to database \n ";
     dbo::ptr<Post> post = session->add(new Post());
-//user->posts.insert(post);// willthrow caught a Wt::Dbo::Exception:/ collection<C>::insert() only for a relational collection./
+user->posts.insert(post);
 //    post.modify()->author = userPtr;  // will segfault
 //    post.modify()->author = user;  // will segfault
 
@@ -86,8 +86,8 @@ void createUserJoe(dbo::Session* session ) {
     user->setRole(Visitor);
     user->setKarma(13);
 
-    cout<<" Adding  user to database \n ";
-//    dbo::ptr<User> userPtr = session->add(user);
+    //cout<<" Adding  user to database \n ";
+    //dbo::ptr<User> userPtr = session->add(user);
 //opposite operation is ptr<Dbo>::remove(): it deletes
 cout<<" trying Commit to database \n ";
 try {
@@ -95,12 +95,12 @@ try {
 } catch (Wt::Dbo::Exception e) {
                                 cout <<"in createUserJoe commit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
                                 }
-
-delete  user;
-user=0;
-} catch (Wt::Dbo::Exception e) {
-                                cout <<"in createUserJoe() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
-                                }
+//carefull this final cleanup will crash app 
+//delete  user;
+//user=0;
+// looks like i am not catching all possible exception here so commented for now} catch (Wt::Dbo::Exception e) {
+//                                 cout <<"in createUserJoe() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
+//                                 }
 //note this function can segfault ie i am not catching all exceptions
 //delete  user;
 //user=0;
@@ -131,7 +131,8 @@ void  readUserAllUser(dbo::Session* session) {
     for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
         cerr << " user " << (*i)->getName()
              << " with karma of " << (*i)->getKarma() << endl
-             << " with Role of " << (*i)->getRole() << endl;
+             << " with Role of " << (*i)->getRole() << endl
+            << "this user  has " << (*i)->posts.size() << " post(s)." << std::endl;
     transaction.commit();
 }
 void readUserJoe(dbo::Session* session) {
@@ -152,7 +153,8 @@ void readUserJoe(dbo::Session* session) {
     for (Users::const_iterator i = users.begin(); i != users.end(); ++i)
         cerr << " user " << (*i)->getName()
              << " with karma of " << (*i)->getKarma() << endl
-             << " with Role of " << (*i)->getRole() << endl;
+             << " with Role of " << (*i)->getRole() << endl
+             << " with number of Post: " << (*i)->posts.size() << " post(s)." << std::endl;
     transaction.commit();
 }
 /*! \fn void readUserJoeOnly(dbo::Session* session)
@@ -180,8 +182,8 @@ void readUserJoeOnly(dbo::Session* session) {
         cout << "here is  Joe:" << std::endl;
         cout << " user name: " << joe->getName()
              << " with karma of " << joe->getKarma() << endl
-             << " with Role of " << joe->getRole() << endl;
-
+             << " with Role of " << joe->getRole() << endl
+             <<"   this user has:"<<  joe->posts.size() << " post(s)." << std::endl;
     }
 }
 /*! \fn void read_UnknownUserthrowsexception(dbo::Session* session)
@@ -267,10 +269,13 @@ void deleteUserJoeOnly(dbo::Session* session) {
     if( count==1) {
         cout<<"I can delete safely I have one matching record" << std::endl;
 // bind parameter this way does not work with all wt version
+        //to delete children too you need to define Post with
+        //     dbo::belongsTo(a, author, "author", Wt::Dbo::OnDeleteCascade | Wt::Dbo::OnUpdateCascade);
         dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
 
         if(joe) {
-            cout <<"we found joe udelete user now"<< std::endl;
+
+            cout <<"we found joe will delete user now"<< std::endl;
             joe.remove();
             cout<< "flush to database" <<std::endl;
             session->flush();

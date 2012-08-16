@@ -81,7 +81,7 @@ public:
         dbo::field(a, briefHtml, "brief_html");
         dbo::field(a, bodySrc,   "body_src");
         dbo::field(a, bodyHtml,  "body_html");
-        dbo::belongsTo(a, author, "author");
+        dbo::belongsTo(a, author, "author", Wt::Dbo::OnDeleteCascade | Wt::Dbo::OnUpdateCascade);
     }
     Post(){}
     ~Post(){}
