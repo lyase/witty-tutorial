@@ -49,10 +49,11 @@ add_test(phptest phpunit ${CMAKE_CURRENT_BINARY_DIR}/testPass.php)
 file(COPY testPass.py DESTINATION .)
 add_test(pytest ${CMAKE_CURRENT_BINARY_DIR}/testPass.py)
 
-add_executable(test_user_persistence ../HelloApp.cpp ../User.cpp testUserPersistence.cpp)
-TARGET_LINK_LIBRARIES(usertest 
-                      ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+add_executable(test_user_persistence ../HelloApp.cpp ../MainWindow.cpp ../AskWindow.cpp ../AdminWindow.cpp ../SayWindow.cpp ../User.cpp testUserPersistence.cpp)
+TARGET_LINK_LIBRARIES(test_user_persistence 
+                      ${Boost_SYSTEM_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
                       ${hpdf}
-                      ${wt} ${wthttp} ${wtdbo} ${wtdbosqlite3} )
+                      ${wt} ${wthttp} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 
+add_test(test_user_persistence ./test_user_persistence)
 
