@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 2.8) # http://www.cmake.org/cmake/help/cmake-2-8-
 project ("hello world in wt++")      # http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:project
 # Other Libraries
 find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem program_options)
+find_library(hpdf hpdf)
 find_library(wt wt)
 find_library(wthttp wthttp)
 find_library(wtdbo wtdbo)
@@ -28,6 +29,7 @@ target_link_libraries(hellowt
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${Boost_FILESYSTEM_LIBRARY}
+    ${hpdf}
     ${wt} ${wthttp} ${wtdbo} ${wtdbosqlite3}
 )
 #------------------------------------------------------------------------------------------------------

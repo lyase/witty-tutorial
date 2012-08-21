@@ -33,7 +33,6 @@ struct LiveAppFixture {
 // put here your setUp for the tests
     LiveAppFixture() : env(".", "wt-config.xml"), app(env) {
         app.initialize();
-
     }
     // the tearDown
     ~LiveAppFixture() {
@@ -44,6 +43,8 @@ struct LiveAppFixture {
         return dynamic_cast<MainWindow*>(result);
     }
 };
+
+
 // we are testing here:
 //if the app can create  it's landing page
 BOOST_FIXTURE_TEST_SUITE( FunctionalSuite, LiveAppFixture );
@@ -79,7 +80,8 @@ BOOST_AUTO_TEST_CASE( testAskLink ) {
     BOOST_REQUIRE( app.internalPath() != "/ask" );
     test_helpers::click(main->_askLink);
     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
-
 }
+
+
 
 BOOST_AUTO_TEST_SUITE_END();
