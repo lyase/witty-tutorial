@@ -52,7 +52,6 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     // Kill the app
     app1.quit();
     delete session1;
-    delete user1;
     // Start a new app
     Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
     HelloApp app2(env2);
