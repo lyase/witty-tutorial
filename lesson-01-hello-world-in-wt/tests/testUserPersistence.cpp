@@ -51,22 +51,25 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     saveUser(user1, session1->session);
     // Kill the app
     app1.quit();
+    delete session1;
+    delete user1;
     // Start a new app
     Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
     HelloApp app2(env2);
     app2.initialize();
-    delete session1;
     // Create the second Session
     SessionMaster* session2 = new SessionMaster(false);
     // Search for the user object in the db
+    Wt::Dbo::Transaction t(session2->session);
+    BOOST_REQUIRE_EQUAL(user1->getName(), "mister cool");
     Wt::Dbo::ptr<User> user2 = \
          session2->session.find<User>().where("name = ?").bind(user1->getName());
     // Check the details are the same
     BOOST_REQUIRE(user2);
-    BOOST_CHECK_EQUAL(user1->getName(), user2->getName());
-    BOOST_CHECK_EQUAL(user1->getPassword(), user2->getPassword());
-    BOOST_CHECK_EQUAL(user1->getRole(), user2->getRole());
-    BOOST_CHECK_EQUAL(user1->getKarma(), user2->getKarma());
+    BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
+    BOOST_REQUIRE_EQUAL(user2->getPassword(), "its a secret");
+    BOOST_REQUIRE_EQUAL(user2->getRole(), Alien);
+    BOOST_REQUIRE_EQUAL(user2->getKarma(), 15);
 }
 
 BOOST_AUTO_TEST_SUITE_END();
