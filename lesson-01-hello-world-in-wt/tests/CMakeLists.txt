@@ -26,7 +26,7 @@ ADD_DEFINITIONS( -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN ) # So tests load the t
 add_executable(functional_test ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp functional_test.cpp)
 TARGET_LINK_LIBRARIES(functional_test
     ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-    ${hpdf}
+    ${hpdf} ${Boost_FILESYSTEM_LIBRARY}
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(test_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testAskLink)
@@ -49,11 +49,4 @@ add_test(phptest phpunit ${CMAKE_CURRENT_BINARY_DIR}/testPass.php)
 file(COPY testPass.py DESTINATION .)
 add_test(pytest ${CMAKE_CURRENT_BINARY_DIR}/testPass.py)
 
-add_executable(test_user_persistence ../HelloApp.cpp ../MainWindow.cpp ../AskWindow.cpp ../AdminWindow.cpp ../SayWindow.cpp ../User.cpp testUserPersistence.cpp)
-TARGET_LINK_LIBRARIES(test_user_persistence 
-                      ${Boost_SYSTEM_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-                      ${hpdf}
-                      ${wt} ${wthttp} ${wtdbo} ${wttest} ${wtdbosqlite3} )
-
-add_test(test_user_persistence ./test_user_persistence)
 

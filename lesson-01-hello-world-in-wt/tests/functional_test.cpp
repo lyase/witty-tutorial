@@ -26,23 +26,56 @@
 #include "../HelloApp.hpp"
 #include "../MainWindow.hpp"
 #include "utils/helper.hpp"
-
+#include <Wt/Test/WTestEnvironment>
+#include <boost/test/unit_test.hpp>
+#include "../HelloApp.hpp"
+#include "../User.h"
+#include <Wt/WApplication>
+#include <Wt/Test/WTestEnvironment>
+#include <boost/test/unit_test.hpp>
+#include "../HelloApp.hpp"
+#include <Wt/Dbo/backend/Sqlite3>
+#include <boost/filesystem.hpp>
+#include "../User.h"
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-// put here your setUp for the tests
-    LiveAppFixture() : env(".", "wt-config.xml"), app(env) {
+    dbo::backend::Sqlite3 sqlite3;
+    dbo::Session session;
+    LiveAppFixture(bool createTables) : sqlite3("blog.db") , env(".", "wt-config.xml"), app(env)  {
         app.initialize();
+
+        session.setConnection(sqlite3);
+        session.mapClass<Post>("post");
+        session.mapClass<User>("user");
+        if (createTables)
+            session.createTables();
+    }
+    LiveAppFixture() : sqlite3("blog.db") , env(".", "wt-config.xml"), app(env)  {
+// put here your setUp for the tests
     }
     // the tearDown
     ~LiveAppFixture() {
-    }
+            session.flush();
+            boost::filesystem::remove("./blog.db");
+        }
+
     MainWindow* getMainWindow() {
         // We are getting a handle on the MainWindow
         Wt::WWidget* result = app.root()->widget(0);
         return dynamic_cast<MainWindow*>(result);
     }
 };
+void saveUser(User* user, Wt::Dbo::Session& session) {
+    Wt::Dbo::Transaction t(session);
+    session.add(user);
+    t.commit();
+}
+
+Wt::Dbo::ptr<User> findUser(const std::string name, Wt::Dbo::Session& session) {
+    Wt::Dbo::Transaction t(session);
+    return session.find<User>().where("name = ?").bind(name);
+}
 
 
 // we are testing here:
@@ -81,7 +114,44 @@ BOOST_AUTO_TEST_CASE( testAskLink ) {
     test_helpers::click(main->_askLink);
     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
 }
-
+BOOST_AUTO_TEST_CASE( testUserPersistence ) {
+    // Create an app
+    Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
+    HelloApp app1(env1);
+    app1.initialize();
+    { // Scope brackets so that session1 is deleted before session2 is created
+    // Create the first Session
+    LiveAppFixture session1(true);
+    // Create a user
+    User *user1 = new User(); // session.add takes ownership of this and deletes it when the session dies
+    user1->setName("mister cool");
+    user1->setPassword("its a secret");
+    user1->setRole(Alien);
+    user1->setKarma(15);
+    BOOST_REQUIRE_EQUAL(user1->getName(), "mister cool");
+    BOOST_REQUIRE_EQUAL(user1->getPassword(), "its a secret");
+    BOOST_REQUIRE_EQUAL(user1->getRole(), Alien);
+    BOOST_REQUIRE_EQUAL(user1->getKarma(), 15);
+    // Save it
+    saveUser(user1, session1.session);
+    // Kill the app
+    app1.quit();
+    }
+    // Start a new app
+    Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
+    HelloApp app2(env2);
+    app2.initialize();
+    // Create the second Session
+    LiveAppFixture session2(false);
+    // Search for the user object in the db
+    Wt::Dbo::ptr<User> user2 = findUser("mister cool", session2.session);
+    // Check the details are the same
+    BOOST_REQUIRE(user2);
+    BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
+    BOOST_REQUIRE_EQUAL(user2->getPassword(), "its a secret");
+    BOOST_REQUIRE_EQUAL(user2->getRole(), Alien);
+    BOOST_REQUIRE_EQUAL(user2->getKarma(), 15);
+}
 
 
 BOOST_AUTO_TEST_SUITE_END();
