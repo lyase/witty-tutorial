@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     // Create the first Session
     SessionMaster* session1 = new SessionMaster(true);
     // Create a user
-    User *user1 = new User();
+    User *user1 = new User(); // session.add takes ownership of this and deletes it when the session dies
     user1->setName("mister cool");
     user1->setPassword("its a secret");
     user1->setRole(Alien);
@@ -68,6 +68,8 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     BOOST_REQUIRE_EQUAL(user2->getPassword(), "its a secret");
     BOOST_REQUIRE_EQUAL(user2->getRole(), Alien);
     BOOST_REQUIRE_EQUAL(user2->getKarma(), 15);
+    // Clean up
+    delete session2;
 }
 
 BOOST_AUTO_TEST_SUITE_END();
