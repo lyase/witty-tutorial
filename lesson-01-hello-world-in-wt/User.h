@@ -19,11 +19,13 @@
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
 #include <Wt/Dbo/Dbo>
+#include <Wt/Dbo/Types>
 #include <string>
 #include <Wt/WDate>
 #include <Wt/WString>
 #include <Wt/Dbo/collection>
 #include <Wt/Dbo/Dbo>
+#include <Wt/Dbo/WtSqlTraits>
 #include <string>
 #include <ctype.h>
 #include <Wt/Dbo/Impl>
