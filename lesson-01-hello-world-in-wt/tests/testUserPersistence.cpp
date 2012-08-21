@@ -43,8 +43,9 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
     HelloApp app1(env1);
     app1.initialize();
+    { // Scope brackets so that session1 is deleted before session2 is created
     // Create the first Session
-    SessionMaster* session1 = new SessionMaster(true);
+    SessionMaster session1(true);
     // Create a user
     User *user1 = new User(); // session.add takes ownership of this and deletes it when the session dies
     user1->setName("mister cool");
@@ -56,26 +57,24 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     BOOST_REQUIRE_EQUAL(user1->getRole(), Alien);
     BOOST_REQUIRE_EQUAL(user1->getKarma(), 15);
     // Save it
-    saveUser(user1, session1->session);
+    saveUser(user1, session1.session);
     // Kill the app
     app1.quit();
-    delete session1;
+    }
     // Start a new app
     Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
     HelloApp app2(env2);
     app2.initialize();
     // Create the second Session
-    SessionMaster* session2 = new SessionMaster(false);
+    SessionMaster session2(false);
     // Search for the user object in the db
-    Wt::Dbo::ptr<User> user2 = findUser("mister cool", session2->session);
+    Wt::Dbo::ptr<User> user2 = findUser("mister cool", session2.session);
     // Check the details are the same
     BOOST_REQUIRE(user2);
     BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
     BOOST_REQUIRE_EQUAL(user2->getPassword(), "its a secret");
     BOOST_REQUIRE_EQUAL(user2->getRole(), Alien);
     BOOST_REQUIRE_EQUAL(user2->getKarma(), 15);
-    // Clean up
-    delete session2;
 }
 
 BOOST_AUTO_TEST_SUITE_END();
