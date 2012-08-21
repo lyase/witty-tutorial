@@ -60,7 +60,6 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     SessionMaster* session2 = new SessionMaster(false);
     // Search for the user object in the db
     Wt::Dbo::Transaction t(session2->session);
-    BOOST_REQUIRE_EQUAL(user1->getName(), "mister cool");
     Wt::Dbo::ptr<User> user2 = \
          session2->session.find<User>().where("name = ?").bind(user1->getName());
     // Check the details are the same
