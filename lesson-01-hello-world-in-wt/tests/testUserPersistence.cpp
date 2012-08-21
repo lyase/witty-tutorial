@@ -14,7 +14,8 @@ namespace {
     struct SessionMaster {
         dbo::backend::Sqlite3 sqlite3;
         dbo::Session session;
-        SessionMaster(bool createTables) : sqlite3("blog.db") {
+        Wt::Dbo::Impl::Parameter<std::string> x; // This makes the template class be generated in a horrible horrible way. MUST FIX BETTER
+        SessionMaster(bool createTables) : sqlite3("blog.db"), x("") {
             session.setConnection(sqlite3);
             session.mapClass<Post>("post");
             session.mapClass<User>("user");
