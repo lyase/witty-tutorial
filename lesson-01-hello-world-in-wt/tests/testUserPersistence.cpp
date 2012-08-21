@@ -14,8 +14,7 @@ namespace {
     struct SessionMaster {
         dbo::backend::Sqlite3 sqlite3;
         dbo::Session session;
-        Wt::Dbo::Impl::Parameter<std::string> x; // This makes the template class be generated in a horrible horrible way. MUST FIX BETTER
-        SessionMaster(bool createTables) : sqlite3("blog.db"), x("") {
+        SessionMaster(bool createTables) : sqlite3("blog.db") {
             session.setConnection(sqlite3);
             session.mapClass<Post>("post");
             session.mapClass<User>("user");
@@ -62,7 +61,7 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     // Search for the user object in the db
     Wt::Dbo::Transaction t(session2->session);
     Wt::Dbo::ptr<User> user2 = \
-         session2->session.find<User>().where("name = ?").bind(user1->getName());
+         session2->session.find<User>().where("name = ?").bind("mister cool");
     // Check the details are the same
     BOOST_REQUIRE(user2);
     BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
