@@ -21,12 +21,20 @@ namespace {
             if (createTables)
                 session.createTables();
         }
+        ~SessionMaster() {
+            session.flush();
+        }
     };
     
     void saveUser(User* user, Wt::Dbo::Session& session) {
         Wt::Dbo::Transaction t(session);
         session.add(user);
         t.commit();
+    }
+
+    Wt::Dbo::ptr<User> findUser(const std::string name, Wt::Dbo::Session& session) {
+        Wt::Dbo::Transaction t(session);
+        return session.find<User>().where("name = ?").bind(name);
     }
 }
 
@@ -59,9 +67,7 @@ BOOST_AUTO_TEST_CASE( testUserPersisitence ) {
     // Create the second Session
     SessionMaster* session2 = new SessionMaster(false);
     // Search for the user object in the db
-    Wt::Dbo::Transaction t(session2->session);
-    Wt::Dbo::ptr<User> user2 = \
-         session2->session.find<User>().where("name = ?").bind("mister cool");
+    Wt::Dbo::ptr<User> user2 = findUser("mister cool", session2->session);
     // Check the details are the same
     BOOST_REQUIRE(user2);
     BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
