@@ -40,19 +40,11 @@
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-    dbo::backend::Sqlite3 sqlite3;
-    dbo::Session session;
-    LiveAppFixture(bool createTables) : sqlite3("blog.db") , env(".", "wt-config.xml"), app(env)  {
+    dbo::Session& session;
+    LiveAppFixture(bool createTables=false) : env(".", "wt-config.xml"), app(env, "blog.db"), session(app.db())  {
         app.initialize();
-
-        session.setConnection(sqlite3);
-        session.mapClass<Post>("post");
-        session.mapClass<User>("user");
         if (createTables)
             session.createTables();
-    }
-    LiveAppFixture() : sqlite3("blog.db") , env(".", "wt-config.xml"), app(env)  {
-// put here your setUp for the tests
     }
     // the tearDown
     ~LiveAppFixture() {
@@ -117,7 +109,7 @@ BOOST_AUTO_TEST_CASE( testAskLink ) {
 BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     // Create an app
     Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
-    HelloApp app1(env1);
+    HelloApp app1(env1, "blog.db");
     app1.initialize();
     { // Scope brackets so that session1 is deleted before session2 is created
     // Create the first Session
@@ -133,7 +125,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     BOOST_REQUIRE_EQUAL(user1->getRole(), Alien);
     BOOST_REQUIRE_EQUAL(user1->getKarma(), 15);
     // Save it
-    saveUser(user1, session1.session);
+    app1.saveUser(user1, session1.session);
     // Kill the app
     app1.quit();
     }
@@ -144,7 +136,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     // Create the second Session
     LiveAppFixture session2(false);
     // Search for the user object in the db
-    Wt::Dbo::ptr<User> user2 = findUser("mister cool", session2.session);
+    Wt::Dbo::ptr<User> user2 = app2.findUser("mister cool", session2.session);
     // Check the details are the same
     BOOST_REQUIRE(user2);
     BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");

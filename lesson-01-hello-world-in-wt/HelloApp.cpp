@@ -17,13 +17,18 @@
 #include "MainWindow.hpp"
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
+#include "User.h"
 
-HelloApp::HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+HelloApp::HelloApp(const Wt::WEnvironment& env, const std::string& dbConnString) :
+        Wt::WApplication(env), dbBackend(dbConnString) {
     setTitle("Hello world");
     user = new User();
-    mFactory=new FactoryHelloWorldWebsite(this);
+    mFactory = new FactoryHelloWorldWebsite(this);
     internalPathChanged().connect(this, &HelloApp::handlePathChanged);
-    // The user could enter our app on any url, so let's show the correct thing
+    // Set up DB
+    _db.setConnection(dbBackend);
+    _db.mapClass<Post>("post");
+    _db.mapClass<User>("user");
     handlePathChanged(internalPath());
 }
 /**
@@ -53,4 +58,10 @@ void HelloApp::setUserName(const Wt::WString& newName) {
 const Wt::WString HelloApp::userName() {
     return user->getName();
 }
+
+Wt::Dbo::Session& HelloApp::db() {
+    return _db;
+}
+
+
 

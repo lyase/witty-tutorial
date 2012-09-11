@@ -20,10 +20,19 @@
 #include <iostream>
 #include <ctime>
 using namespace std;
+#include <stdexcept>
+#include <Wt/WServer>
 #include "HelloApp.hpp"
 
 Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-    return new HelloApp(env);
+    Wt::WServer* server = env.server();
+    if (!server)
+        throw std::logic_error("Couldn't find the server");
+    std::string dbConnString;
+    server->readConfigurationProperty("dbConnString", dbConnString);
+    if (!dbConnString)
+        throw std::invalid_argument("Please set the dbConnString in wt_config.xml");
+    return new HelloApp(env, dbConnString);
 //return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
 }
 
