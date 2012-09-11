@@ -30,6 +30,7 @@ TARGET_LINK_LIBRARIES(functional_test
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(test_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testAskLink)
+add_test(test_user_persistence ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testUserPersistance)
 
 add_executable(usertest ../User.cpp ../testUser_Class.cpp )
 TARGET_LINK_LIBRARIES(usertest 
