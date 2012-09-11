@@ -27,12 +27,10 @@
 #include "../MainWindow.hpp"
 #include "utils/helper.hpp"
 #include <Wt/Test/WTestEnvironment>
-#include <boost/test/unit_test.hpp>
 #include "../HelloApp.hpp"
 #include "../User.h"
 #include <Wt/WApplication>
 #include <Wt/Test/WTestEnvironment>
-#include <boost/test/unit_test.hpp>
 #include "../HelloApp.hpp"
 #include <Wt/Dbo/backend/Sqlite3>
 #include <boost/filesystem.hpp>
@@ -40,16 +38,16 @@
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-    LiveAppFixture(bool createTables=false) : env(".", "wt-config.xml"), app(env, "blog.db")  {
+    LiveAppFixture(bool createTables=true) : env(".", "wt-config.xml"), app(env, "blog.db") {
         app.initialize();
         if (createTables)
             app.db().createTables();
     }
     // the tearDown
     ~LiveAppFixture() {
-            app.db().flush();
-            boost::filesystem::remove("./blog.db");
-        }
+        app.db().flush();
+        boost::filesystem::remove("./blog.db");
+    }
 
     MainWindow* getMainWindow() {
         // We are getting a handle on the MainWindow
