@@ -19,8 +19,8 @@
 #include <string>
 #include <iostream>
 #include <ctime>
-using namespace std;
 #include <stdexcept>
+#include <Wt/WEnvironment>
 #include <Wt/WServer>
 #include "HelloApp.hpp"
 
@@ -37,6 +37,8 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
 }
 
 int main(int argc, char** argv) {
+    using std::ofstream;
+    using std::endl;
     cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";
     ofstream out("ComandLineParameters.txt", fstream::app);
     out<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
