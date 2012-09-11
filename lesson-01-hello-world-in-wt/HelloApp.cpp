@@ -63,5 +63,14 @@ Wt::Dbo::Session& HelloApp::db() {
     return _db;
 }
 
+void HelloApp::saveUser(User* user) {
+    Wt::Dbo::Transaction t(_db);
+    _db.add(user);
+    t.commit();
+}
 
+Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name) {
+    Wt::Dbo::Transaction t(_db);
+    return _db.find<User>().where("name = ?").bind(name);
+}
 

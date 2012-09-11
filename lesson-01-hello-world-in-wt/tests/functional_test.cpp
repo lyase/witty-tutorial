@@ -40,15 +40,14 @@
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-    dbo::Session& session;
-    LiveAppFixture(bool createTables=false) : env(".", "wt-config.xml"), app(env, "blog.db"), session(app.db())  {
+    LiveAppFixture(bool createTables=false) : env(".", "wt-config.xml"), app(env, "blog.db")  {
         app.initialize();
         if (createTables)
-            session.createTables();
+            app.db().createTables();
     }
     // the tearDown
     ~LiveAppFixture() {
-            session.flush();
+            app.db().flush();
             boost::filesystem::remove("./blog.db");
         }
 
@@ -58,17 +57,6 @@ struct LiveAppFixture {
         return dynamic_cast<MainWindow*>(result);
     }
 };
-void saveUser(User* user, Wt::Dbo::Session& session) {
-    Wt::Dbo::Transaction t(session);
-    session.add(user);
-    t.commit();
-}
-
-Wt::Dbo::ptr<User> findUser(const std::string name, Wt::Dbo::Session& session) {
-    Wt::Dbo::Transaction t(session);
-    return session.find<User>().where("name = ?").bind(name);
-}
-
 
 // we are testing here:
 //if the app can create  it's landing page
@@ -125,18 +113,18 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     BOOST_REQUIRE_EQUAL(user1->getRole(), Alien);
     BOOST_REQUIRE_EQUAL(user1->getKarma(), 15);
     // Save it
-    app1.saveUser(user1, session1.session);
+    app1.saveUser(user1);
     // Kill the app
     app1.quit();
     }
     // Start a new app
     Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
-    HelloApp app2(env2);
+    HelloApp app2(env2, "blog.db");
     app2.initialize();
     // Create the second Session
     LiveAppFixture session2(false);
     // Search for the user object in the db
-    Wt::Dbo::ptr<User> user2 = app2.findUser("mister cool", session2.session);
+    Wt::Dbo::ptr<User> user2 = app2.findUser("mister cool");
     // Check the details are the same
     BOOST_REQUIRE(user2);
     BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");

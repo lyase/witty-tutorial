@@ -23,6 +23,8 @@ public:
     void setUserName(const Wt::WString& newName); 
     const Wt::WString userName();
     Wt::Dbo::Session& db();
+    void saveUser(User* user);
+    Wt::Dbo::ptr<User> findUser(const std::string name);
 };
 
 #endif // HELLOAPP_HPP
