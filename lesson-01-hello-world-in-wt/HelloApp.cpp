@@ -19,6 +19,7 @@
 #include "MainWindow.hpp"
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
+#include <Wt/Dbo/Exception>
 #include "User.h"
 
 struct HelloApp::DBInfo : public Wt::WObject {
@@ -63,7 +64,7 @@ void HelloApp::handlePathChanged(const std::string& newPath) {
     root()->clear();
     Wt::WContainerWidget* aroot=root();
     mFactory ->createWebPage(newPath, aroot);
-    /* manual  way of doing things now implemented in the Factory
+    /* manual  way of doing things now implemented in the Factory ask the WebSiteFactory to create the required page
     if (newPath == "/ask")
         new AskWindow(root());
     else if (newPath == "/say")
@@ -93,4 +94,26 @@ Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name) {
     Wt::Dbo::Transaction t(_db->session);
     return _db->session.find<User>().where("name = ?").bind(name);
 }
+void HelloApp::first_Dbinitialize()
+{
+db().mapClass<User>("user");
+db().mapClass<Post>("post");
+try {
+    db().createTables();
+} catch (Wt::Dbo::Exception e) {
+    cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
+}
 
+}
+
+void HelloApp::Dbinitialize()
+{
+db().mapClass<User>("user");
+db().mapClass<Post>("post");
+try {
+ //   _db.createTables();
+} catch (Wt::Dbo::Exception e) {
+    cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
+}
+
+}
