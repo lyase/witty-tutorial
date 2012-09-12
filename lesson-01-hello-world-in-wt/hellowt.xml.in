@@ -578,3 +578,5 @@
     </application-settings>
     -->
 </server>
+            <dbConnString>"blog.db"</dbConnString>
+

@@ -25,6 +25,8 @@ public:
     Wt::Dbo::Session& db();
     void saveUser(User* user);
     Wt::Dbo::ptr<User> findUser(const std::string name);
+    void first_Dbinitialize();
+    void Dbinitialize();
 };
 
 #endif // HELLOAPP_HPP

@@ -30,8 +30,9 @@ Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
         throw std::logic_error("Couldn't find the server");
     std::string dbConnString;
     server->readConfigurationProperty("dbConnString", dbConnString);
-    if (!dbConnString)
-        throw std::invalid_argument("Please set the dbConnString in wt_config.xml");
+ //if (!dbConnString)
+ if (dbConnString == "")
+   throw std::invalid_argument("Please set the dbConnString in wt_config.xml");
     return new HelloApp(env, dbConnString);
 //return new HelloApp(env,&_aWebPageFactoryHelloWebsite);
 }

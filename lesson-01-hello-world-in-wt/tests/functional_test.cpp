@@ -91,15 +91,30 @@ BOOST_AUTO_TEST_CASE( testAskLink ) {
     BOOST_REQUIRE( app.internalPath() != "/ask" );
     test_helpers::click(main->_askLink);
     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
-}
+} 
+/**
+* \fn BOOST_AUTO_TEST_CASE( testUserPersistence )
+* \brief we are testing data persistence here :
+// we are testing data persistence here :
+//we start the app 
+//create a user 
+// save the user 
+// restart app
+// check i still can find the user created in previous phase
+// note i f first start ever the app should do a first_Dbinitialize 
+// if database exist already and has been initialized a Dbinitialize is required
+ * \return nothing
+*/
+
 BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     // Create an app
     Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
     HelloApp app1(env1, "blog.db");
     app1.initialize();
+    app1.first_Dbinitialize();
     { // Scope brackets so that session1 is deleted before session2 is created
     // Create the first Session
-    LiveAppFixture session1(true);
+    //LiveAppFixture session1(true);
     // Create a user
     User *user1 = new User(); // session.add takes ownership of this and deletes it when the session dies
     user1->setName("mister cool");
@@ -119,8 +134,9 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
     HelloApp app2(env2, "blog.db");
     app2.initialize();
+    app2.Dbinitialize();
     // Create the second Session
-    LiveAppFixture session2(false);
+    //LiveAppFixture session2(false);
     // Search for the user object in the db
     Wt::Dbo::ptr<User> user2 = app2.findUser("mister cool");
     // Check the details are the same
