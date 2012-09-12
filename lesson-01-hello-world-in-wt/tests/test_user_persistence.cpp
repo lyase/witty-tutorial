@@ -6,7 +6,7 @@
 
 struct DBCleaner {
     ~DBCleaner() {
-        Wt::Test::WTestEnvironment env(".", "wt-config.xml");
+        Wt::Test::WTestEnvironment env("..", "../wt-config.xml");
         HelloApp app(env);
         app.db().dropTables();
     }
@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     DBCleaner cleaner; // When this obj goes out of scope, it'll drop the tables in the db
     { // Scope brackets so that app1 is deleted before session2 is created
     // Create an app
-    Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
+    Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");
     HelloApp app1(env1);
     app1.initialize();
     app1.db().createTables();

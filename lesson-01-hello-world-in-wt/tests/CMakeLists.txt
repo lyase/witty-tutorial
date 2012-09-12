@@ -2,15 +2,6 @@ project(tests)
 
 ADD_DEFINITIONS( -fno-access-control ) # So tests can access private members of the classes they're testing
 
-option(DEBUG "Run witty in debug mode ?" OFF)
-set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect to your database driver of choice")
-set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
-if (${DEBUG})
-    set(DEBUG_VALUE true)
-else()
-    set(DEBUG_VALUE false)
-endif()
-CONFIGURE_FILE(wt-config.xml wt-config.xml)
 
 find_library(wttest wttest)
 

@@ -38,6 +38,15 @@ target_link_libraries(hellowt
 
 #------------------------------------------------------------------------------------------------------
 
+option(DEBUG "Run witty in debug mode ?" OFF)
+set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect to your database driver of choice")
+set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
+if (${DEBUG})
+    set(DEBUG_VALUE true)
+else()
+    set(DEBUG_VALUE false)
+endif()
+CONFIGURE_FILE(wt-config.xml wt-config.xml)
 
 
 #------------------------------------------------------------------------------------------------------

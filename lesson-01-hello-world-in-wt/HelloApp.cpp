@@ -37,10 +37,13 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
-    readConfigurationProperty("dbConnString", dbConnString);
+    const char* configSettingName = "DB"; // Set in tests/CMakeLists.txt
+    readConfigurationProperty(configSettingName, dbConnString);
     if (dbConnString.empty())
-        throw std::invalid_argument("Please set the dbConnString in wt_config.xml");
+        throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
     _db = new DBInfo(this, dbConnString);
+    // Pretend we know who the user is
+    user = new User();
     // Fire up the page generator
     mFactory = new FactoryHelloWorldWebsite(this);
     // Finally navigate to where we are

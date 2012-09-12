@@ -38,7 +38,7 @@
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-    LiveAppFixture(bool createTables=true) : env(".", "wt-config.xml"), app(env) {
+    LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env) {
         app.initialize();
         if (createTables)
             app.db().createTables();
