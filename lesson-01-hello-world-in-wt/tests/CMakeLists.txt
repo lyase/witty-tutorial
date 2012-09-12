@@ -2,6 +2,14 @@ project(tests)
 
 ADD_DEFINITIONS( -fno-access-control ) # So tests can access private members of the classes they're testing
 
+option(DEBUG "Run witty in debug mode ?" OFF)
+set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect to your database driver of choice")
+set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
+if (${DEBUG})
+    set(DEBUG_VALUE true)
+else()
+    set(DEBUG_VALUE false)
+endif()
 CONFIGURE_FILE(wt-config.xml wt-config.xml)
 
 find_library(wttest wttest)
@@ -30,7 +38,13 @@ TARGET_LINK_LIBRARIES(functional_test
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(test_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testAskLink)
-add_test(test_user_persistence ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testUserPersistance)
+
+add_executable(test_user_persistence ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp test_user_persistence.cpp)
+TARGET_LINK_LIBRARIES(test_user_persistence
+    ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+    ${hpdf} ${Boost_FILESYSTEM_LIBRARY}
+    ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
+add_test(test_user_persistence ./test_user_persistence -i -s --detect_fp_exceptions=y --log-level=all --run_test=testUserPersistenceSuite/testUserPersistence)
 
 add_executable(usertest ../User.cpp ../testUser_Class.cpp )
 TARGET_LINK_LIBRARIES(usertest 

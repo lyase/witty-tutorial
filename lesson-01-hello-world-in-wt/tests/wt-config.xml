@@ -16,9 +16,9 @@
     <max-request-size>128</max-request-size>
     <behind-reverse-proxy>false</behind-reverse-proxy>
     <inline-css>true</inline-css>
-    <enable-debug>${DEBUG}</enable-debug>
+    <enable-debug>${DEBUG_VALUE}</enable-debug>
     <!-- When debugging is enabled, JavaScript errors are not caught, and thus will provide stack information when using a JavaScript debugger. -->
-    <debug>${DEBUG}</debug> 
+    <debug>${DEBUG_VALUE}</debug> 
     <valgrind-path>/usr/bin/valgrind</valgrind-path>
     <run-directory>.</run-directory>
     <session-id-length>2</session-id-length>

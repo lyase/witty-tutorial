@@ -12,6 +12,8 @@
  */
 
 #include "HelloApp.hpp"
+#include <Wt/Dbo/Session>
+#include <Wt/Dbo/backend/Sqlite3>
 #include "AskWindow.hpp"
 #include "SayWindow.hpp"
 #include "MainWindow.hpp"
@@ -19,17 +21,32 @@
 #include "FactoryHelloWorldWebsite.hpp"
 #include "User.h"
 
-HelloApp::HelloApp(const Wt::WEnvironment& env, const std::string& dbConnString) :
-        Wt::WApplication(env), dbBackend(dbConnString) {
+struct HelloApp::DBInfo : public Wt::WObject {
+    Wt::Dbo::backend::Sqlite3 connection;
+    Wt::Dbo::Session session;
+    DBInfo(Wt::WObject* parent, const std::string& dbConnString) :
+           Wt::WObject(parent), connection(dbConnString), session() {
+        session.setConnection(connection);
+        session.mapClass<Post>("post");
+        session.mapClass<User>("user");
+    }
+};
+
+HelloApp::HelloApp(const Wt::WEnvironment& env) :
+        Wt::WApplication(env) {
     setTitle("Hello world");
-    user = new User();
+    // Set up the DB
+    std::string dbConnString = "";
+    readConfigurationProperty("dbConnString", dbConnString);
+    if (dbConnString.empty())
+        throw std::invalid_argument("Please set the dbConnString in wt_config.xml");
+    _db = new DBInfo(this, dbConnString);
+    // Fire up the page generator
     mFactory = new FactoryHelloWorldWebsite(this);
+    // Finally navigate to where we are
     internalPathChanged().connect(this, &HelloApp::handlePathChanged);
-    // Set up DB
-    _db.setConnection(dbBackend);
-    _db.mapClass<Post>("post");
-    _db.mapClass<User>("user");
     handlePathChanged(internalPath());
+
 }
 /**
 * \fn void void HelloApp::handlePathChanged(const std::string& newPath)
@@ -60,17 +77,17 @@ const Wt::WString HelloApp::userName() {
 }
 
 Wt::Dbo::Session& HelloApp::db() {
-    return _db;
+    return _db->session;
 }
 
 void HelloApp::saveUser(User* user) {
-    Wt::Dbo::Transaction t(_db);
-    _db.add(user);
+    Wt::Dbo::Transaction t(_db->session);
+   _db->session.add(user);
     t.commit();
 }
 
 Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name) {
-    Wt::Dbo::Transaction t(_db);
-    return _db.find<User>().where("name = ?").bind(name);
+    Wt::Dbo::Transaction t(_db->session);
+    return _db->session.find<User>().where("name = ?").bind(name);
 }
 

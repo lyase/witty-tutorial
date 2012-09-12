@@ -1,25 +1,33 @@
 #ifndef HELLOAPP_HPP
 #define HELLOAPP_HPP
 
+#include <memory>
 #include <Wt/WApplication>
 #include <Wt/WString>
-#include <Wt/Dbo/Session>
-#include <Wt/Dbo/backend/Sqlite3>
 #include "IWebPageFactory.h"
 #include "MainWindow.hpp"
 #include "User.h"
 
+namespace Wt {
+    namespace Dbo {
+        class Session;
+        namespace backend {
+            class Sqlite3;
+        }
+    }
+}
+
 class HelloApp : public Wt::WApplication {
 private:
+    class DBInfo;
+    DBInfo* _db;
     Wt::WString _userName;
     User *user;
     IWebPageFactory* mFactory ;
-    Wt::Dbo::backend::Sqlite3 dbBackend;
-    Wt::Dbo::Session _db;
     void handlePathChanged(const std::string& newPath);
     MainWindow* mainWindow;
 public:
-    HelloApp(const Wt::WEnvironment& env, const std::string& dbConnString);
+    HelloApp(const Wt::WEnvironment& env);
     void setUserName(const Wt::WString& newName); 
     const Wt::WString userName();
     Wt::Dbo::Session& db();

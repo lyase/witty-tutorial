@@ -38,7 +38,7 @@
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;
-    LiveAppFixture(bool createTables=true) : env(".", "wt-config.xml"), app(env, "blog.db") {
+    LiveAppFixture(bool createTables=true) : env(".", "wt-config.xml"), app(env) {
         app.initialize();
         if (createTables)
             app.db().createTables();
@@ -92,44 +92,5 @@ BOOST_AUTO_TEST_CASE( testAskLink ) {
     test_helpers::click(main->_askLink);
     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
 }
-BOOST_AUTO_TEST_CASE( testUserPersistence ) {
-    // Create an app
-    Wt::Test::WTestEnvironment env1(".", "wt-config.xml");
-    HelloApp app1(env1, "blog.db");
-    app1.initialize();
-    { // Scope brackets so that session1 is deleted before session2 is created
-    // Create the first Session
-    LiveAppFixture session1(true);
-    // Create a user
-    User *user1 = new User(); // session.add takes ownership of this and deletes it when the session dies
-    user1->setName("mister cool");
-    user1->setPassword("its a secret");
-    user1->setRole(Alien);
-    user1->setKarma(15);
-    BOOST_REQUIRE_EQUAL(user1->getName(), "mister cool");
-    BOOST_REQUIRE_EQUAL(user1->getPassword(), "its a secret");
-    BOOST_REQUIRE_EQUAL(user1->getRole(), Alien);
-    BOOST_REQUIRE_EQUAL(user1->getKarma(), 15);
-    // Save it
-    app1.saveUser(user1);
-    // Kill the app
-    app1.quit();
-    }
-    // Start a new app
-    Wt::Test::WTestEnvironment env2(".", "wt-config.xml");
-    HelloApp app2(env2, "blog.db");
-    app2.initialize();
-    // Create the second Session
-    LiveAppFixture session2(false);
-    // Search for the user object in the db
-    Wt::Dbo::ptr<User> user2 = app2.findUser("mister cool");
-    // Check the details are the same
-    BOOST_REQUIRE(user2);
-    BOOST_REQUIRE_EQUAL(user2->getName(), "mister cool");
-    BOOST_REQUIRE_EQUAL(user2->getPassword(), "its a secret");
-    BOOST_REQUIRE_EQUAL(user2->getRole(), Alien);
-    BOOST_REQUIRE_EQUAL(user2->getKarma(), 15);
-}
-
 
 BOOST_AUTO_TEST_SUITE_END();
