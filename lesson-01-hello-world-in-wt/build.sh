@@ -33,10 +33,14 @@ echo runningon build machine...
 #./hellowt --docroot . --http-address 0.0.0.0 --http-port 8080
 echo build user dbo tests
  make test_user_full
+ make test
 echo running  tests  for dbo functionality class user
- ./tests/test_user_full
+# ./tests/test_user_full
 echo running functional test for class user
-./tests/usertest --log_level=test_suite --report_level=short
+#./tests/usertest --log_level=test_suite --report_level=short
+echo  running test and generate html report for tests
+echo running functional test for class user
+#./tests/functional_test --log_level=test_suite --report_level=short
 echo  running test and generate html report for tests
 
 echo  check the  test results 

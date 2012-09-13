@@ -579,4 +579,5 @@
     -->
 </server>
             <dbConnString>"blog.db"</dbConnString>
+        <debug>"true"</debug>
 

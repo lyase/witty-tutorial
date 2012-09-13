@@ -27,7 +27,9 @@ TARGET_LINK_LIBRARIES(functional_test
     ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${hpdf} ${Boost_FILESYSTEM_LIBRARY}
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
-add_test(test_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
+file(COPY ../wt-config.xml DESTINATION .)
+
+add_test(functional_tests_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testAskLink)
 
 add_executable(test_user_persistence ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp test_user_persistence.cpp)
