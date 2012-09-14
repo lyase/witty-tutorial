@@ -61,7 +61,6 @@ BOOST_AUTO_TEST_CASE( testUserPersistence ) {
    Wt::Test::WTestEnvironment env2("..", "../wt-config.xml");
    HelloApp app2(env2);
    app2.initialize();
-//    app2.Dbinitialize(); not required done as app starts dbconnection mapping by default
     // Create the second Session
     // Search for the user object in the db
    int count2 =  app2.countUser("mister cool");
