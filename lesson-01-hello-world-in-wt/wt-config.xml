@@ -18,7 +18,6 @@
     <inline-css>true</inline-css>
     <enable-debug>${DEBUG_VALUE}</enable-debug>
     <!-- When debugging is enabled, JavaScript errors are not caught, and thus will provide stack information when using a JavaScript debugger. -->
-    <debug>${DEBUG_VALUE}</debug> 
     <valgrind-path>/usr/bin/valgrind</valgrind-path>
     <run-directory>.</run-directory>
     <session-id-length>2</session-id-length>
@@ -39,6 +38,7 @@
         <property name="resourcesUrl">/resources</property>
         <property name="tinyMCEBaseURL">/resources/tiny_mce/</property>
         <property name="DB">${DB_CONNECTION_STRING}</property>
+    <debug>${DEBUG_VALUE}</debug> 
     </properties>
   </application-settings>
 </server>
