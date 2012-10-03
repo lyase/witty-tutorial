@@ -32,7 +32,12 @@ struct HelloApp::DBInfo : public Wt::WObject {
         session.mapClass<User>("user");
     }
 };
-
+/*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env)
+* \brief a webapps  constructor
+* the constructor  will Set up the _db a DBInfo()connection to  sqliteand map required tables from config file
+* for dbo internal use
+* \param a a Action .
+*/
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
         Wt::WApplication(env) {
     setTitle("Hello world");
@@ -43,6 +48,7 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
     if (dbConnString.empty())
         throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
     _db = new DBInfo(this, dbConnString);
+
     // Pretend we know who the user is
     user = new User();
     // Fire up the page generator
@@ -91,29 +97,46 @@ void HelloApp::saveUser(User* user) {
 }
 
 Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name) {
-    Wt::Dbo::Transaction t(_db->session);
-    return _db->session.find<User>().where("name = ?").bind(name);
+Wt::Dbo::Transaction t(_db->session);
+return _db->session.find<User>().where("name = ?").bind(name);
+}
+int HelloApp::countUser(const std::string name) {
+Wt::Dbo::Transaction t(_db->session);
+int count=0;
+try{
+    count= _db->session.query<int>("select count(1) from user").where("name = ?").bind(name);
+}
+catch( exception& e)
+{
+    cout <<"got exception: "<< e.what () <<"\n in countUser count is set to 0 \n";
+    count= 0;
+}
+     return count ;
 }
 void HelloApp::first_Dbinitialize()
 {
-db().mapClass<User>("user");
-db().mapClass<Post>("post");
+    // mapping here not required it has been done while opening the db connection
+//db().mapClass<User>("user");
+//db().mapClass<Post>("post");
 try {
-    db().createTables();
-} catch (Wt::Dbo::Exception e) {
+    Wt::Dbo::Transaction t(_db->session);
+    _db->session.createTables();
+    t.commit();
+    }
+    catch (Wt::Dbo::Exception e) {
     cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
 }
-
 }
 
 void HelloApp::Dbinitialize()
 {
 db().mapClass<User>("user");
 db().mapClass<Post>("post");
-try {
- //   _db.createTables();
+//following should only be done on first dbinitialize only
+/*try {
+    db().createTables();
 } catch (Wt::Dbo::Exception e) {
     cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
 }
-
+*/
 }

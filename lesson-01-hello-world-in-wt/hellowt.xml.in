@@ -578,6 +578,7 @@
     </application-settings>
     -->
 </server>
+        <property name="DB">${DB_CONNECTION_STRING}</property>
             <dbConnString>"blog.db"</dbConnString>
         <debug>"true"</debug>
 
