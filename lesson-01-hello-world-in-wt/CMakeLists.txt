@@ -22,6 +22,7 @@ SET(hellowt_src  )
 SET(hellowt_src ${hellowt_src} main.cpp)
 SET(hellowt_src ${hellowt_src} MainWindow.cpp  HelloApp.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp FactoryHelloWorldWebsite.hpp )
 SET(hellowt_src ${hellowt_src} User.cpp)
+SET(hellowt_src ${hellowt_src} UserManagement.cpp)
 # or add all cpp files  to source file list
 #FILE(GLOB ALL_CPP_SRCS *.cpp)
 #SET(hellowt_src ${hellowt_src} ${ALL_CPP_SRCS})

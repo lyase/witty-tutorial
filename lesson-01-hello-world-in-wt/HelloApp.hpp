@@ -8,7 +8,6 @@
 #include "IWebPageFactory.h"
 #include "MainWindow.hpp"
 #include "UserManagement.hpp"
-#include "User.h"
 
 namespace Wt {
     namespace Dbo {
