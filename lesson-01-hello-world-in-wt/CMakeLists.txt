@@ -28,10 +28,10 @@ SET(hellowt_src ${hellowt_src} User.cpp)
 add_executable(hellowt ${hellowt_src} )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
-    #${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-    #${Boost_PROGRAM_OPTIONS_LIBRARY}
-    #${Boost_FILESYSTEM_LIBRARY}
-    #${hpdf}
+    ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${hpdf}
     ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
 )
 #------------------------------------------------------------------------------------------------------
