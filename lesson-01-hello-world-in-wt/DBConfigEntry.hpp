@@ -21,7 +21,7 @@ namespace DBConfig {
     /*! A DBConfigEntry   class
     * \details This class is a (key,variant) like object with dbo capabilities.
     * in our application it will be used to store the  config parameters.
-    *usage see developper tests in /** \file  tests/testdbo.cpp bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle"); will fetch the value of DosPuzzle key in our database.
+    * usage see developper tests in \file  tests/testdbo.cpp bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle"); will fetch the value of DosPuzzle key in our database.
     * see in this file void install(Wt::Dbo::Session& session) L154 how to create& store keys 
             * \author Mattew
             * \version 0.1a
@@ -56,19 +56,19 @@ struct DBConfigEntry {
     DBConfigEntry() {}
 
     DBConfigEntry(const std::string& key, const std::string& value, const std::string& description="") :
-        key(key), asString(value), valueType(vtString), description(description) {}
+        key(key), description(description), asString(value), valueType(vtString) {}
 
     DBConfigEntry(const std::string& key, const char* value, const std::string& description="") :
-        key(key), asString(value), valueType(vtString), description(description) {}
+        key(key), description(description), asString(value), valueType(vtString) {}
 
     DBConfigEntry(const std::string& key, double value, const std::string& description="") :
-        key(key), asDouble(value), valueType(vtDouble), description(description) {}
+        key(key), description(description), asDouble(value), valueType(vtDouble) {}
 
     DBConfigEntry(const std::string& key, int value, const std::string& description=""):
-        key(key), asInt(value), valueType(vtInt), description(description) {}
+        key(key), description(description), asInt(value), valueType(vtInt) {}
 
     DBConfigEntry(const std::string& key, bool value, const std::string& description=""):
-        key(key), asInt(value ? 1 : 0), valueType(vtInt), description(description) {}
+        key(key), description(description), asInt(value ? 1 : 0), valueType(vtInt) {}
 
     // Cast operations
 

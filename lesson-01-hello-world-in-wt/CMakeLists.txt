@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 2.8) # http://www.cmake.org/cmake/help/cmake-2-8-
 # Sets the name of the project. Additionally this sets the variables <projectName>_BINARY_DIR and <projectName>_SOURCE_DIR to the respective values.
 project ("hello world in wt++")      # http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:project
 
-add_definitions(-std=c++11)
+add_definitions(-std=c++11 -Wall -Wextra)
 # Other Libraries
 find_package(Boost COMPONENTS system thread signals unit_test_framework filesystem program_options)
 find_library(hpdf hpdf)
@@ -28,11 +28,11 @@ SET(hellowt_src ${hellowt_src} User.cpp)
 add_executable(hellowt ${hellowt_src} )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
-    ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${hpdf}
-    ${wt} ${wthttp} ${wtdbo} ${wtdbosqlite3}
+    #${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+    #${Boost_PROGRAM_OPTIONS_LIBRARY}
+    #${Boost_FILESYSTEM_LIBRARY}
+    #${hpdf}
+    ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
 )
 #------------------------------------------------------------------------------------------------------
 

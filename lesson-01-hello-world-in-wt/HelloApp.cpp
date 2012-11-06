@@ -39,7 +39,8 @@ struct HelloApp::DBInfo : public Wt::WObject {
 * \param a a Action .
 */
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
-        Wt::WApplication(env) {
+        Wt::WApplication(env), user(new User),
+        mFactory(new FactoryHelloWorldWebsite(this)) {
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
@@ -49,15 +50,11 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
         throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
     _db = new DBInfo(this, dbConnString);
 
-    // Pretend we know who the user is
-    user = new User();
-    // Fire up the page generator
-    mFactory = new FactoryHelloWorldWebsite(this);
     // Finally navigate to where we are
     internalPathChanged().connect(this, &HelloApp::handlePathChanged);
     handlePathChanged(internalPath());
-
 }
+
 /**
 * \fn void void HelloApp::handlePathChanged(const std::string& newPath)
 * \brief this function will be called each time the user changes webpage
@@ -80,7 +77,7 @@ void HelloApp::handlePathChanged(const std::string& newPath) {
         */
 }
 void HelloApp::setUserName(const Wt::WString& newName) {
-    user->setName( newName.toUTF8());
+    user.modify()->setName( newName.toUTF8());
 }
 const Wt::WString HelloApp::userName() {
     return user->getName();
@@ -124,8 +121,8 @@ try {
     t.commit();
     }
     catch (Wt::Dbo::Exception e) {
-    cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
-}
+        cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
+    }
 }
 
 void HelloApp::Dbinitialize()

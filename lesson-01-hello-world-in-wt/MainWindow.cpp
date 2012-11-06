@@ -19,14 +19,15 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     addWidget(new Wt::WBreak());
     _nameOutput = new Wt::WText(this);
     addWidget(new Wt::WBreak());
-    _btnHi->clicked().connect(this, &MainWindow::sayHi);
-// because of the following  you need to delete user memory del user in destructor to prevent memory leak
-    user = new User();
+    Wt::EventSignal<Wt::WMouseEvent>& onClick = _btnHi->clicked();
+    onClick.connect(this, &MainWindow::sayHi);
+    // Because of the following  you need to delete user memory del user in destructor to prevent memory leak
     addWidget(new Wt::WBreak());
     _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
     addWidget(new Wt::WBreak());
     _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
 }
+
 void MainWindow::sayHi() {
     user->setName(_nameInput->valueText().toUTF8());
     if( (user->getName()=="") or(user->getName()=="Joe")) {

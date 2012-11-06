@@ -63,8 +63,7 @@ struct CMyFooTestFixture {
 
     }
     // TODO: Possibly put some function common to  tests.
-    void TestSaveLoad(User& user, bool asBinary) {
-    }
+    // void TestSaveLoad(User& user, bool asBinary) { }
 
 };
 /*! \fn int main ()
