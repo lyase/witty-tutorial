@@ -22,6 +22,5 @@ AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
 void AskWindow::sayHi() {
     Wt::WString name = _nameInput->valueText();
     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
-    app->setUserName(name);
     app->setInternalPath("/say", true);
 }

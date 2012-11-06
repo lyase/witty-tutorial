@@ -29,10 +29,5 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
 }
 
 void MainWindow::sayHi() {
-    user->setName(_nameInput->valueText().toUTF8());
-    if( (user->getName()=="") or(user->getName()=="Joe")) {
-        user->setName(" visiteur inconnu");
-    } else {
-        _nameOutput->setText("Hi there " + user->getName());
-    }
+    _nameOutput->setText("Hi there");
 }

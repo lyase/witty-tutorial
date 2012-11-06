@@ -18,7 +18,6 @@ private:
     Wt::WLineEdit* _nameInput;
     Wt::WText* _nameOutput;
     Wt::WPushButton* _btnHi;
-          User *user;
     Wt::WString _lastNameEntered;
     Wt::WAnchor* _askLink;
     Wt::WAnchor* _adminLink;
