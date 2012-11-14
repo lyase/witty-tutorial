@@ -29,7 +29,7 @@
    @return Description of returned value.
  */
 
-
+#include<fstream>
 #include <Wt/Dbo/Dbo>
 #include "User.h"
 #include <string>
@@ -75,10 +75,11 @@ void User::render2pdf() {
     // use a specialized  Wt::WResource Class to serve file see example in http://www.webtoolkit.eu/wt/doc/reference/html/classWt_1_1WResource.html
 
 //    Wt::WPdfImage a(100,100,"my test") ;
- Wt::WPdfImage pdfImage2(Wt::WLength(4, Wt::WLength::Centimeter),
- Wt::WLength(3, Wt::WLength::Centimeter));
-  {
-   Wt::WPainter p(&pdfImage2);
+ Wt::WPdfImage pdfImage2(Wt::WLength(4, Wt::WLength::Centimeter),  Wt::WLength(3, Wt::WLength::Centimeter));
+  { //draw on you pdf ressource
+  //this is a fake render example just drawing a line
+   pdfImage2.drawLine(0,0,100,100);
+//   Wt::WPainter p(&pdfImage2);
  //   chart->paint(p);
   }
   std::ofstream f("chart.pdf", std::ios::out | std::ios::binary);
