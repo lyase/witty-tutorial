@@ -17,7 +17,9 @@ find_library(wthttp wthttp)
 find_library(wtdbo wtdbo)
 find_library(wtdbosqlite3 wtdbosqlite3)
 # Main Library
-add_library(helloWorld HelloServer.cpp HelloApp.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp)
+add_library(helloWorld HelloServer.cpp HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp)
+# Models Library
+add_subdirectory(models)
 
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
@@ -26,12 +28,13 @@ add_library(helloWorld HelloServer.cpp HelloApp.cpp AskWindow.cpp SayWindow.cpp 
 add_executable(hellowt main.cpp )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
+    helloWorld
+    models
+    ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
+    ${hpdf}
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${Boost_FILESYSTEM_LIBRARY}
-    ${hpdf}
-    ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
-    helloWorld
 )
 #------------------------------------------------------------------------------------------------------
 

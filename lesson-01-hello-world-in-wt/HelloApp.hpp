@@ -44,6 +44,7 @@ public:
     Wt::Auth::AbstractUserDatabase& users();
     Wt::Auth::Login& login() { return _login; }
     const Wt::Auth::AuthService& auth;
+    const Wt::Auth::FacebookService& facebook;
 };
 
 #endif // HELLOAPP_HPP

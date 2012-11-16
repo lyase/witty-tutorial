@@ -53,7 +53,8 @@ struct HelloApp::DBInfo : public Wt::WObject {
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
         Wt::WApplication(env), _user(),
         mFactory(new FactoryHelloWorldWebsite(this)),
-        auth(HelloServer::instance()->auth()) {
+        auth(HelloServer::instance()->auth()),
+        facebook(*HelloServer::instance()->facebook()) {
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
@@ -62,14 +63,15 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
     if (dbConnString.empty())
         throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
     _db = new DBInfo(this, dbConnString);
+
     // Get the user to log in
-    _authWidget = new Wt::Auth::AuthWidget(auth);
-    _authWidget->model()->addOAuth(auth);
+    _authWidget = new Wt::Auth::AuthWidget(auth, *_users, _login, root());
+    _authWidget->model()->addOAuth(&facebook);
     _authWidget->setRegistrationEnabled(true);
 
     // Finally navigate to where we are
-    internalPathChanged().connect(this, &HelloApp::handlePathChanged);
-    handlePathChanged(internalPath());
+    //internalPathChanged().connect(this, &HelloApp::handlePathChanged);
+    //handlePathChanged(internalPath());
 }
 
 /**
