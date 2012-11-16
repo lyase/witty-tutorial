@@ -12,6 +12,7 @@
  */
 
 #include "HelloApp.hpp"
+#include "HelloServer.hpp"
 #include <Wt/Dbo/Session>
 #include <Wt/Dbo/backend/Sqlite3>
 #include "AskWindow.hpp"
@@ -20,7 +21,10 @@
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
 #include <Wt/Dbo/Exception>
-#include "User.h"
+#include <Wt/Auth/Dbo/AuthInfo>
+#include <Wt/Auth/Dbo/UserDatabase>
+#include "models/User.hpp"
+#include "models/Post.hpp"
 
 struct HelloApp::DBInfo : public Wt::WObject {
     Wt::Dbo::backend::Sqlite3 connection;
@@ -28,8 +32,16 @@ struct HelloApp::DBInfo : public Wt::WObject {
     DBInfo(Wt::WObject* parent, const std::string& dbConnString) :
            Wt::WObject(parent), connection(dbConnString), session() {
         session.setConnection(connection);
+        session.mapClass<AuthInfo>("auth_info");
+        session.mapClass<AuthInfo::AuthIdentityType>("auth_identity");
+        session.mapClass<AuthInfo::AuthTokenType>("auth_token");
         session.mapClass<Post>("post");
-        session.mapClass<User>("user");
+        try {
+            session.createTables();
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            std::cerr << "Using existing database" << std::endl;
+        }
     }
 };
 /*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env)
@@ -40,7 +52,8 @@ struct HelloApp::DBInfo : public Wt::WObject {
 */
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
         Wt::WApplication(env), _user(),
-        mFactory(new FactoryHelloWorldWebsite(this)) {
+        mFactory(new FactoryHelloWorldWebsite(this)),
+        auth(HelloServer::instance()->auth()) {
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
@@ -49,6 +62,10 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
     if (dbConnString.empty())
         throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
     _db = new DBInfo(this, dbConnString);
+    // Get the user to log in
+    _authWidget = new Wt::Auth::AuthWidget(auth);
+    _authWidget->model()->addOAuth(auth);
+    _authWidget->setRegistrationEnabled(true);
 
     // Finally navigate to where we are
     internalPathChanged().connect(this, &HelloApp::handlePathChanged);

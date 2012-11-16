@@ -24,70 +24,27 @@
 #include <Wt/WDate>
 #include <Wt/WString>
 #include <Wt/Dbo/collection>
-#include <Wt/Dbo/Dbo>
 #include <Wt/Dbo/WtSqlTraits>
 #include <string>
 #include <ctype.h>
 #include <Wt/Dbo/Impl>
 #include <Wt/WDate>
 #include <Wt/WString>
-
+#include <Wt/Auth/User>
 #include <Wt/Dbo/WtSqlTraits>
+
+#include "Post.hpp"
+
 namespace dbo = Wt::Dbo;
 using namespace std ;
 /** An enum type. defining the status of the User
 *
 */
+
 enum Role {
     Visitor ,/**< enum the User is no identified just a visitor value 0 */
     Admin , /**< the user is log in and is Admin value 1 */
     Alien  /**< the user is nothing  value 2 */
-};
-class User;
-/*! A Post   class
-* \details This class is  a document contents created by a user of app
-* this class has dbo support example of Many-to-One relations with user.
-* \author Lyase damasked from wt/dbo/tutorial.html
-* \version 4.1a
-* \date 1990-2012
-* \pre First initialize the system.
-* \bug .
-*
-*/
-/*! \brief  this class defines a User object  of the application
-     */
-class Post  {
-public:
-    enum State {
-        Unpublished = 0,
-        Published = 1
-    };
-
-    dbo::ptr<User> author;
-    State          state;
-
-    Wt::WDateTime  date;
-    Wt::WString    title;
-    Wt::WString    briefSrc;
-    Wt::WString    briefHtml;
-    Wt::WString    bodySrc;
-    Wt::WString    bodyHtml;
-    std::string permaLink() const {return date.toString("yyyy/MM/dd/'" +  '\'').toUTF8();
-    };
-    template<class Action>
-    void persist(Action& a) {
-        dbo::field(a, state,     "state");
-        dbo::field(a, date,      "date");
-        dbo::field(a, title,     "title");
-        dbo::field(a, briefSrc,  "brief_src");
-        dbo::field(a, briefHtml, "brief_html");
-        dbo::field(a, bodySrc,   "body_src");
-        dbo::field(a, bodyHtml,  "body_html");
-        dbo::belongsTo(a, author, "author", Wt::Dbo::OnDeleteCascade | Wt::Dbo::OnUpdateCascade);
-    }
-    Post(){}
-    ~Post(){}
-
 };
 
 /*! A User   class
@@ -103,10 +60,13 @@ public:
 /*! \brief  this class defines a User object  of the application
 *this class now has  Posts as children
 */
-typedef		dbo::collection< dbo::ptr<Post> > Posts;
+class User;
+
+typedef Wt::Auth::Dbo::AuthInfo<User> AuthInfo;
+
 typedef		dbo::collection< dbo::ptr<User> > Users;
 
-class User {
+class User : public Wt::Auth::User {
 private:
     string m_name; /*!< a string with name of User */
     string m_password;/*!< variable is password in  clear  */

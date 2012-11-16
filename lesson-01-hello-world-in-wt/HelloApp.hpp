@@ -5,9 +5,15 @@
 #include <Wt/WApplication>
 #include <Wt/WString>
 #include <Wt/Dbo/Session>
+#include <Wt/Auth/Login>
+#include <Wt/Auth/Dbo/UserDatabase>
+#include <Wt/Auth/AuthService>
+#include <Wt/Auth/AuthWidget>
 #include "IWebPageFactory.h"
 #include "MainWindow.hpp"
-#include "UserManagement.hpp"
+#include "models/User.hpp"
+
+typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
 namespace Wt {
     namespace Dbo {
@@ -27,10 +33,17 @@ private:
     IWebPageFactory* mFactory ;
     void handlePathChanged(const std::string& newPath);
     MainWindow* mainWindow;
+
+    UserDatabase *_users;
+    Wt::Auth::AuthWidget* _authWidget;
+    Wt::Auth::Login _login;
 public:
     HelloApp(const Wt::WEnvironment& env);
     Wt::Dbo::Session& db();
-    UserManagement users;
+
+    Wt::Auth::AbstractUserDatabase& users();
+    Wt::Auth::Login& login() { return _login; }
+    const Wt::Auth::AuthService& auth;
 };
 
 #endif // HELLOAPP_HPP

@@ -16,17 +16,14 @@ find_library(wt wt)
 find_library(wthttp wthttp)
 find_library(wtdbo wtdbo)
 find_library(wtdbosqlite3 wtdbosqlite3)
+# Main Library
+add_library(helloWorld HelloServer.cpp HelloApp.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp)
+
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
-SET(hellowt_src  )
-SET(hellowt_src ${hellowt_src} main.cpp)
-SET(hellowt_src ${hellowt_src} MainWindow.cpp  HelloApp.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp FactoryHelloWorldWebsite.hpp )
-SET(hellowt_src ${hellowt_src} User.cpp)
-SET(hellowt_src ${hellowt_src} UserManagement.cpp)
 # or add all cpp files  to source file list
 #FILE(GLOB ALL_CPP_SRCS *.cpp)
-#SET(hellowt_src ${hellowt_src} ${ALL_CPP_SRCS})
-add_executable(hellowt ${hellowt_src} )
+add_executable(hellowt main.cpp )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
@@ -34,6 +31,7 @@ target_link_libraries(hellowt
     ${Boost_FILESYSTEM_LIBRARY}
     ${hpdf}
     ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
+    helloWorld
 )
 #------------------------------------------------------------------------------------------------------
 

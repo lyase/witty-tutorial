@@ -22,20 +22,15 @@ BOOST_AUTO_TEST_SUITE( testUserPersistenceSuite )
 
 BOOST_AUTO_TEST_CASE( testUserPersistence ) {
     DBCleaner cleaner; // When this obj goes out of scope, it'll drop the tables in the db
-    { // Scope brackets so that app1 is deleted before session2 is created
+    {
+    // Scope brackets so that app1 is deleted before session2 is created
     // Create an app
     Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");
     HelloApp app1(env1);
     // first_Dbinitialize this is required if database did not exist when starting app.
-   app1.first_Dbinitialize();
-    app1.initialize();
 
     cout<< " checking i can query database before any operation it sould be  empty \n";
      int count =  app1.countUser("mister cool");
-    cout << " user count is: "<< count <<"\n" ;
-     BOOST_REQUIRE_EQUAL(count, 0);
-     cout <<"test finish\n";
-     //Wt::Dbo::ptr<User> Mistercool = app1.findUser("mister cool");
 
 
     // Create the first Session

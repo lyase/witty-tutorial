@@ -16,7 +16,8 @@
  */
 #include <Wt/Dbo/Dbo>
 #include "listing.h"
-#include "User.h"
+#include "models/User.hpp"
+#include "models/Post.hpp"
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>

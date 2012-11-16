@@ -31,7 +31,7 @@
 
 #include<fstream>
 #include <Wt/Dbo/Dbo>
-#include "User.h"
+#include "User.hpp"
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
@@ -42,7 +42,7 @@
 
 namespace dbo = Wt::Dbo;
 using namespace std ;
-User::User() {
+User::User() : Wt::Auth::User() {
     cout<<"creating new user\n";
     m_name="Joe";
     m_password="aUserpassword";

@@ -15,42 +15,28 @@
  *
  * =====================================================================================
  */
+#include <signal.h>
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <ctime>
 #include <stdexcept>
 #include <Wt/WEnvironment>
+#include <Wt/WConfig.h>
+#include "HelloServer.hpp"
 #include "HelloApp.hpp"
 
-Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-    return new HelloApp(env);
-}
-
 int main(int argc, char** argv) {
-    using std::ofstream;
-    using std::endl;
-    cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";
-    ofstream out("ComandLineParameters.txt", fstream::app);
-    out<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
-    out<<"I am a app starting parent with pid: "<< getpid()<<endl;
-    time_t t = time(0);   // get time now
-    struct tm * now = localtime( & t );
-    out <<"now year is:"<< (now->tm_year + 1900) << endl\
-        <<"month is:" << (now->tm_mon + 1) << endl\
-        <<"day is:"<<  now->tm_mday<< endl\
-        << "The local date and time is: " << asctime(now) << endl;
-    tm* gmtm = gmtime(& t);
-    if (gmtm != NULL) {
-        out << "The UTC date and time is: " << asctime(gmtm) << endl;
-    } else {
-        out << "Failed to get the UTC date and time" << endl;
+    HelloServer server(argv[0]);
+    server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
+    server.addEntryPoint(Wt::Application,
+                         [](const Wt::WEnvironment& env){ return new HelloApp(env); });
+    if (server.start()) {
+        int sig = Wt::WServer::waitForShutdown(argv[0]);
+        std::cerr << "Shutdown (signal = " << sig << ")" << std::endl;
+        server.stop();
+        if (sig == SIGHUP)
+            Wt::WServer::restart(argc, argv, environ);
     }
-    out <<"here are the comand line parameters passed to app when started:" << endl;
-    for (int i=0; i<argc; ++i) {
-        out <<"parameter["<<i<<"]:="<< argv[i] << " "<<endl;
-    }
-    out.close();
-
-    return Wt::WRun(argc, argv, &createApplication);
+    return 0;
 }
