@@ -81,5 +81,13 @@ BOOST_AUTO_TEST_CASE(SettingUserName) {
     user->setName("  foooooo ");
     BOOST_CHECK_EQUAL(user->getName(), "  foooooo ");
 }
-
+/*!
+* will test a user can render itself to a pdf creating the file chart.pdf
+*
+*/
+BOOST_AUTO_TEST_CASE(UserRendertopdf) {
+user->setName("  foooooo ");
+user->render2pdf();
+BOOST_CHECK_EQUAL(!boost::filesystem::exists( "chart.pdf" ), true);
+}
 BOOST_AUTO_TEST_SUITE_END();
