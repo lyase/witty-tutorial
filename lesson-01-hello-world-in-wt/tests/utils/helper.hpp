@@ -22,11 +22,11 @@ template <>
 void click<Wt::WAnchor>(Wt::WAnchor* widget) {
     const Wt::WLink& link = widget->link();
     switch (link.type()) {
-        case Wt::WLink::Url:  // A static URL.
-        case Wt::WLink::Resource:   // A dynamic resource.
-        case Wt::WLink::InternalPath: // An internal path.
-            Wt::WApplication* app = Wt::WApplication::instance();
-            app->setInternalPath(link.internalPath().toUTF8(), true);
+    case Wt::WLink::Url:  // A static URL.
+    case Wt::WLink::Resource:   // A dynamic resource.
+    case Wt::WLink::InternalPath: // An internal path.
+        Wt::WApplication* app = Wt::WApplication::instance();
+        app->setInternalPath(link.internalPath().toUTF8(), true);
     }
 }
 

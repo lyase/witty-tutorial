@@ -74,17 +74,18 @@ void User::render2pdf() {
     cout<<"shouldbeImplemented this function should output all user's data to a pdf file or as a mime object  \n";
     // use a specialized  Wt::WResource Class to serve file see example in http://www.webtoolkit.eu/wt/doc/reference/html/classWt_1_1WResource.html
 
-//    Wt::WPdfImage a(100,100,"my test") ;
- Wt::WPdfImage pdfImage2(Wt::WLength(4, Wt::WLength::Centimeter),  Wt::WLength(3, Wt::WLength::Centimeter));
-  { //draw on you pdf ressource
-  //this is a fake render example just drawing a line
-//   Wt::WPainter p(&pdfImage2);
-     pdfImage2.drawLine(1,1,2,2);
-  // best would be to pdfImage2.drawText( somewhere on the pdf draw "the user 's Name"
- //   chart->paint(p);
-  }
-  std::ofstream file("chart.pdf", std::ios::out | std::ios::binary);
-  pdfImage2.write(file);
+    //    Wt::WPdfImage a(100,100,"my test") ;
+    Wt::WPdfImage pdfImage2(Wt::WLength(4, Wt::WLength::Centimeter),  Wt::WLength(3, Wt::WLength::Centimeter));
+    {
+        //draw on you pdf ressource
+        //this is a fake render example just drawing a line
+        //   Wt::WPainter p(&pdfImage2);
+        pdfImage2.drawLine(1,1,2,2);
+        // best would be to pdfImage2.drawText( somewhere on the pdf draw "the user 's Name"
+        //   chart->paint(p);
+    }
+    std::ofstream file("chart.pdf", std::ios::out | std::ios::binary);
+    pdfImage2.write(file);
 
     return ;
 }

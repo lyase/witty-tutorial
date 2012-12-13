@@ -36,7 +36,7 @@ using namespace std ;
 */
 
 struct CMyFooTestFixture {
-// TODO: Declare some common values accesses in tests here.
+    // TODO: Declare some common values accesses in tests here.
     User *user;/**< the a object user to be used in each test  */
     /*! \fn CMyFooTestFixture()
     * \brief constructor
@@ -44,7 +44,7 @@ struct CMyFooTestFixture {
     * initialise here all you need for  the tests
     */
     CMyFooTestFixture() {
-// TODO: Common set-up each test case here.
+        // TODO: Common set-up each test case here.
 
         user = new User();
     }
@@ -54,10 +54,10 @@ struct CMyFooTestFixture {
     * clean all here
     */
     ~CMyFooTestFixture() {
-// TODO: Common tear-down after  each test case here.
+        // TODO: Common tear-down after  each test case here.
         delete user;
         user=0;
-// Delete the sqlite db
+        // Delete the sqlite db
         boost::filesystem::remove("./blog.db");
 
     }

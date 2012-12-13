@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(readdefaultUserKarma) {
     *
     */
     BOOST_REQUIRE(user->getKarma());   // Stop here if it fails.
-//	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
+    //	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
 }
 /*!
 * will test a user can get a new name
@@ -86,8 +86,8 @@ BOOST_AUTO_TEST_CASE(SettingUserName) {
 *
 */
 BOOST_AUTO_TEST_CASE(UserRendertopdf) {
-user->setName("  foooooo ");
-user->render2pdf();
-BOOST_CHECK_EQUAL(!boost::filesystem::exists( "chart.pdf" ), true);
+    user->setName("  foooooo ");
+    user->render2pdf();
+    BOOST_CHECK_EQUAL(!boost::filesystem::exists( "chart.pdf" ), true);
 }
 BOOST_AUTO_TEST_SUITE_END();

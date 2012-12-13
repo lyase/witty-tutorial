@@ -16,12 +16,12 @@
 typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
 namespace Wt {
-    namespace Dbo {
-        class Session;
-        namespace backend {
-            class Sqlite3;
-        }
-    }
+namespace Dbo {
+class Session;
+namespace backend {
+class Sqlite3;
+}
+}
 }
 
 class HelloApp : public Wt::WApplication {
@@ -42,7 +42,9 @@ public:
     Wt::Dbo::Session& db();
 
     Wt::Auth::AbstractUserDatabase& users();
-    Wt::Auth::Login& login() { return _login; }
+    Wt::Auth::Login& login() {
+        return _login;
+    }
     const Wt::Auth::AuthService& auth;
     const Wt::Auth::FacebookService& facebook;
 };

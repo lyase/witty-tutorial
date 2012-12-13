@@ -30,7 +30,7 @@ struct HelloApp::DBInfo : public Wt::WObject {
     Wt::Dbo::backend::Sqlite3 connection;
     Wt::Dbo::Session session;
     DBInfo(Wt::WObject* parent, const std::string& dbConnString) :
-           Wt::WObject(parent), connection(dbConnString), session() {
+        Wt::WObject(parent), connection(dbConnString), session() {
         session.setConnection(connection);
         session.mapClass<AuthInfo>("auth_info");
         session.mapClass<AuthInfo::AuthIdentityType>("auth_identity");
@@ -51,10 +51,10 @@ struct HelloApp::DBInfo : public Wt::WObject {
 * \param a a Action .
 */
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
-        Wt::WApplication(env), _user(),
-        mFactory(new FactoryHelloWorldWebsite(this)),
-        auth(HelloServer::instance()->auth()),
-        facebook(*HelloServer::instance()->facebook()) {
+    Wt::WApplication(env), _user(),
+    mFactory(new FactoryHelloWorldWebsite(this)),
+    auth(HelloServer::instance()->auth()),
+    facebook(*HelloServer::instance()->facebook()) {
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
