@@ -36,7 +36,9 @@
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>
 #include <Wt/Render/WPdfRenderer>
+#include <Wt/WPainter>
 #include <Wt/WResource>
+#include <Wt/WFont>
 #include <hpdf.h>
 // compile with g++ listing.cpp -o test -l wtdbosqlite3
 
@@ -75,14 +77,13 @@ void User::render2pdf() {
     // use a specialized  Wt::WResource Class to serve file see example in http://www.webtoolkit.eu/wt/doc/reference/html/classWt_1_1WResource.html
 
     //    Wt::WPdfImage a(100,100,"my test") ;
-    Wt::WPdfImage pdfImage2(Wt::WLength(4, Wt::WLength::Centimeter),  Wt::WLength(3, Wt::WLength::Centimeter));
+    Wt::WPdfImage pdfImage2("210mm",  "297mm");
     {
-        //draw on you pdf ressource
-        //this is a fake render example just drawing a line
-        //   Wt::WPainter p(&pdfImage2);
-        pdfImage2.drawLine(1,1,2,2);
-        // best would be to pdfImage2.drawText( somewhere on the pdf draw "the user 's Name"
-        //   chart->paint(p);
+        Wt::WPainter p(&pdfImage2);
+        p.setFont(Wt::WFont());
+        p.setPen(Wt::SolidLine);
+        p.drawLine(1,1,2,2);
+        p.drawText(0,0,20,20,{Wt::AlignCenter}, "Hello");
     }
     std::ofstream file("chart.pdf", std::ios::out | std::ios::binary);
     pdfImage2.write(file);
