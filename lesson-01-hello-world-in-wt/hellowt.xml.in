@@ -34,6 +34,18 @@
       -->
     <application-settings location="*">
 
+        <!-- Javascript debug options
+
+             Values:
+             - true: JavaScript errors are not caught but the browser
+                     built-in debug options are used
+             - stack: JavaScript errors are caught but also a stack trace
+                      is printed, useful for diagnosing a problem in production
+             - false: JavaScript errors are caught and a simple error message
+                      is printed to indicate that something is terribly wrong
+          -->
+        <enable-debug>${DEBUG_VALUE}</enable-debug>
+        <debug>${DEBUG_VALUE}</debug>
         <!-- Session management. -->
         <session-management>
             <!-- Every session runs within a dedicated process.
@@ -217,17 +229,6 @@
             <max-memory-request-size>128</max-memory-request-size>
         </connector-isapi>
 
-        <!-- Javascript debug options
-
-             Values:
-             - true: JavaScript errors are not caught but the browser
-                     built-in debug options are used
-             - stack: JavaScript errors are caught but also a stack trace
-                      is printed, useful for diagnosing a problem in production
-             - false: JavaScript errors are caught and a simple error message
-                      is printed to indicate that something is terribly wrong
-          -->
-        <debug>@DEBUG@</debug>
 
         <!-- Log file
 

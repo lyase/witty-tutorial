@@ -16,6 +16,18 @@ find_library(wt wt)
 find_library(wthttp wthttp)
 find_library(wtdbo wtdbo)
 find_library(wtdbosqlite3 wtdbosqlite3)
+
+# Debug mode
+option(DEBUG "Run witty in debug mode ?" OFF)
+set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect to your database driver of choice")
+set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
+if (${DEBUG})
+    set(DEBUG_VALUE true)
+else()
+    set(DEBUG_VALUE false)
+endif()
+CONFIGURE_FILE(wt-config.xml wt-config.xml)
+
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
 SET(hellowt_src  )
@@ -35,19 +47,6 @@ target_link_libraries(hellowt
     ${wt} ${wthttp} ${wtdbo} ${wtdbosqlite3}
 )
 #------------------------------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------------------------------
-
-option(DEBUG "Run witty in debug mode ?" OFF)
-set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect to your database driver of choice")
-set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
-if (${DEBUG})
-    set(DEBUG_VALUE true)
-else()
-    set(DEBUG_VALUE false)
-endif()
-CONFIGURE_FILE(wt-config.xml wt-config.xml)
-
 
 #------------------------------------------------------------------------------------------------------
 # Tests
