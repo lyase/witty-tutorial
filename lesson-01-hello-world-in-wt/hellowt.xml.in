@@ -194,7 +194,7 @@
            sessions. This ratio is only enforced when more than 20 sessions
            have been created.
           -->
-        <plain-ajax-sessions-ratio-limit>1</plain-ajax-sessions-ratio-limit>
+        <plain-ajax-sessions-ratio-limit>100</plain-ajax-sessions-ratio-limit>
 
         <!-- DoS prevention: adds a puzzle to validate Ajax sessions
 
@@ -205,7 +205,7 @@
            request which eliminates agents that do not build a proper
            DOM tree.
           -->
-        <ajax-puzzle>true</ajax-puzzle>
+        <ajax-puzzle>false</ajax-puzzle>
 
         <!-- Send the XHTML mime type when appropriate
 

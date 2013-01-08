@@ -13,6 +13,7 @@
     <strict-event-serialization>false</strict-event-serialization>
     <redirect-message>Load basic HTML</redirect-message>
     <log-file>${LOG_FILE_NAME}</log-file>
+    <log-config>${LOG_LINE}</log-config>
     <max-request-size>128</max-request-size>
     <behind-reverse-proxy>false</behind-reverse-proxy>
     <inline-css>true</inline-css>
