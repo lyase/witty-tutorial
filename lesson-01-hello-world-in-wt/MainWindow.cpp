@@ -8,7 +8,8 @@
 #include <Wt/WLink>
 #include <Wt/WAnchor>
 #include <Wt/WApplication>
-MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
+MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
+{
     _inputLabel = new Wt::WLabel("What is your name?", this);
     addWidget(new Wt::WBreak());
     _nameInput = new Wt::WLineEdit(this);
@@ -20,14 +21,15 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     _nameOutput = new Wt::WText(this);
     addWidget(new Wt::WBreak());
     _btnHi->clicked().connect(this, &MainWindow::sayHi);
-// because of the following  you need to delete user memory del user in destructor to prevent memory leak
+    // because of the following  you need to delete user memory del user in destructor to prevent memory leak
     user = new User();
     addWidget(new Wt::WBreak());
     _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
     addWidget(new Wt::WBreak());
     _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
 }
-void MainWindow::sayHi() {
+void MainWindow::sayHi()
+{
     user->setName(_nameInput->valueText().toUTF8());
     if( (user->getName()=="") or(user->getName()=="Joe")) {
         user->setName(" visiteur inconnu");

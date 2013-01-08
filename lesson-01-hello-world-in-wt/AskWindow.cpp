@@ -9,7 +9,8 @@
 #include <Wt/WLink>
 #include <Wt/WApplication>
 
-AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
+AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
+{
     _inputLabel = new Wt::WLabel("What is your name?", this);
     _nameInput = new Wt::WLineEdit(this);
     _nameInput->setFocus();
@@ -19,7 +20,8 @@ AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
     _btnHi->clicked().connect(this, &AskWindow::sayHi);
 }
 
-void AskWindow::sayHi() {
+void AskWindow::sayHi()
+{
     Wt::WString name = _nameInput->valueText();
     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
     app->setUserName(name);

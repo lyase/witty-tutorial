@@ -65,19 +65,21 @@ struct CMyFooTestFixture {
 };
 
 BOOST_FIXTURE_TEST_SUITE(UserTestSuite, CMyFooTestFixture);
-BOOST_AUTO_TEST_CASE(readdefaultUserKarma) {
+BOOST_AUTO_TEST_CASE(readdefaultUserKarma)
+{
     /*!
     * will test a user has a karma
     *
     */
     BOOST_REQUIRE(user->getKarma());   // Stop here if it fails.
-//	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
+    //	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
 }
 /*!
 * will test a user can get a new name
 *
 */
-BOOST_AUTO_TEST_CASE(SettingUserName) {
+BOOST_AUTO_TEST_CASE(SettingUserName)
+{
     user->setName("  foooooo ");
     BOOST_CHECK_EQUAL(user->getName(), "  foooooo ");
 }

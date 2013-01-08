@@ -14,7 +14,8 @@
 #include <string>
 #include <iostream>
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     User u;
     if (u.getName() == "John") {
         std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << u.getName() << std::endl;

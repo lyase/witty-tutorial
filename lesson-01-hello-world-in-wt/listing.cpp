@@ -30,12 +30,13 @@ using namespace std ;
               *
                * @param session
                 */
-void createTableForUser(dbo::Session* session) {
+void createTableForUser(dbo::Session* session)
+{
     cout<<" Create table \n" ;
     dbo::Transaction transaction(*session);
-        cout<<" Create table for post\n" ;
+    cout<<" Create table for post\n" ;
     session->mapClass<Post>("post");
-            cout<<" Create table for user\n" ;
+    cout<<" Create table for user\n" ;
     session->mapClass<User>("user");
 
 
@@ -48,7 +49,7 @@ void createTableForUser(dbo::Session* session) {
         cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
     }
     try {
-    transaction.commit();
+        transaction.commit();
     } catch (Wt::Dbo::Exception e) {
         cout <<"in commit() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
     }
@@ -66,8 +67,9 @@ void createTableForUser(dbo::Session* session) {
 * \return nothing
 */
 
-void createUserJoe(dbo::Session* session ) {
-// try {
+void createUserJoe(dbo::Session* session )
+{
+    // try {
     dbo::Transaction transaction(*session);
     cout<<" Create  a userJoe\n ";
     User *user;
@@ -76,9 +78,9 @@ void createUserJoe(dbo::Session* session ) {
     dbo::ptr<User> userPtr = session->add(user);
     cout<<" Adding  post  to database \n ";
     dbo::ptr<Post> post = session->add(new Post());
-user->posts.insert(post);
-//    post.modify()->author = userPtr;  // will segfault
-//    post.modify()->author = user;  // will segfault
+    user->posts.insert(post);
+    //    post.modify()->author = userPtr;  // will segfault
+    //    post.modify()->author = user;  // will segfault
 
     cout << "Joe has " << user->posts.size() << " post(s)." << std::endl;
     user->setName("Joe");
@@ -88,22 +90,22 @@ user->posts.insert(post);
 
     //cout<<" Adding  user to database \n ";
     //dbo::ptr<User> userPtr = session->add(user);
-//opposite operation is ptr<Dbo>::remove(): it deletes
-cout<<" trying Commit to database \n ";
-try {
- transaction.commit();
-} catch (Wt::Dbo::Exception e) {
-                                cout <<"in createUserJoe commit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
-                                }
-//carefull this final cleanup will crash app 
-//delete  user;
-//user=0;
-// looks like i am not catching all possible exception here so commented for now} catch (Wt::Dbo::Exception e) {
-//                                 cout <<"in createUserJoe() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
-//                                 }
-//note this function can segfault ie i am not catching all exceptions
-//delete  user;
-//user=0;
+    //opposite operation is ptr<Dbo>::remove(): it deletes
+    cout<<" trying Commit to database \n ";
+    try {
+        transaction.commit();
+    } catch (Wt::Dbo::Exception e) {
+        cout <<"in createUserJoe commit () caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
+    }
+    //carefull this final cleanup will crash app
+    //delete  user;
+    //user=0;
+    // looks like i am not catching all possible exception here so commented for now} catch (Wt::Dbo::Exception e) {
+    //                                 cout <<"in createUserJoe() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/\n";
+    //                                 }
+    //note this function can segfault ie i am not catching all exceptions
+    //delete  user;
+    //user=0;
 }
 /*! \fn void readUserAllUser(dbo::Session* session)
 * \brief getting all user from database
@@ -117,12 +119,13 @@ try {
 * \return nothing
 */
 
-void  readUserAllUser(dbo::Session* session) {
+void  readUserAllUser(dbo::Session* session)
+{
     cout<<" Reading user \n ";
     dbo::Transaction transaction(*session);
     // now getting all user objects you may use filter like
-// Wt::Dbo::ptr<User> bart = session.find<User>().where("name = ?").bind("Bart");
-// but does not work with all wt version
+    // Wt::Dbo::ptr<User> bart = session.find<User>().where("name = ?").bind("Bart");
+    // but does not work with all wt version
     cout<<" looking for all user objects\n";
     Users users = session->find<User>();
 
@@ -132,10 +135,11 @@ void  readUserAllUser(dbo::Session* session) {
         cerr << " user " << (*i)->getName()
              << " with karma of " << (*i)->getKarma() << endl
              << " with Role of " << (*i)->getRole() << endl
-            << "this user  has " << (*i)->posts.size() << " post(s)." << std::endl;
+             << "this user  has " << (*i)->posts.size() << " post(s)." << std::endl;
     transaction.commit();
 }
-void readUserJoe(dbo::Session* session) {
+void readUserJoe(dbo::Session* session)
+{
     cout<<" Reading user \n ";
     /*    cout<<" i will create database connection to read\n";
     dbo::backend::Sqlite3 sqlite3("blog.db");
@@ -143,7 +147,7 @@ void readUserJoe(dbo::Session* session) {
     session.setConnection(sqlite3);
     */
     dbo::Transaction transaction(*session);
-//session->mapClass<User>("user");
+    //session->mapClass<User>("user");
     // now finding an object
     cout<<" looking for  user objects\n";
     Users users = session->find<User>();
@@ -168,12 +172,13 @@ void readUserJoe(dbo::Session* session) {
 *readUserAllUser(&session);
 * \return nothing
 */
-void readUserJoeOnly(dbo::Session* session) {
+void readUserJoeOnly(dbo::Session* session)
+{
     cout<<" start transaction \n ";
 
     dbo::Transaction transaction(*session);
     cout<<" looking for  user Joe in database may throw exception if not found " <<std::endl;
-// bind parameter this way does not work with all wt version
+    // bind parameter this way does not work with all wt version
     dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
     int count = session->query<int>("select count(1) from user").where("name = ?").bind("Joe");
     if(joe& count==1) {
@@ -197,12 +202,13 @@ void readUserJoeOnly(dbo::Session* session) {
 *readUserAllUser(&session);
 * \return nothing
 */
-void read_UnknownUserthrowsexception(dbo::Session* session) {
+void read_UnknownUserthrowsexception(dbo::Session* session)
+{
     cout<<" start transaction \n ";
 
     dbo::Transaction transaction(*session);
 
-// bind parameter this way does not work with all wt version no exception thrown  if not found but (joe.get() == 0)
+    // bind parameter this way does not work with all wt version no exception thrown  if not found but (joe.get() == 0)
     dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("unknown");
     int count = session->query<int>("select count(1) from user").where("name = ?").bind("unknown");
     cout <<"we found "<<count <<" user unknow"<< std::endl;
@@ -226,7 +232,8 @@ void read_UnknownUserthrowsexception(dbo::Session* session) {
 
 * \return nothing
 */
-void updateUserJoeOnly(dbo::Session* session) {
+void updateUserJoeOnly(dbo::Session* session)
+{
     cout<<" start transaction to update values of user joe  "<< std::endl;
 
     dbo::Transaction transaction(*session);
@@ -235,7 +242,7 @@ void updateUserJoeOnly(dbo::Session* session) {
 
     if( count==1) {
         cout<<"I can update safely I have one matching record" << std::endl;
-// bind parameter this way does not work with all wt version
+        // bind parameter this way does not work with all wt version
         dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
 
         if(joe) {
@@ -259,7 +266,8 @@ void updateUserJoeOnly(dbo::Session* session) {
 *dbo::Session session;\n
 * \return nothing
 */
-void deleteUserJoeOnly(dbo::Session* session) {
+void deleteUserJoeOnly(dbo::Session* session)
+{
     cout<<" start transaction to update values of user joe  "<< std::endl;
 
     dbo::Transaction transaction(*session);
@@ -268,7 +276,7 @@ void deleteUserJoeOnly(dbo::Session* session) {
 
     if( count==1) {
         cout<<"I can delete safely I have one matching record" << std::endl;
-// bind parameter this way does not work with all wt version
+        // bind parameter this way does not work with all wt version
         //to delete children too you need to define Post with
         //     dbo::belongsTo(a, author, "author", Wt::Dbo::OnDeleteCascade | Wt::Dbo::OnUpdateCascade);
         dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");

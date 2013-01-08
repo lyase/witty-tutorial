@@ -56,7 +56,8 @@ struct DBOFixture {
 
 BOOST_FIXTURE_TEST_SUITE( dbo_test, DBOFixture )
 
-BOOST_AUTO_TEST_CASE( dbo_test1 ) {
+BOOST_AUTO_TEST_CASE( dbo_test1 )
+{
     //Create starting logger
     logger.entry("info") << Wt::WLogger::timestamp << Wt::WLogger::sep
                          << '[' << "notice" << ']' << Wt::WLogger::sep << "Starting up server!";

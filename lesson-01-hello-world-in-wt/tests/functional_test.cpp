@@ -60,14 +60,16 @@ struct LiveAppFixture {
 //if the app can create  it's landing page
 BOOST_FIXTURE_TEST_SUITE( FunctionalSuite, LiveAppFixture );
 
-BOOST_AUTO_TEST_CASE( testMainWindowExists ) {
+BOOST_AUTO_TEST_CASE( testMainWindowExists )
+{
     MainWindow* main = getMainWindow();
     BOOST_REQUIRE(main);
 }
 // we are testing here:
 //the application can change the name of the current user
 //this is mostly an developper test howto test a functionality of the app
-BOOST_AUTO_TEST_CASE( testuserNameManagement ) {
+BOOST_AUTO_TEST_CASE( testuserNameManagement )
+{
 
     if (app.userName() == "John") {
         std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
@@ -84,7 +86,8 @@ BOOST_AUTO_TEST_CASE( testuserNameManagement ) {
 //can  will change the path to the ask window
 // currently this is not testing the windows funcionality as a user case would
 //ultimately this should be tested using something like selenium
-BOOST_AUTO_TEST_CASE( testAskLink ) {
+BOOST_AUTO_TEST_CASE( testAskLink )
+{
     MainWindow* main = getMainWindow();
     BOOST_REQUIRE(main);
     cout<<"before click path is "<< app.internalPath() << endl;
