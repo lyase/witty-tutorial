@@ -6,7 +6,7 @@
 #include <Wt/Test/WTestEnvironment>
 #include <boost/test/unit_test.hpp>
 #include "../HelloApp.hpp"
-#include "../User.h"
+#include "../models/User.h"
 
 BOOST_AUTO_TEST_SUITE( UserPersistence );
 

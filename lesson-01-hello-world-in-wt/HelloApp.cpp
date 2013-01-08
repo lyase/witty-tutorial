@@ -20,7 +20,7 @@
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
 #include <Wt/Dbo/Exception>
-#include "User.h"
+#include "models/User.h"
 
 struct HelloApp::DBInfo : public Wt::WObject {
     Wt::Dbo::backend::Sqlite3 connection;

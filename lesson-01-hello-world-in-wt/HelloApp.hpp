@@ -6,7 +6,7 @@
 #include <Wt/WString>
 #include "IWebPageFactory.h"
 #include "MainWindow.hpp"
-#include "User.h"
+#include "models/User.h"
 
 namespace Wt {
 namespace Dbo {

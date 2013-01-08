@@ -15,7 +15,7 @@
  * =====================================================================================
  */
 #include <Wt/Dbo/Dbo>
-#include "User.h"
+#include "models/User.h"
 #include <string>
 #include <iostream>
 #include <Wt/Dbo/backend/Sqlite3>

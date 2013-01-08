@@ -10,7 +10,7 @@
 * \warning   Improper use can crash your application
 * \copyright GNU Public License.
 * =====================================================================================*/
-#include "../User.h"
+#include "../models/User.h"
 #include <string>
 #include <iostream>
 

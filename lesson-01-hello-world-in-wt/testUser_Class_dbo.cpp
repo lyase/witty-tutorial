@@ -17,17 +17,21 @@
 *
 * =====================================================================================
 */
-#include "User.h"
-#include <string>
-#include <iostream>
-#include <Wt/Dbo/Dbo>
+#include "models/User.h"
 #include "listing.h"
-#include "User.h"
+
 #include <string>
 #include <iostream>
+#include <string>
+#include <iostream>
+
 #include <Wt/Dbo/backend/Sqlite3>
+#include <Wt/Dbo/Dbo>
+
 #include <boost/filesystem.hpp>
-using namespace std ;
+
+using namespace std;
+
 /*
 * note Try to create the schema (will fail if already exists delete database first).
 */

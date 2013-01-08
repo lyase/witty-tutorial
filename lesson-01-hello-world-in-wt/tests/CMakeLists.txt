@@ -5,16 +5,20 @@ ADD_DEFINITIONS( -fno-access-control ) # So tests can access private members of 
 
 find_library(wttest wttest)
 
-add_executable(test_user_set_name ../User.cpp test_user_is_not_mike.cpp)
+add_executable(test_user_set_name test_user_is_not_mike.cpp)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 TARGET_LINK_LIBRARIES(test_user_set_name 
-                     ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY}
-                     ${hpdf}
-                     ${wt} ${wtdbo} ${wtdbosqlite3} )
+                    helloWorld
+                    models
+                    ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY}
+                    ${hpdf}
+                    ${wt} ${wtdbo} ${wtdbosqlite3} )
 add_test( test_user_set_name ./test_user_set_name )
 
-add_executable(test_user_full ../User.cpp ../testUser_Class_dbo.cpp ../listing.cpp)
+add_executable(test_user_full ../testUser_Class_dbo.cpp ../listing.cpp)
 TARGET_LINK_LIBRARIES(test_user_full 
+                      helloWorld
+                      models
                       ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY}
                       ${hpdf}
                       ${wt} ${wtdbo} ${wtdbosqlite3} )
@@ -22,8 +26,10 @@ add_test(test_user_full ./test_user_full)
 
 ADD_DEFINITIONS( -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN ) # So tests load the test lib dynamically
 
-add_executable(functional_test ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp functional_test.cpp)
+add_executable(functional_test functional_test.cpp)
 TARGET_LINK_LIBRARIES(functional_test
+    helloWorld
+    models
     ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${hpdf} ${Boost_FILESYSTEM_LIBRARY}
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
@@ -32,15 +38,18 @@ file(COPY ../wt-config.xml DESTINATION .)
 add_test(functional_tests_main_window_exists ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testMainWindowExists)
 add_test(test_ask_link ./functional_test -i -s --detect_fp_exceptions=y --log-level=all --run_test=FunctionalSuite/testAskLink)
 
-add_executable(test_user_persistence ../HelloApp.cpp ../MainWindow.cpp ../User.cpp ../AskWindow.cpp ../SayWindow.cpp ../AdminWindow.cpp test_user_persistence.cpp)
+add_executable(test_user_persistence test_user_persistence.cpp)
 TARGET_LINK_LIBRARIES(test_user_persistence
+    helloWorld
+    models
     ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${hpdf} ${Boost_FILESYSTEM_LIBRARY}
     ${wt} ${wtdbo} ${wttest} ${wtdbosqlite3} )
 add_test(test_user_persistence ./test_user_persistence -i -s --detect_fp_exceptions=y --log-level=all --run_test=testUserPersistenceSuite/testUserPersistence)
 
-add_executable(usertest ../User.cpp ../testUser_Class.cpp )
+add_executable(usertest ../testUser_Class.cpp )
 TARGET_LINK_LIBRARIES(usertest 
+                      models
                       ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
                       ${hpdf}
                       ${wt} ${wtdbo} ${wtdbosqlite3} )

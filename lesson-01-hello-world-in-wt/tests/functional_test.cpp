@@ -28,13 +28,12 @@
 #include "utils/helper.hpp"
 #include <Wt/Test/WTestEnvironment>
 #include "../HelloApp.hpp"
-#include "../User.h"
+#include "../models/User.h"
 #include <Wt/WApplication>
 #include <Wt/Test/WTestEnvironment>
 #include "../HelloApp.hpp"
 #include <Wt/Dbo/backend/Sqlite3>
 #include <boost/filesystem.hpp>
-#include "../User.h"
 struct LiveAppFixture {
     Wt::Test::WTestEnvironment env;
     HelloApp app;

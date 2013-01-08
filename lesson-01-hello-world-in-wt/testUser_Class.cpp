@@ -20,7 +20,7 @@ or see http://www.boost.org/doc/libs/1_35_0/libs/test/doc/components/utf/paramet
  */
 #define BOOST_TEST_MODULE UserTestSuite
 
-#include "User.h"
+#include "models/User.h"
 #include <string>
 #include <iostream>
 #include <boost/test/unit_test.hpp>

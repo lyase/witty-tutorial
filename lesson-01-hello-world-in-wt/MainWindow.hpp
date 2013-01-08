@@ -3,7 +3,7 @@
 
 #include <Wt/WContainerWidget>
 #include <Wt/WString>
-#include "User.h"
+#include "models/User.h"
 namespace Wt {
 class WLineEdit;
 class WText;
