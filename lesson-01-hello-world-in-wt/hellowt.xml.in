@@ -4,7 +4,7 @@
      
      The file is the source directory is modified by cmake, variables like:
      
-     @DEBUG@ will be turned into actual values -->
+     ${DEBUG_VALUE} will be turned into actual values -->
 
 <!--
     Wt Configuration File.
@@ -87,7 +87,7 @@
                Note: wthttpd always uses exactly one process
               -->
             <shared-process>
-                <num-processes>1</num-processes>
+                <num-processes>1000</num-processes>
             </shared-process>
 
             <!-- Session tracking strategy.
@@ -123,111 +123,10 @@
                periodically and issues a new one. This timeout sets
                the frequency.
               -->
+            <!--
             <server-push-timeout>50</server-push-timeout>
+            -->
         </session-management>
-
-        <!-- Settings that apply only to the FastCGI connector.
-
-           To configure the wthttpd connector, use command line options, or
-           configure default options in /etc/wt/wthttpd
-          -->
-        <connector-fcgi>
-            <!-- Valgrind path
-
-               If debugging is enabled and this path is not empty, then valgrind
-               will be started for every shared process, or for every session
-               which has ?debug appended to the command line.
-
-               The variable is slighly misnamed. Not only a path can be set,
-               but also options, like for example:
-
-                 /usr/bin/valgrind - -leak-check=full
-             -->
-            <valgrind-path></valgrind-path>
-
-            <!-- Run directory
-
-               Path used by Wt to do session management.
-              -->
-            <run-directory>/var/run/wt</run-directory>
-
-            <!-- Number of threads per process
-
-               This configures the size of the thread pool. You may
-               want to change this value if you would like to support
-               reentrant event loops, where you block one event loop
-               using WDialog::exec() or related static
-               methods. Everytime you enter such an event loop, one
-               thread is blocked, and therefore the total number of
-               sessions that reliably can do this is limited to the
-               number of thread you have (minus one to unblock).
-
-               For the built-in http connector, there is a similar
-               config option that is specified in the whttpd config
-               file or on the command line (-t).
-
-               The default value is 1.
-              -->
-            <num-threads>1</num-threads>
-
-        </connector-fcgi>
-
-        <!-- Settings that apply only to the MS IIS ISAPI connector.
-
-           To configure the wthttpd connector, use command line options, or
-           configure default options in /etc/wt/wthttpd
-          -->
-        <connector-isapi>
-            <!-- Number of threads per process
-
-               This configures the number of threads that will be used
-               to handle Wt requests. The IIS internal threads are never
-               used to do any processing; all requests are forwarded to
-               be handled in this threadpool. Rather than to configure a
-               so-called 'web-garden' in IIS, increase this number. The
-               ISAPI connector will not work correctly when a web-garden
-               is configured.
-
-               You may want to change this value if you would like to
-               support more reentrant event loops, where you block one
-               event loop using WDialog::exec() or related static
-               methods. Everytime you enter such an event loop, one
-               thread is blocked, and therefore the total number of
-               sessions that reliably can do this is limited to the
-               number of thread you have (minus one to unblock).
-
-               You may also want to increase this number if your Wt
-               application is regularly waiting for IO (databases, network,
-               files, ...). If this number is too low, all threads could
-               be waiting for IO operations to complete while your CPU
-               is idle. Increasing the number of threads may help.
-
-               Computing intensive applications may also increase this number,
-               even though it is better to offload computations to a helper
-               thread and user server push or a WTimer to check for
-               completion of the task in order to keep your GUI responsive
-               during the computations.
-
-               The default value is 10.
-              -->
-            <num-threads>10</num-threads>
-
-            <!-- Maximum Request Size spooled in memory (Kb)
-        
-               Normally, Wt keeps incoming requests (POST data) in memory.
-               However, malicious users could send a big POST and as such
-               use up all memory of your HTTP server. With this parameter,
-               you tune how big a request can be before Wt spools it in a
-               file before processing it. Legitimate big POST messages may
-               occur when users are expected to upload files.
-
-               See also max-request-size.
-
-               The default value is 128K, which is more than enough for
-               any interactive Wt event.
-              -->
-            <max-memory-request-size>128</max-memory-request-size>
-        </connector-isapi>
 
 
         <!-- Log file
@@ -270,7 +169,7 @@
            Note debugging messages are only emitted when debugging
            has been enabled while building Wt.
           -->
-        <log-config>* -debug</log-config>
+        <log-config>${LOG_LINE}</log-config>
 
         <!-- Maximum HTTP request size (Kb)
 
