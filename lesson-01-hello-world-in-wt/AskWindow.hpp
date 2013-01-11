@@ -6,11 +6,11 @@
 
 // Forward Declarations
 namespace Wt {
-    class WLineEdit;
-    class WText;
-    class WLabel;
-    class WButton;
-    class WLink;
+class WLineEdit;
+class WText;
+class WLabel;
+class WButton;
+class WLink;
 }
 
 class AskWindow : public Wt::WContainerWidget {
