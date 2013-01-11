@@ -23,11 +23,13 @@
 #include <Wt/WEnvironment>
 #include "HelloApp.hpp"
 
-Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
+Wt::WApplication* createApplication(const Wt::WEnvironment& env)
+{
     return new HelloApp(env);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     using std::ofstream;
     using std::endl;
     cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";

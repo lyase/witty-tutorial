@@ -13,7 +13,8 @@
 #define BUILD_INFO "No build info"
 #endif
 
-AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
+AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
+{
     _debugOutput = new Wt::WText(this);
     addWidget(new Wt::WBreak());
     std::string buildinfo;

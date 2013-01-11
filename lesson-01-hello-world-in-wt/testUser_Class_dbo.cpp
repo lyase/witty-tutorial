@@ -17,17 +17,21 @@
 *
 * =====================================================================================
 */
-#include "User.h"
-#include <string>
-#include <iostream>
-#include <Wt/Dbo/Dbo>
+#include "models/User.h"
 #include "listing.h"
-#include "User.h"
+
 #include <string>
 #include <iostream>
+#include <string>
+#include <iostream>
+
 #include <Wt/Dbo/backend/Sqlite3>
+#include <Wt/Dbo/Dbo>
+
 #include <boost/filesystem.hpp>
-using namespace std ;
+
+using namespace std;
+
 /*
 * note Try to create the schema (will fail if already exists delete database first).
 */
@@ -37,7 +41,7 @@ using namespace std ;
 */
 
 struct CMyFooTestFixture {
-// TODO: Declare some common values accesses in tests here.
+    // TODO: Declare some common values accesses in tests here.
     User *user;/**< the a object user to be used in each test  */
     /*! \fn CMyFooTestFixture()
     * \brief constructor
@@ -45,7 +49,7 @@ struct CMyFooTestFixture {
     * initialise here all you need for  the tests
     */
     CMyFooTestFixture() {
-// TODO: Common set-up each test case here.
+        // TODO: Common set-up each test case here.
 
         user = new User();
     }
@@ -55,10 +59,10 @@ struct CMyFooTestFixture {
     * clean all here
     */
     ~CMyFooTestFixture() {
-// TODO: Common tear-down after  each test case here.
+        // TODO: Common tear-down after  each test case here.
         delete user;
         user=0;
-// Delete the sqlite db
+        // Delete the sqlite db
         boost::filesystem::remove("./blog.db");
 
     }
@@ -78,7 +82,8 @@ struct CMyFooTestFixture {
 * delete user joe from database \n
 * \return nothing
 */
-int main () {
+int main ()
+{
     CMyFooTestFixture a;
     cout<<" Create database connection \n";
     dbo::backend::Sqlite3 sqlite3("blog.db");
