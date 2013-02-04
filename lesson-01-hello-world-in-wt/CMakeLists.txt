@@ -31,7 +31,7 @@ endif()
 CONFIGURE_FILE(wt-config.xml wt-config.xml)
 
 # Main Library
-add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp)
+add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp CsvUtil.C)
 # Models Library
 add_subdirectory(models)
 

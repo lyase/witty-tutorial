@@ -1,0 +1,13 @@
+note :
+
+this project shows how to build a FaceBook application in c++ using witty  a freeware, public domain, open source  c++ toolkit 
+reference:
+http://www.facebook.com/share.php?u=%3Curl%3E
+https://developers.facebook.com/docs/reference/dialogs/feed/
+https://developers.facebook.com/docs/
+testing git repository is working
+make core version
+check has post object
+git flow feature finish turning-into-libraries
+add authentification
+deployement 
