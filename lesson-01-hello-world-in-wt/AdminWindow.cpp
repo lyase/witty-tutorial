@@ -143,6 +143,11 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
     horiz->addWidget(lbl);
     horiz->addWidget(txt, 1);
     horiz->addWidget(btn);
+    btn->clicked().connect([txt, this](const Wt::WMouseEvent&) {this->doYahooQuery(txt->text().toUTF8()); });
 
 //    new ChartConfig(chart, this); unknown purpose
   }
+
+void AdminWindow::doYahooQuery(const std::string& path) {
+    std::cout << "WOW: " << path << std::endl;
+}
