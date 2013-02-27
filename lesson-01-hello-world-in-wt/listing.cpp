@@ -181,7 +181,7 @@ void readUserJoeOnly(dbo::Session* session)
     // bind parameter this way does not work with all wt version
     dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("Joe");
     int count = session->query<int>("select count(1) from user").where("name = ?").bind("Joe");
-    if(joe& count==1) {
+    if(joe && (count==1)) {
         cout <<"we found 1 user joe"<< std::endl;
 
         cout << "here is  Joe:" << std::endl;
@@ -212,7 +212,7 @@ void read_UnknownUserthrowsexception(dbo::Session* session)
     dbo::ptr<User> joe = session->find<User>().where("name = ?").bind("unknown");
     int count = session->query<int>("select count(1) from user").where("name = ?").bind("unknown");
     cout <<"we found "<<count <<" user unknow"<< std::endl;
-    if((joe.get() == 0) & count==0)
+    if((joe.get() == 0) && (count==0))
 
     {
         cout <<"GOOD we found 0 user unknow and joe is empty"<< std::endl;

@@ -19,13 +19,12 @@ class Sqlite3;
 
 class HelloApp : public Wt::WApplication {
 private:
-    class DBInfo;
+    struct DBInfo;
     DBInfo* _db;
     Wt::WString _userName;
     User *user;
     IWebPageFactory* mFactory ;
     void handlePathChanged(const std::string& newPath);
-    MainWindow* mainWindow;
 public:
     HelloApp(const Wt::WEnvironment& env);
     void setUserName(const Wt::WString& newName);

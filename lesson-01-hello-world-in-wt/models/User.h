@@ -72,7 +72,7 @@ public:
     Wt::WString    briefHtml;
     Wt::WString    bodySrc;
     Wt::WString    bodyHtml;
-    std::string permaLink() const {return date.toString("yyyy/MM/dd/'" +  '\'').toUTF8();
+    std::string permaLink() const {return date.toString("yyyy/MM/dd/''").toUTF8();
     };
     template<class Action>
     void persist(Action& a) {

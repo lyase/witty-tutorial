@@ -9,15 +9,10 @@
 #include <Wt/WLink>
 #include <Wt/WApplication>
 #include "CsvUtil.h"
-#include <Wt/WApplication>
 #include <Wt/WDate>
 #include <Wt/WEnvironment>
 #include <Wt/WItemDelegate>
 #include <Wt/WStandardItemModel>
-#include <Wt/WText>
-
-#include <Wt/WBorderLayout>
-#include <Wt/WFitLayout>
 
 #include <Wt/WStandardItem>
 #include <Wt/WTableView>
@@ -27,25 +22,9 @@
 #include <math.h>
 #include <fstream>
 
-//#include "ChartsExample.h"
-//#include "ChartConfig.h"
-#include "CsvUtil.h"
 
-#include <Wt/WApplication>
-#include <Wt/WDate>
-#include <Wt/WEnvironment>
-#include <Wt/WItemDelegate>
-#include <Wt/WStandardItemModel>
-#include <Wt/WText>
-
-#include <Wt/WBorderLayout>
-#include <Wt/WFitLayout>
-
-#include <Wt/WStandardItem>
-#include <Wt/WTableView>
-
-#include <Wt/Chart/WCartesianChart>
-#include <Wt/Chart/WPieChart>
+#include <Wt/WVBoxLayout>
+#include <Wt/WHBoxLayout>
 
 using namespace Wt;
 using namespace Wt::Chart;
@@ -53,19 +32,20 @@ using namespace Wt::Chart;
 #define BUILD_INFO "No build info"
 #endif
 
+
 AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
-    _debugOutput = new Wt::WText(this);
-    addWidget(new Wt::WBreak());
-    std::string buildinfo;
-    buildinfo = BUILD_INFO;
-    _debugOutput->setText(Wt::WString("debug info: " + buildinfo + " Docroot: " + Wt::WApplication::instance()->docRoot()));
-    cout <<std::endl<< std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
-    //_debugOutput->setText("debug info "+buildinfo);
-    addWidget(new Wt::WBreak());
-    new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", this);
+    auto vert = new Wt::WVBoxLayout(this);
+    setLayout(vert);
+    _debugOutput = new Wt::WText();
+    vert->addWidget(_debugOutput);
+    vert->addWidget(new Wt::WBreak());
+    _debugOutput->setText(Wt::WString("debug info: ") +  BUILD_INFO + " Docroot: " + Wt::WApplication::instance()->docRoot());
+    cout << std::endl << std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
+    vert->addWidget(new Wt::WBreak());
+    vert->addWidget(new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs"));
     // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
-    new WText(WString::tr("scatter plot"), this);
+    vert->addWidget(new WText(WString::tr("scatter plot")));
 
     WAbstractItemModel *model = readCsvFile(
       WApplication::appRoot() + "timeseries.csv", this);
@@ -83,8 +63,8 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
     }
 
     // Show a view that allows editing of the model.
-    WContainerWidget *w = new WContainerWidget(this);
-    WTableView *table = new WTableView(w);
+    WTableView *table = new WTableView();
+    vert->addWidget(table);
 
     table->setMargin(10, Top | Bottom);
     table->setMargin(WLength::Auto, Left | Right);
@@ -122,7 +102,8 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
     /*
      * Create the scatter plot.
      */
-    WCartesianChart *chart = new WCartesianChart(this);
+    WCartesianChart *chart = new WCartesianChart();
+    vert->addWidget(chart);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
     chart->setModel(model);        // set the model
@@ -149,6 +130,21 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
 
     chart->setMargin(10, Top | Bottom);            // add margin vertically
     chart->setMargin(WLength::Auto, Left | Right); // center horizontally
+
+    // Add what all the widgets we have so far to the vertical box layout
+
+    // Yahoo query aparatus
+    /*
+    auto horiz = new Wt::WHBoxLayout(this);
+    auto lbl = new Wt::WLabel("yahoo query:");
+    auto txt = new Wt::WLineEdit();
+    lbl->setBuddy(txt);
+    auto btn = new Wt::WPushButton("Go!");
+    horiz->addWidget(lbl);
+    horiz->addWidget(txt);
+    horiz->addWidget(btn);
+    vert->addItem(horiz);
+    */
 
 //    new ChartConfig(chart, this); unknown purpose
   }

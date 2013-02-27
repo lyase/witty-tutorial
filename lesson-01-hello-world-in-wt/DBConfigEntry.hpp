@@ -21,7 +21,7 @@ namespace DBConfig {
 /*! A DBConfigEntry   class
 * \details This class is a (key,variant) like object with dbo capabilities.
 * in our application it will be used to store the  config parameters.
-*usage see developper tests in /** \file  tests/testdbo.cpp bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle"); will fetch the value of DosPuzzle key in our database.
+*usage see developper tests in \file  tests/testdbo.cpp bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle"); will fetch the value of DosPuzzle key in our database.
 * see in this file void install(Wt::Dbo::Session& session) L154 how to create& store keys
         * \author Mattew
         * \version 0.1a
@@ -35,11 +35,11 @@ struct DBConfigEntry {
     enum ValueType { vtString, vtDouble, vtInt };
 
     std::string key;
+    ValueType valueType;
     std::string description;
     std::string asString;
     double asDouble;
     int asInt;
-    ValueType valueType;
 
     template<class Action>
     void persist(Action& a) {

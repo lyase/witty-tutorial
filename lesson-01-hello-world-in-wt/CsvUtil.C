@@ -121,7 +121,12 @@ WAbstractItemModel *readCsvFile(const std::string &fname,
   } else {
     WString error(WString::tr("error-missing-data"));
     error.arg(fname, UTF8);
-    new WText(error, parent);
+    auto txt = new WText(error);
+    auto layout = parent->layout();
+    if (layout != nullptr)
+        layout->addWidget(txt);
+    else
+        parent->addWidget(txt);
     return 0;
   }
 }
