@@ -103,7 +103,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
      * Create the scatter plot.
      */
     WCartesianChart *chart = new WCartesianChart();
-    vert->addWidget(chart);
+    vert->addWidget(chart, 1, Wt::AlignCenter | Wt::AlignMiddle);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
     chart->setModel(model);        // set the model
@@ -134,17 +134,15 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
     // Add what all the widgets we have so far to the vertical box layout
 
     // Yahoo query aparatus
-    /*
-    auto horiz = new Wt::WHBoxLayout(this);
+    auto horiz = new Wt::WHBoxLayout();
+    vert->addItem(horiz);
     auto lbl = new Wt::WLabel("yahoo query:");
     auto txt = new Wt::WLineEdit();
     lbl->setBuddy(txt);
     auto btn = new Wt::WPushButton("Go!");
     horiz->addWidget(lbl);
-    horiz->addWidget(txt);
+    horiz->addWidget(txt, 1);
     horiz->addWidget(btn);
-    vert->addItem(horiz);
-    */
 
 //    new ChartConfig(chart, this); unknown purpose
   }
