@@ -15,11 +15,12 @@ class WLink;
 
 class AdminWindow : public Wt::WContainerWidget {
 private:
+    class YahooClient;
     Wt::WText* _debugOutput;
+    YahooClient* yahoo;
     void handlePathChanged(const std::string& newPath);
 public:
     AdminWindow(Wt::WContainerWidget* parent=0);
-    void doYahooQuery(const std::string& path);
 };
 
 #endif // ASKWINDOW_HPP

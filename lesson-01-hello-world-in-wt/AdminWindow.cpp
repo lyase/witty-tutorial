@@ -25,6 +25,7 @@
 
 #include <Wt/WVBoxLayout>
 #include <Wt/WHBoxLayout>
+#include <Wt/Http/Client>
 
 using namespace Wt;
 using namespace Wt::Chart;
@@ -32,8 +33,25 @@ using namespace Wt::Chart;
 #define BUILD_INFO "No build info"
 #endif
 
+class AdminWindow::YahooClient : public Wt::WObject {
+private:
+    Wt::Http::Client* http = new Wt::Http::Client(this);
+    void parseBody(boost::system::error_code err, const Http::Message& response) {
+        std::cout << "Recieved: " << std::endl << response.body() << std::endl;
+    }
+public:
+    YahooClient(Wt::WObject* parent=nullptr) : Wt::WObject(parent) {}
+    void query(const string& query) {
+        if (http->get("http://query.yahooapis.com/v2/public/yql?q=" + query)) {
+          http->done().connect(this, &YahooClient::parseBody);
+        }
+    }
+};
 
-AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
+
+AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
+    : Wt::WContainerWidget(parent),
+      yahoo(new YahooClient(this))
 {
     auto vert = new Wt::WVBoxLayout(this);
     setLayout(vert);
@@ -137,17 +155,13 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pa
     auto horiz = new Wt::WHBoxLayout();
     vert->addItem(horiz);
     auto lbl = new Wt::WLabel("yahoo query:");
-    auto txt = new Wt::WLineEdit();
+    auto txt = new Wt::WLineEdit("select * from geo.places where text=\"sunnyvale, ca\"");
     lbl->setBuddy(txt);
     auto btn = new Wt::WPushButton("Go!");
     horiz->addWidget(lbl);
     horiz->addWidget(txt, 1);
     horiz->addWidget(btn);
-    btn->clicked().connect([txt, this](const Wt::WMouseEvent&) {this->doYahooQuery(txt->text().toUTF8()); });
+    btn->clicked().connect([=](const Wt::WMouseEvent&) {yahoo->query(txt->text().toUTF8()); });
 
 //    new ChartConfig(chart, this); unknown purpose
-  }
-
-void AdminWindow::doYahooQuery(const std::string& path) {
-    std::cout << "WOW: " << path << std::endl;
 }
