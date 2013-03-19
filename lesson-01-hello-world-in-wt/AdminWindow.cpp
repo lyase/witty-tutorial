@@ -26,8 +26,6 @@
 #include <sstream>
 
 
-#include <Wt/WVBoxLayout>
-#include <Wt/WHBoxLayout>
 #include <Wt/Http/Client>
 
 #ifndef BUILD_INFO
@@ -81,7 +79,8 @@ public:
             << "&d=" << (end.month() - 1)
             << "&e=" << end.day()
             << "&f=" << end.year()
-            << "&g=" << interval;
+            << "&g=" << interval
+            << "&ignore=.csv";
         query(url.str());
     }
 };
@@ -91,17 +90,13 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     : Wt::WContainerWidget(parent),
       yahoo(new YahooStockHistory(this))
 {
-    auto vert = new Wt::WVBoxLayout(this);
-    setLayout(vert);
-    _debugOutput = new Wt::WText();
-    vert->addWidget(_debugOutput);
-    vert->addWidget(new Wt::WBreak());
+    parent->setStyleClass("container-fluid");
+    _debugOutput = new Wt::WText(parent);
     _debugOutput->setText(Wt::WString("debug info: ") +  BUILD_INFO + " Docroot: " + Wt::WApplication::instance()->docRoot());
     cout << std::endl << std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
-    vert->addWidget(new Wt::WBreak());
-    vert->addWidget(new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs"));
+    new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", parent);
     // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
-    vert->addWidget(new Wt::WText(Wt::WString::tr("scatter plot")));
+    new Wt::WText(Wt::WString::tr("scatter plot"), parent);
 
     Wt::WAbstractItemModel *model = readCsvFile(
       Wt::WApplication::appRoot() + "timeseries.csv", this);
@@ -119,8 +114,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     }
 
     // Show a view that allows editing of the model.
-    Wt::WTableView* table = new Wt::WTableView();
-    vert->addWidget(table);
+    Wt::WTableView* table = new Wt::WTableView(parent);
 
     table->setMargin(10, Wt::Top | Wt::Bottom);
     table->setMargin(Wt::WLength::Auto, Wt::Left | Wt::Right);
@@ -158,8 +152,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     /*
      * Create the scatter plot.
      */
-    auto chart = new Wt::Chart::WCartesianChart();
-    vert->addWidget(chart, 1, Wt::AlignCenter | Wt::AlignMiddle);
+    auto chart = new Wt::Chart::WCartesianChart(parent);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
     chart->setModel(model);        // set the model
@@ -190,34 +183,28 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     // Add what all the widgets we have so far to the vertical box layout
 
     // Yahoo query aparatus
-    auto horiz = new Wt::WHBoxLayout();
-    vert->addItem(horiz);
-    auto lbl = new Wt::WLabel("yahoo query:");
-    auto txt = new Wt::WLineEdit("GOOG");
+    auto row = new Wt::WContainerWidget(parent);
+    row->setStyleClass("row-fluid");
+
+    auto lbl = new Wt::WLabel("yahoo query:", row);
+    auto txt = new Wt::WLineEdit("GOOG", row);
     lbl->setBuddy(txt);
-    auto btn = new Wt::WPushButton("Go!");
-    horiz->addWidget(lbl);
-    horiz->addWidget(txt, 1);
-    horiz->addWidget(btn);
+    auto btn = new Wt::WPushButton("Go!", row);
 
     // Need start and end dates
-    horiz = new Wt::WHBoxLayout();
+    row = new Wt::WContainerWidget(parent);
+    row->setStyleClass("row-fluid");
 
     auto today = Wt::WDate::currentDate();
-    lbl = new Wt::WLabel("From:");
-    auto start = new Wt::WDatePicker();
+    lbl = new Wt::WLabel("From:", row);
+    auto start = new Wt::WDatePicker(row);
     start->setDate(today.addMonths(-1));
     lbl->setBuddy(start->lineEdit());
-    horiz->addChild(lbl);
-    horiz->addChild(start);
 
-    lbl = new Wt::WLabel("From:");
-    auto end = new Wt::WDatePicker();
+    lbl = new Wt::WLabel("From:", row);
+    auto end = new Wt::WDatePicker(row);
     lbl->setBuddy(end->lineEdit());
     end->setDate(today);
-    horiz->addChild(lbl);
-    horiz->addChild(end);
-    vert->addItem(horiz, 1);
 
     btn->clicked().connect([=](const Wt::WMouseEvent&) {
         yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily); });
