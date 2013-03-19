@@ -15,9 +15,9 @@ class WLink;
 
 class AdminWindow : public Wt::WContainerWidget {
 private:
-    class YahooClient;
+    class YahooStockHistory;
     Wt::WText* _debugOutput;
-    YahooClient* yahoo;
+    YahooStockHistory* yahoo;
     void handlePathChanged(const std::string& newPath);
 public:
     AdminWindow(Wt::WContainerWidget* parent=0);
