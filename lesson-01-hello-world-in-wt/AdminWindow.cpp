@@ -210,10 +210,13 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     end->setDate(today);
 
     btn->clicked().connect([=](const Wt::WMouseEvent&) {
-        yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
+        yahoo->query(txt->text().toUTF8(), start->date(),
+                     end->date(), YahooStockHistory::daily).connect(this, &AdminWindow::gotCSV);
     });
 //    new ChartConfig(chart, this); unknown purpose
 }
 
-void AdminWindow::gotCSV(const string &newPath) {
+void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
+    std::stringstream csv(msg.body());
+    std::cout << csv.str() << "\n";
 };

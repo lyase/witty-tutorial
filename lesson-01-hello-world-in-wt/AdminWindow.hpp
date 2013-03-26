@@ -3,6 +3,7 @@
 /// This window sows admin monitoring option get to documentation build log and test results
 
 #include <Wt/WContainerWidget>
+#include <boost/system/error_code.hpp>
 
 // Forward Declarations
 namespace Wt {
@@ -19,7 +20,7 @@ private:
     Wt::WText* _debugOutput;
     YahooStockHistory* yahoo;
     void handlePathChanged(const std::string& newPath);
-    void gotCSV(const std::string& newPath);
+    void gotCSV(boost::system::error_code, Wt::Http::Message msg);
 public:
     AdminWindow(Wt::WContainerWidget* parent=0);
 };

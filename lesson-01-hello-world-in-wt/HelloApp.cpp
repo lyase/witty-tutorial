@@ -20,7 +20,7 @@
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
 #include <Wt/Dbo/Exception>
-#include <Wt/WBootstrapTheme>
+//#include <Wt/WBootstrapTheme>
 #include "models/User.h"
 
 struct HelloApp::DBInfo : public Wt::WObject {
@@ -42,7 +42,7 @@ struct HelloApp::DBInfo : public Wt::WObject {
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
     Wt::WApplication(env)
 {
-    setTheme(new Wt::WBootstrapTheme(this));
+    //setTheme(new Wt::WBootstrapTheme(this));
     setTitle("Hello world");
     // Set up the DB
     std::string dbConnString = "";
