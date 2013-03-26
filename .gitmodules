@@ -1,0 +1,3 @@
+[submodule "wt"]
+	path = wt
+	url = https://github.com/kdeforche/wt.git

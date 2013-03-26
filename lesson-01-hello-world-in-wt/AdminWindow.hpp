@@ -19,6 +19,7 @@ private:
     Wt::WText* _debugOutput;
     YahooStockHistory* yahoo;
     void handlePathChanged(const std::string& newPath);
+    void gotCSV(const std::string& newPath);
 public:
     AdminWindow(Wt::WContainerWidget* parent=0);
 };

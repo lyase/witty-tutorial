@@ -27,6 +27,7 @@
 
 
 #include <Wt/Http/Client>
+#include <Wt/WSignal>
 
 #ifndef BUILD_INFO
 #define BUILD_INFO "No build info"
@@ -38,15 +39,18 @@
 class AdminWindow::YahooStockHistory : public Wt::WObject {
 public:
     enum TradingPeriod {daily='d', monthly='m', weekly='w'};
+    typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
 private:
     Wt::Http::Client* http = new Wt::Http::Client(this);
-    void parseBody(boost::system::error_code err, const Wt::Http::Message& response) {
-        std::cout << "Recieved: " << std::endl << response.body() << std::endl;
-    }
-    void query(const string& query) {
-        if (http->get("http://ichart.yahoo.com/table.csv?" + query)) {
-          http->done().connect(this, &YahooStockHistory::parseBody);
+    GotCSVSignal& query(const string& query) {
+        std::string url = "http://ichart.yahoo.com/table.csv?";
+        url += query;
+        auto app = Wt::WApplication::instance();
+        app->log("info") << "Sending query: " << url << "\n";
+        if (http->get(url)) {
+            return http->done();
         }
+        throw std::runtime_error("Couldn't connect to http");
     }
     std::string urlEncode(const std::string& input) {
         std::stringstream result;
@@ -69,8 +73,7 @@ private:
     }
 public:
     YahooStockHistory(Wt::WObject* parent=nullptr) : Wt::WObject(parent) {}
-    void query(const string& id, const Wt::WDate& start, const Wt::WDate& end,
-               TradingPeriod interval) {
+    GotCSVSignal& query(const string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) {
         std::stringstream url;
         url << "s=" << urlEncode(id)
             << "&a=" << (start.month() - 1)
@@ -81,7 +84,7 @@ public:
             << "&f=" << end.year()
             << "&g=" << interval
             << "&ignore=.csv";
-        query(url.str());
+        return query(url.str());
     }
 };
 
@@ -207,6 +210,10 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     end->setDate(today);
 
     btn->clicked().connect([=](const Wt::WMouseEvent&) {
-        yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily); });
+        yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
+    });
 //    new ChartConfig(chart, this); unknown purpose
 }
+
+void AdminWindow::gotCSV(const string &newPath) {
+};
