@@ -219,4 +219,44 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
 void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     std::stringstream csv(msg.body());
     std::cout << csv.str() << "\n";
+    /*
+      Sample data that we are parsing;
+
+    Date,Open,High,Low,Close,Volume,Adj Close
+    2013-03-25,812.41,819.23,806.82,809.64,1712000,809.64
+    2013-03-22,814.74,815.24,809.64,810.31,1488200,810.31
+    2013-03-21,811.29,816.92,809.85,811.26,1466800,811.26
+    */
+    auto model = new  Wt::WStandardItemModel(this);
+    // Skip the first line
+    std::string linein;
+    std::getline(csv, linein);
+    while (true) {
+        std::vector<Wt::WStandardItem> row(3);
+        std::getline(csv, linein);
+        if (linein.empty())
+            break;
+        std::stringstream line(linein);
+        // Parse into bits
+        // Get the date
+        std::string part;
+        std::getline(line, part, ',');
+        auto date = Wt::WDate::fromString(part, "yyyy-mm-dd");
+        // Skip until the Close pricek
+        std::getline(line, part, ','); // Open
+        std::getline(line, part, ','); // High
+        std::getline(line, part, ','); // Low
+        std::getline(line, part, ','); // Close
+        std::stringstream asInt(part);
+
+
+
+
+
+
+
+
+
+
+    }
 };
