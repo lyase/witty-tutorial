@@ -23,7 +23,7 @@ set(DB_CONNECTION_STRING "blog.db" CACHE string "The connection info to connect 
 set(LOG_FILE_NAME "blog.log" CACHE string "Where to log to")
 if (${DEBUG})
     set(DEBUG_VALUE true)
-    set(LOG_LINE "* debug")
+    set(LOG_LINE "*")
 else()
     set(DEBUG_VALUE false)
     set(LOG_LINE "* -debug")

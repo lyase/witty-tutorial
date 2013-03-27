@@ -20,14 +20,18 @@
 
 #include <Wt/Chart/WCartesianChart>
 #include <Wt/Chart/WPieChart>
+#include <Wt/Http/Client>
+#include <Wt/WSignal>
+
+#include <boost/lexical_cast.hpp>
+
 #include <math.h>
 #include <fstream>
 #include <iterator>
 #include <sstream>
+#include <limits>
 
 
-#include <Wt/Http/Client>
-#include <Wt/WSignal>
 
 #ifndef BUILD_INFO
 #define BUILD_INFO "No build info"
@@ -101,65 +105,12 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
     new Wt::WText(Wt::WString::tr("scatter plot"), parent);
 
-    Wt::WAbstractItemModel *model = readCsvFile(
-      Wt::WApplication::appRoot() + "timeseries.csv", this);
-
-    if (!model)
-      return;
-
-    /*
-     * Parses the first column as dates, to be able to use a date scale
-     */
-    for (int i = 0; i < model->rowCount(); ++i) {
-      Wt::WString s = Wt::asString(model->data(i, 0));
-      auto d = Wt::WDate::fromString(s, "dd/MM/yy");
-      model->setData(i, 0, d);
-    }
-
-    // Show a view that allows editing of the model.
-    Wt::WTableView* table = new Wt::WTableView(parent);
-
-    table->setMargin(10, Wt::Top | Wt::Bottom);
-    table->setMargin(Wt::WLength::Auto, Wt::Left | Wt::Right);
-
-    table->setModel(model);
-    table->setSortingEnabled(false); // Does not make much sense for time series
-    table->setColumnResizeEnabled(true);
-    table->setSelectionMode(Wt::NoSelection);
-    table->setAlternatingRowColors(true);
-    table->setColumnAlignment(0, Wt::AlignCenter);
-    table->setHeaderAlignment(0, Wt::AlignCenter);
-    table->setRowHeight(22);
-
-    // Editing does not really work without Ajax, it would require an
-    // additional button somewhere to confirm the edited value.
-    if (Wt::WApplication::instance()->environment().ajax()) {
-      table->resize(800, 20 + 5*22);
-      table->setEditTriggers(Wt::WAbstractItemView::SingleClicked);
-    } else {
-      table->resize(800, 20 + 5*22 + 25);
-      table->setEditTriggers(Wt::WAbstractItemView::NoEditTrigger);
-    }
-
-    /*
-    WItemDelegate *delegate = new WItemDelegate(this);
-    delegate->setTextFormat("%.1f");
-    table->setItemDelegate(delegate);
-    table->setItemDelegateForColumn(0, new WItemDelegate(this));
-    */
-
-    table->setColumnWidth(0, 80);
-    for (int i = 1; i < model->columnCount(); ++i)
-      table->setColumnWidth(i, 90);
-
     /*
      * Create the scatter plot.
      */
-    auto chart = new Wt::Chart::WCartesianChart(parent);
+    chart = new Wt::Chart::WCartesianChart(parent);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
-    chart->setModel(model);        // set the model
-    chart->setXSeriesColumn(0);    // set the column that holds the X data
     chart->setLegendEnabled(true); // enable the legend
 
     chart->setType(Wt::Chart::ScatterPlot);            // set type to ScatterPlot
@@ -169,15 +120,6 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     chart->setPlotAreaPadding(80, Wt::Left);
     chart->setPlotAreaPadding(40, Wt::Top | Wt::Bottom);
 
-    /*
-     * Add first two columns as line series
-     */
-    for (int i = 1; i < 3; ++i) {
-      Wt::Chart::WDataSeries s(i, Wt::Chart::LineSeries);
-      s.setShadow(Wt::WShadow(3, 3, Wt::WColor(0, 0, 0, 127), 3));
-      chart->addSeries(s);
-    }
-
     chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
     chart->setMargin(10, Wt::Top | Wt::Bottom);            // add margin vertically
@@ -185,14 +127,14 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
 
     // Add what all the widgets we have so far to the vertical box layout
 
-    // Yahoo query aparatus
+    // Yahoo query apparatus
     auto row = new Wt::WContainerWidget(parent);
     row->setStyleClass("row-fluid");
 
     auto lbl = new Wt::WLabel("yahoo query:", row);
     auto txt = new Wt::WLineEdit("GOOG", row);
     lbl->setBuddy(txt);
-    auto btn = new Wt::WPushButton("Go!", row);
+    goBtn = new Wt::WPushButton("Go!", row);
 
     // Need start and end dates
     row = new Wt::WContainerWidget(parent);
@@ -209,9 +151,11 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     lbl->setBuddy(end->lineEdit());
     end->setDate(today);
 
-    btn->clicked().connect([=](const Wt::WMouseEvent&) {
-        yahoo->query(txt->text().toUTF8(), start->date(),
-                     end->date(), YahooStockHistory::daily).connect(this, &AdminWindow::gotCSV);
+    goBtn->clicked().connect(goBtn, &Wt::WPushButton::disable);
+    goBtn->clicked().connect([=](const Wt::WMouseEvent&) {
+        auto& gotit = yahoo->query(
+            txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
+        gotit.connect(this, &AdminWindow::gotCSV);
     });
 //    new ChartConfig(chart, this); unknown purpose
 }
@@ -227,36 +171,82 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     2013-03-22,814.74,815.24,809.64,810.31,1488200,810.31
     2013-03-21,811.29,816.92,809.85,811.26,1466800,811.26
     */
+    auto log = [](char* level=nullptr){return Wt::log(level == nullptr ? "debug" : level);};
+    log() << "Reading Chart data";
     auto model = new  Wt::WStandardItemModel(this);
-    // Skip the first line
+    // Read in the header
     std::string linein;
     std::getline(csv, linein);
+    log() << "Read header row: " << linein;
+    {   // Set Headers
+        std::stringstream headers(linein);
+        std::string header;
+        int i=0;
+        while (std::getline(headers, header, ',')) {
+            model->insertColumn(i);
+            log() << "Setting header: " << header;
+            model->setHeaderData(i++, Wt::Horizontal, boost::any(header));
+            std::getline(headers, header, ',');
+        }
+    }
+    namespace Cht = Wt::Chart;
+    chart->axis(Cht::XAxis).autoLimits();
+    double min = std::numeric_limits<double>::max();
+    double max = std::numeric_limits<double>::lowest();
     while (true) {
-        std::vector<Wt::WStandardItem> row(3);
-        std::getline(csv, linein);
-        if (linein.empty())
+        std::vector<Wt::WStandardItem*> row(7);
+        auto pItem = row.begin();
+        if (!std::getline(csv, linein))
             break;
+        log() << "Reading line:" << linein;
         std::stringstream line(linein);
         // Parse into bits
         // Get the date
         std::string part;
         std::getline(line, part, ',');
+        log() << "Reading date: " << part;
         auto date = Wt::WDate::fromString(part, "yyyy-mm-dd");
-        // Skip until the Close pricek
-        std::getline(line, part, ','); // Open
-        std::getline(line, part, ','); // High
-        std::getline(line, part, ','); // Low
-        std::getline(line, part, ','); // Close
-        std::stringstream asInt(part);
-
-
-
-
-
-
-
-
-
-
+        *pItem = new Wt::WStandardItem();
+        (*pItem)->setData(boost::any(date));
+        // Opening Price, High, Low, Close, Adjusted Close
+        size_t todo = 5;
+        while (todo--) {
+            // Don't read in the volume for now
+            if (todo == 2)
+                continue;
+            std::getline(line, part, ','); // Open
+            log() << "Reading value: " << part;
+            *++pItem = new Wt::WStandardItem();
+            double val = boost::lexical_cast<double>(part);
+            if (val < min) min = val;
+            if (val > max) max = val;
+            (*pItem)->setData(boost::any(val));
+        }
+        model->appendRow(row);
     }
+
+    // Now show the data in the chart
+    auto& y = chart->axis(Cht::YAxis);
+    y.setMinimum(min);
+    y.setMaximum(max);
+    chart->setModel(model);
+    chart->setXSeriesColumn(0);
+    chart->addSeries(1);
+    chart->addSeries(2);
+    chart->addSeries(3);
+    chart->addSeries(4);
+    /*
+    auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
+        Cht::WDataSeries series(col);
+        series.setMarker(marker);
+        chart->addSeries(series);
+    };
+    addSeries(1, Cht::CircleMarker); // Open
+    chart->addSeries(Cht::WDataSeries(2, Cht::LineSeries));  // High
+    chart->addSeries(Cht::WDataSeries(3, Cht::LineSeries));  // Low
+    addSeries(4, Cht::SquareMarker); // Close
+    chart->addSeries(Cht::WDataSeries(3, Cht::CurveSeries));  // Adjusted Close
+    */
+    log("notice") << "Chart Updated";
+    goBtn->enable();
 };
