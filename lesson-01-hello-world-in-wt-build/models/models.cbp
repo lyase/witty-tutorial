@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="models" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\models\;CMake Files\tests\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="models">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/libmodels.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 models" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="models/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/libmodels.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 models/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/wt-config.xml">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/hellowt.xml.in">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\models\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\models\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\tests\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\tests\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

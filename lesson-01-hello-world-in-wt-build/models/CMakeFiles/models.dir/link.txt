@@ -1,0 +1,2 @@
+/usr/bin/ar cr libmodels.a  CMakeFiles/models.dir/User.cpp.o
+/usr/bin/ranlib libmodels.a

@@ -22,7 +22,14 @@
 #include <Wt/Chart/WPieChart>
 #include <Wt/Http/Client>
 #include <Wt/WSignal>
+#include <Wt/WBorderLayout>
+#include <Wt/WFitLayout>
 
+#include <Wt/WStandardItem>
+#include <Wt/WTableView>
+#include <Wt/Chart/WCartesianChart>
+#include <Wt/Chart/WPieChart>
+#include <Wt/Chart/WDataSeries>
 #include <boost/lexical_cast.hpp>
 
 #include <math.h>
@@ -32,7 +39,8 @@
 #include <limits>
 
 
-
+using namespace Wt;
+using namespace Wt::Chart;
 #ifndef BUILD_INFO
 #define BUILD_INFO "No build info"
 #endif
@@ -193,10 +201,12 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     chart->axis(Cht::XAxis).autoLimits();
     double min = std::numeric_limits<double>::max();
     double max = std::numeric_limits<double>::lowest();
+    int csvRow = 0;
     while (true) {
         std::vector<Wt::WStandardItem*> row(7);
         auto pItem = row.begin();
         if (!std::getline(csv, linein))
+
             break;
         log() << "Reading line:" << linein;
         std::stringstream line(linein);
@@ -211,18 +221,23 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
         // Opening Price, High, Low, Close, Adjusted Close
         size_t todo = 5;
         while (todo--) {
-            // Don't read in the volume for now
+            // Don't read in the volume column 2 for now
             if (todo == 2)
                 continue;
             std::getline(line, part, ','); // Open
-            log() << "Reading value: " << part;
+            log() << "Read value: " << part;
             *++pItem = new Wt::WStandardItem();
             double val = boost::lexical_cast<double>(part);
             if (val < min) min = val;
             if (val > max) max = val;
             (*pItem)->setData(boost::any(val));
+            model->insertRows(model->rowCount(),1);
+            model->setData(csvRow, todo, val);
         }
-        model->appendRow(row);
+      //  model->appendRow(row);
+
+++csvRow;
+
     }
 
     // Now show the data in the chart
@@ -230,23 +245,23 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     y.setMinimum(min);
     y.setMaximum(max);
     chart->setModel(model);
-    chart->setXSeriesColumn(0);
+    chart->setXSeriesColumn(1);
     chart->addSeries(1);
     chart->addSeries(2);
     chart->addSeries(3);
     chart->addSeries(4);
-    /*
+
     auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
-        Cht::WDataSeries series(col);
+        WDataSeries series(col , 1);
         series.setMarker(marker);
         chart->addSeries(series);
     };
-    addSeries(1, Cht::CircleMarker); // Open
+    chart->addSeries(1, Cht::CircleMarker); // Open
     chart->addSeries(Cht::WDataSeries(2, Cht::LineSeries));  // High
     chart->addSeries(Cht::WDataSeries(3, Cht::LineSeries));  // Low
-    addSeries(4, Cht::SquareMarker); // Close
+    chart->addSeries(4, Cht::SquareMarker); // Close
     chart->addSeries(Cht::WDataSeries(3, Cht::CurveSeries));  // Adjusted Close
-    */
+
     log("notice") << "Chart Updated";
     goBtn->enable();
 };

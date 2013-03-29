@@ -1,0 +1,66 @@
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 6467
+now year is:2013
+month is:2
+day is:4
+The local date and time is: Mon Feb  4 14:33:33 2013
+
+The UTC date and time is: Mon Feb  4 13:33:33 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=./hellowt 
+parameter[1]:=--docroot 
+parameter[2]:=. 
+parameter[3]:=--http-address 
+parameter[4]:=0.0.0.0 
+parameter[5]:=--http-port 
+parameter[6]:=8080 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 6726
+now year is:2013
+month is:2
+day is:4
+The local date and time is: Mon Feb  4 14:36:30 2013
+
+The UTC date and time is: Mon Feb  4 13:36:30 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=./hellowt 
+parameter[1]:=-c 
+parameter[2]:=wt-config.xml 
+parameter[3]:=--docroot 
+parameter[4]:=. 
+parameter[5]:=--http-address 
+parameter[6]:=0.0.0.0 
+parameter[7]:=--http-port 
+parameter[8]:=8080 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 11525
+now year is:2013
+month is:2
+day is:26
+The local date and time is: Tue Feb 26 08:56:06 2013
+
+The UTC date and time is: Tue Feb 26 07:56:06 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 11614
+now year is:2013
+month is:2
+day is:26
+The local date and time is: Tue Feb 26 08:56:50 2013
+
+The UTC date and time is: Tue Feb 26 07:56:50 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt 
+parameter[1]:=--docroot 
+parameter[2]:=doc/html 
+parameter[3]:=--approot 
+parameter[4]:=. 
+parameter[5]:=--http-address=0.0.0.0 
+parameter[6]:=--http-port=8000 
+parameter[7]:=-c 
+parameter[8]:=hellowt.xml 

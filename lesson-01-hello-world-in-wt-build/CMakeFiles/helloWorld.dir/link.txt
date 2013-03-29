@@ -1,0 +1,2 @@
+/usr/bin/ar cr libhelloWorld.a  CMakeFiles/helloWorld.dir/HelloApp.cpp.o CMakeFiles/helloWorld.dir/MainWindow.cpp.o CMakeFiles/helloWorld.dir/AskWindow.cpp.o CMakeFiles/helloWorld.dir/SayWindow.cpp.o CMakeFiles/helloWorld.dir/AdminWindow.cpp.o CMakeFiles/helloWorld.dir/CsvUtil.C.o
+/usr/bin/ranlib libhelloWorld.a

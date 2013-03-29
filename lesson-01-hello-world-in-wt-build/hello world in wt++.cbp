@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="hello world in wt++" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\models\;CMake Files\tests\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="helloWorld">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/libhelloWorld.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 helloWorld" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="helloWorld/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/libhelloWorld.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 helloWorld/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hellowt">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 hellowt" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hellowt/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 hellowt/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test">
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 test" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="models">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/libmodels.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 models" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="models/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/libmodels.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 models/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="dbo_test">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/dbo_test" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 dbo_test" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="dbo_test/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/dbo_test" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 dbo_test/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="functional_test">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/functional_test" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 functional_test" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="functional_test/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/functional_test" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 functional_test/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_full">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_full" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_full" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_full/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_full" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_full/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_persistence">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_persistence" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_persistence" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_persistence/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_persistence" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_persistence/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_set_name">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_set_name" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_set_name" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_user_set_name/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/test_user_set_name" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 test_user_set_name/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="usertest">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/usertest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 usertest" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="usertest/fast">
+         <Option output="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/usertest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DBOOST_TEST_DYN_LINK" />
+            <Add option="-DBOOST_TEST_MAIN" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.7" />
+            <Add directory="/usr/include/c++/4.7/backward" />
+            <Add directory="/usr/include/c++/4.7/i686-linux-gnu" />
+            <Add directory="/usr/include/i386-linux-gnu" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include" />
+            <Add directory="/usr/lib/gcc/i686-linux-gnu/4.7/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 usertest/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CsvUtil.C">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/HelloApp.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/MainWindow.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/SayWindow.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/listing.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/main.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/testUser_Class.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/testUser_Class_dbo.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/functional_test.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/test_user_is_not_mike.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/test_user_persistence.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/testdbo.cpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.hpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.hpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CsvUtil.h">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/HelloApp.hpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/MainWindow.hpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/SayWindow.hpp">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/listing.h">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/wt-config.xml">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/hellowt.xml.in">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\models\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\models\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\tests\" />
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/tests/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\tests\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
