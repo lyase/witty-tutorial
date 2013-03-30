@@ -1,46 +1,5 @@
 #include "AdminWindow.hpp"
-#include "HelloApp.hpp"
-#include <Wt/WLineEdit>
-#include <Wt/WText>
-#include <Wt/WLabel>
-#include <Wt/WPushButton>
-#include <Wt/WString>
-#include <Wt/WAnchor>
-#include <Wt/WLink>
-#include <Wt/WApplication>
-#include "CsvUtil.h"
-#include <Wt/WDate>
-#include <Wt/WDatePicker>
-#include <Wt/WEnvironment>
-#include <Wt/WItemDelegate>
-#include <Wt/WStandardItemModel>
 
-#include <Wt/WStandardItem>
-#include <Wt/WTableView>
-
-#include <Wt/Chart/WCartesianChart>
-#include <Wt/Chart/WPieChart>
-#include <Wt/Http/Client>
-#include <Wt/WSignal>
-#include <Wt/WBorderLayout>
-#include <Wt/WFitLayout>
-
-#include <Wt/WStandardItem>
-#include <Wt/WTableView>
-#include <Wt/Chart/WCartesianChart>
-#include <Wt/Chart/WPieChart>
-#include <Wt/Chart/WDataSeries>
-#include <boost/lexical_cast.hpp>
-
-#include <math.h>
-#include <fstream>
-#include <iterator>
-#include <sstream>
-#include <limits>
-
-
-using namespace Wt;
-using namespace Wt::Chart;
 #ifndef BUILD_INFO
 #define BUILD_INFO "No build info"
 #endif
@@ -84,26 +43,24 @@ private:
         return result.str();
     }
 public:
-    YahooStockHistory(Wt::WObject* parent=nullptr) : Wt::WObject(parent) {}
+    YahooStockHistory(Wt::WObject* parent=nullptr): Wt::WObject(parent) {}
     GotCSVSignal& query(const string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) {
-        std::stringstream url;
-        url << "s=" << urlEncode(id)
-            << "&a=" << (start.month() - 1)
-            << "&b=" << start.day()
-            << "&c=" << start.year()
-            << "&d=" << (end.month() - 1)
-            << "&e=" << end.day()
-            << "&f=" << end.year()
-            << "&g=" << interval
-            << "&ignore=.csv";
-        return query(url.str());
+    std::stringstream url;
+    url << "s=" << urlEncode(id)
+    << "&a=" << (start.month() - 1)
+    << "&b=" << start.day()
+    << "&c=" << start.year()
+    << "&d=" << (end.month() - 1)
+    << "&e=" << end.day()
+    << "&f=" << end.year()
+    << "&g=" << interval
+    << "&ignore=.csv";
+    return query(url.str());
     }
 };
 
 
-AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
-    : Wt::WContainerWidget(parent),
-      yahoo(new YahooStockHistory(this))
+AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
 {
     parent->setStyleClass("container-fluid");
     _debugOutput = new Wt::WText(parent);
@@ -124,6 +81,9 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
     chart->setType(Wt::Chart::ScatterPlot);            // set type to ScatterPlot
     chart->axis(Wt::Chart::XAxis).setScale(Wt::Chart::DateScale); // set scale of X axis to DateScale
 
+    chart->setModel(model);        // set the model
+    +    chart->setXSeriesColumn(0);    // set the column that holds the X data
+    +    chart->setLegendEnabled(true); // enable the legend
     // Provide space for the X and Y axis and title.
     chart->setPlotAreaPadding(80, Wt::Left);
     chart->setPlotAreaPadding(40, Wt::Top | Wt::Bottom);
@@ -161,16 +121,16 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent)
 
     goBtn->clicked().connect(goBtn, &Wt::WPushButton::disable);
     goBtn->clicked().connect([=](const Wt::WMouseEvent&) {
-        auto& gotit = yahoo->query(
-            txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
+        auto& gotit = yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
         gotit.connect(this, &AdminWindow::gotCSV);
-    });
+    }
+);
 //    new ChartConfig(chart, this); unknown purpose
 }
 
 void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     std::stringstream csv(msg.body());
-    std::cout << csv.str() << "\n";
+    std::cout <<"response from yahoo: "<< csv.str() << "\n";
     /*
       Sample data that we are parsing;
 
@@ -181,7 +141,8 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     */
     auto log = [](char* level=nullptr){return Wt::log(level == nullptr ? "debug" : level);};
     log() << "Reading Chart data";
-    auto model = new  Wt::WStandardItemModel(this);
+
+     model = new  Wt::WStandardItemModel(this);
     // Read in the header
     std::string linein;
     std::getline(csv, linein);
@@ -239,8 +200,15 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
 ++csvRow;
 
     }
-
-    // Now show the data in the chart
+        chart->setModel(model);        // set the model
+       chart->setXSeriesColumn(0);    // set the column that holds the X data
+       chart->setLegendEnabled(true); // enable the legend
+       chart->setType(ScatterPlot);            // set type to ScatterPlot
+       chart->axis(XAxis).setScale(DateScale); // set scale of X axis to DateScale
+       // Provide space for the X and Y axis and title.
+       chart->setPlotAreaPadding(80, Left);
+       chart->setPlotAreaPadding(40, Top | Bottom);
+       // Now show the data in the chart
     auto& y = chart->axis(Cht::YAxis);
     y.setMinimum(min);
     y.setMaximum(max);
@@ -251,16 +219,16 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     chart->addSeries(3);
     chart->addSeries(4);
 
-    auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
-        WDataSeries series(col , 1);
-        series.setMarker(marker);
-        chart->addSeries(series);
-    };
-    chart->addSeries(1, Cht::CircleMarker); // Open
-    chart->addSeries(Cht::WDataSeries(2, Cht::LineSeries));  // High
-    chart->addSeries(Cht::WDataSeries(3, Cht::LineSeries));  // Low
-    chart->addSeries(4, Cht::SquareMarker); // Close
-    chart->addSeries(Cht::WDataSeries(3, Cht::CurveSeries));  // Adjusted Close
+auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
+WDataSeries series(col , 1);
+series.setMarker(marker);
+chart->addSeries(series);
+};
+chart->addSeries(1, Cht::CircleMarker); // Open
+chart->addSeries(Cht::WDataSeries(2, Cht::LineSeries));  // High
+chart->addSeries(Cht::WDataSeries(3, Cht::LineSeries));  // Low
+chart->addSeries(4, Cht::SquareMarker); // Close
+chart->addSeries(Cht::WDataSeries(3, Cht::CurveSeries));  // Adjusted Close
 
     log("notice") << "Chart Updated";
     goBtn->enable();
