@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/models.dir/User.cpp.o"
+  "CMakeFiles/models.dir/Yahoo.cpp.o"
   "libmodels.pdb"
   "libmodels.a"
 )

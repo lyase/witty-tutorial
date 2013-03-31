@@ -5,6 +5,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.cpp" "/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/CMakeFiles/models.dir/User.cpp.o"
+  "/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp" "/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/CMakeFiles/models.dir/Yahoo.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

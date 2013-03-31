@@ -4,3 +4,6 @@
 models/CMakeFiles/models.dir/User.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.cpp
 models/CMakeFiles/models.dir/User.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h
 
+models/CMakeFiles/models.dir/Yahoo.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp
+models/CMakeFiles/models.dir/Yahoo.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.hpp
+

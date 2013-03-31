@@ -494,6 +494,8 @@
       </Unit>
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.cpp">
       </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp">
+      </Unit>
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/testUser_Class.cpp">
       </Unit>
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/testUser_Class_dbo.cpp">
@@ -521,6 +523,8 @@
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/listing.h">
       </Unit>
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h">
+      </Unit>
+      <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.hpp">
       </Unit>
       <Unit filename="/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />

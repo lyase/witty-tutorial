@@ -149,6 +149,30 @@ User.cpp.s:
 	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build && $(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/User.cpp.s
 .PHONY : User.cpp.s
 
+Yahoo.o: Yahoo.cpp.o
+.PHONY : Yahoo.o
+
+# target to build an object file
+Yahoo.cpp.o:
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build && $(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/Yahoo.cpp.o
+.PHONY : Yahoo.cpp.o
+
+Yahoo.i: Yahoo.cpp.i
+.PHONY : Yahoo.i
+
+# target to preprocess a source file
+Yahoo.cpp.i:
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build && $(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/Yahoo.cpp.i
+.PHONY : Yahoo.cpp.i
+
+Yahoo.s: Yahoo.cpp.s
+.PHONY : Yahoo.s
+
+# target to generate assembly for a file
+Yahoo.cpp.s:
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build && $(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/Yahoo.cpp.s
+.PHONY : Yahoo.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +186,9 @@ help:
 	@echo "... User.o"
 	@echo "... User.i"
 	@echo "... User.s"
+	@echo "... Yahoo.o"
+	@echo "... Yahoo.i"
+	@echo "... Yahoo.s"
 .PHONY : help
 
 

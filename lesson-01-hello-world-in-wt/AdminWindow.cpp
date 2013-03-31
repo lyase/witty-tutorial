@@ -7,58 +7,15 @@
 /** Gets historical stock inforation from yahoo:
   * API Specifcation: http://code.google.com/p/yahoo-finance-managed/wiki/csvHistQuotesDownload
   */
-class AdminWindow::YahooStockHistory : public Wt::WObject {
-public:
-    enum TradingPeriod {daily='d', monthly='m', weekly='w'};
-    typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
-private:
-    Wt::Http::Client* http = new Wt::Http::Client(this);
-    GotCSVSignal& query(const string& query) {
-        std::string url = "http://ichart.yahoo.com/table.csv?";
-        url += query;
-        auto app = Wt::WApplication::instance();
-        app->log("info") << "Sending query: " << url << "\n";
-        if (http->get(url)) {
-            return http->done();
-        }
-        throw std::runtime_error("Couldn't connect to http");
-    }
-    std::string urlEncode(const std::string& input) {
-        std::stringstream result;
-        auto in = input.begin();
-        auto end = input.end();
-        while (in != end) {
-            if (((*in <= 'Z') && (*in >= 'A')) ||
-                ((*in <= 'a') && (*in >= 'z')) ||
-                ((*in <= '9') && (*in >= '0')) ||
-                ((*in == '-') || (*in == '+'))) {
-                result << *in++;
-            } else if (*in == ' ') {
-                result << '+';
-                ++in;
-            } else {
-                result << '%' << std::hex << (int)(*in++) << ';';
-            }
-        }
-        return result.str();
-    }
-public:
-    YahooStockHistory(Wt::WObject* parent=nullptr): Wt::WObject(parent) {}
-    GotCSVSignal& query(const string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) {
-    std::stringstream url;
-    url << "s=" << urlEncode(id)
-    << "&a=" << (start.month() - 1)
-    << "&b=" << start.day()
-    << "&c=" << start.year()
-    << "&d=" << (end.month() - 1)
-    << "&e=" << end.day()
-    << "&f=" << end.year()
-    << "&g=" << interval
-    << "&ignore=.csv";
-    return query(url.str());
-    }
-};
 
+void AdminWindow::addSeries(int col, MarkerType marker=NoMarker,SeriesType LineSeries=LineSeries )
+{
+WDataSeries series(col , LineSeries);
+series.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+
+series.setMarker(marker);
+chart->addSeries(series);
+};
 
 AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
 {
@@ -76,14 +33,42 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
     chart = new Wt::Chart::WCartesianChart(parent);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
+    chart->setModel(model);        // set the model
+    chart->setXSeriesColumn(0);    // set the column that holds the X data
+    chart->setLegendEnabled(true); // enable the legend
+
+    chart->setType(ScatterPlot);            // set type to ScatterPlot
+    chart->axis(XAxis).setScale(DateScale); // set scale of X axis to DateScale
+
+    // Provide space for the X and Y axis and title.
+    chart->setPlotAreaPadding(80, Left);
+    chart->setPlotAreaPadding(40, Top | Bottom);
+
+    /*
+     * Add first two columns as line series
+     */
+    for (int i = 1; i < 3; ++i) {
+      WDataSeries s(i, LineSeries);
+      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+      chart->addSeries(s);
+    }
+
+    chart->resize(800, 400); // WPaintedWidget must be given explicit size
+
+    chart->setMargin(10, Top | Bottom);            // add margin vertically
+    chart->setMargin(WLength::Auto, Left | Right); // center horizontally
+
+//    new ChartConfig(chart, this); unknown purpose
+
+    //chart->setPreferredMethod(WPaintedWidget::PngImage);
+    //chart->setBackground(gray);
     chart->setLegendEnabled(true); // enable the legend
 
     chart->setType(Wt::Chart::ScatterPlot);            // set type to ScatterPlot
     chart->axis(Wt::Chart::XAxis).setScale(Wt::Chart::DateScale); // set scale of X axis to DateScale
 
-    chart->setModel(model);        // set the model
-    +    chart->setXSeriesColumn(0);    // set the column that holds the X data
-    +    chart->setLegendEnabled(true); // enable the legend
+         chart->setXSeriesColumn(0);    // set the column that holds the X data
+        chart->setLegendEnabled(true); // enable the legend
     // Provide space for the X and Y axis and title.
     chart->setPlotAreaPadding(80, Wt::Left);
     chart->setPlotAreaPadding(40, Wt::Top | Wt::Bottom);
@@ -219,16 +204,18 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     chart->addSeries(3);
     chart->addSeries(4);
 
-auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
-WDataSeries series(col , 1);
+/*auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
+WDataSeries series(col , LineSeries);
+series.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+
 series.setMarker(marker);
 chart->addSeries(series);
-};
-chart->addSeries(1, Cht::CircleMarker); // Open
-chart->addSeries(Cht::WDataSeries(2, Cht::LineSeries));  // High
-chart->addSeries(Cht::WDataSeries(3, Cht::LineSeries));  // Low
-chart->addSeries(4, Cht::SquareMarker); // Close
-chart->addSeries(Cht::WDataSeries(3, Cht::CurveSeries));  // Adjusted Close
+};*/
+addSeries(1, CircleMarker, LineSeries); // Open
+addSeries(2, SquareMarker , LineSeries);  // High
+addSeries(3, XCrossMarker,CurveSeries);  // Low
+addSeries(4, SquareMarker,PointSeries); // Close
+addSeries(3, TriangleMarker,CurveSeries);  // Adjusted Close
 
     log("notice") << "Chart Updated";
     goBtn->enable();

@@ -75,14 +75,39 @@ models/CMakeFiles/models.dir/User.cpp.o.provides: models/CMakeFiles/models.dir/U
 
 models/CMakeFiles/models.dir/User.cpp.o.provides.build: models/CMakeFiles/models.dir/User.cpp.o
 
+models/CMakeFiles/models.dir/Yahoo.cpp.o: models/CMakeFiles/models.dir/flags.make
+models/CMakeFiles/models.dir/Yahoo.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object models/CMakeFiles/models.dir/Yahoo.cpp.o"
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/models.dir/Yahoo.cpp.o -c /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp
+
+models/CMakeFiles/models.dir/Yahoo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/models.dir/Yahoo.cpp.i"
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp > CMakeFiles/models.dir/Yahoo.cpp.i
+
+models/CMakeFiles/models.dir/Yahoo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/models.dir/Yahoo.cpp.s"
+	cd /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.cpp -o CMakeFiles/models.dir/Yahoo.cpp.s
+
+models/CMakeFiles/models.dir/Yahoo.cpp.o.requires:
+.PHONY : models/CMakeFiles/models.dir/Yahoo.cpp.o.requires
+
+models/CMakeFiles/models.dir/Yahoo.cpp.o.provides: models/CMakeFiles/models.dir/Yahoo.cpp.o.requires
+	$(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/Yahoo.cpp.o.provides.build
+.PHONY : models/CMakeFiles/models.dir/Yahoo.cpp.o.provides
+
+models/CMakeFiles/models.dir/Yahoo.cpp.o.provides.build: models/CMakeFiles/models.dir/Yahoo.cpp.o
+
 # Object files for target models
 models_OBJECTS = \
-"CMakeFiles/models.dir/User.cpp.o"
+"CMakeFiles/models.dir/User.cpp.o" \
+"CMakeFiles/models.dir/Yahoo.cpp.o"
 
 # External object files for target models
 models_EXTERNAL_OBJECTS =
 
 models/libmodels.a: models/CMakeFiles/models.dir/User.cpp.o
+models/libmodels.a: models/CMakeFiles/models.dir/Yahoo.cpp.o
 models/libmodels.a: models/CMakeFiles/models.dir/build.make
 models/libmodels.a: models/CMakeFiles/models.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library libmodels.a"
@@ -94,6 +119,7 @@ models/CMakeFiles/models.dir/build: models/libmodels.a
 .PHONY : models/CMakeFiles/models.dir/build
 
 models/CMakeFiles/models.dir/requires: models/CMakeFiles/models.dir/User.cpp.o.requires
+models/CMakeFiles/models.dir/requires: models/CMakeFiles/models.dir/Yahoo.cpp.o.requires
 .PHONY : models/CMakeFiles/models.dir/requires
 
 models/CMakeFiles/models.dir/clean:

@@ -1,11 +1,8 @@
-#ifndef ADMINWINDOW_HPP
-#define ADMINWINDOW_HPP
-/// This window sows admin monitoring option get to documentation build log and test results
-
+#ifndef YAHOO_H
+#define YAHOO_H
 #include <Wt/WContainerWidget>
 #include <Wt/Chart/WCartesianChart>
 #include <boost/system/error_code.hpp>
-#include "HelloApp.hpp"
 #include <Wt/WLineEdit>
 #include <Wt/WText>
 #include <Wt/WLabel>
@@ -14,7 +11,7 @@
 #include <Wt/WAnchor>
 #include <Wt/WLink>
 #include <Wt/WApplication>
-#include "CsvUtil.h"
+
 #include <Wt/WDate>
 #include <Wt/WDatePicker>
 #include <Wt/WEnvironment>
@@ -37,36 +34,32 @@
 #include <Wt/Chart/WPieChart>
 #include <Wt/Chart/WDataSeries>
 #include <boost/lexical_cast.hpp>
-#include "models/Yahoo.hpp"
+
 #include <math.h>
 #include <fstream>
 #include <iterator>
 #include <sstream>
 #include <limits>
-using namespace Wt;
-using namespace Wt::Chart;
-// Forward Declarations
-namespace Wt {
-class WLineEdit;
-class WText;
-class WLabel;
-class WButton;
-class WPushButton;
-class WLink;
-}
+#include <Wt/Dbo/Dbo>
 
-class AdminWindow : public Wt::WContainerWidget {
-private:
-    Wt::WText* _debugOutput;
-    Wt::WPushButton* goBtn;
-    YahooStockHistory* yahoo;
-     WAbstractItemModel *model;
-     Wt::Chart::WCartesianChart* chart;
-    void handlePathChanged(const std::string& newPath);
-    void gotCSV(boost::system::error_code, Wt::Http::Message msg);
-void addSeries (int col, MarkerType marker, SeriesType LineSeries);
+#include <string>
+#include <iostream>
+#include <Wt/Dbo/backend/Sqlite3>
+#include <Wt/Render/WPdfRenderer>
+#include <hpdf.h>
+class YahooStockHistory : public Wt::WObject {
 public:
-    AdminWindow(Wt::WContainerWidget* parent=0);
+    enum TradingPeriod {daily='d', monthly='m', weekly='w'};
+    typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
+    YahooStockHistory(Wt::WObject* parent);
+    GotCSVSignal& query(const std::string& query);
+    GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
+
+private:
+    Wt::Http::Client* http = new Wt::Http::Client(this);
+
+    std::string urlEncode(const std::string& input) ;
+
 };
 
-#endif // ASKWINDOW_HPP
+#endif // YAHOO_H

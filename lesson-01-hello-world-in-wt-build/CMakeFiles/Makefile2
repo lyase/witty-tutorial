@@ -108,7 +108,7 @@ all: CMakeFiles/hellowt.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/hellowt.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/hellowt.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : CMakeFiles/hellowt.dir/rule
@@ -148,7 +148,7 @@ models/preinstall:
 models/CMakeFiles/models.dir/all:
 	$(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/depend
 	$(MAKE) -f models/CMakeFiles/models.dir/build.make models/CMakeFiles/models.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  10
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  10 11
 	@echo "Built target models"
 .PHONY : models/CMakeFiles/models.dir/all
 
@@ -158,7 +158,7 @@ all: models/CMakeFiles/models.dir/all
 
 # Build rule for subdir invocation for target.
 models/CMakeFiles/models.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 models/CMakeFiles/models.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : models/CMakeFiles/models.dir/rule
@@ -254,7 +254,7 @@ all: tests/CMakeFiles/functional_test.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/functional_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/functional_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/functional_test.dir/rule
@@ -280,7 +280,7 @@ tests/CMakeFiles/test_user_full.dir/all: CMakeFiles/helloWorld.dir/all
 tests/CMakeFiles/test_user_full.dir/all: models/CMakeFiles/models.dir/all
 	$(MAKE) -f tests/CMakeFiles/test_user_full.dir/build.make tests/CMakeFiles/test_user_full.dir/depend
 	$(MAKE) -f tests/CMakeFiles/test_user_full.dir/build.make tests/CMakeFiles/test_user_full.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  11 12
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  12 13
 	@echo "Built target test_user_full"
 .PHONY : tests/CMakeFiles/test_user_full.dir/all
 
@@ -290,7 +290,7 @@ all: tests/CMakeFiles/test_user_full.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test_user_full.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_user_full.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test_user_full.dir/rule
@@ -316,7 +316,7 @@ tests/CMakeFiles/test_user_persistence.dir/all: CMakeFiles/helloWorld.dir/all
 tests/CMakeFiles/test_user_persistence.dir/all: models/CMakeFiles/models.dir/all
 	$(MAKE) -f tests/CMakeFiles/test_user_persistence.dir/build.make tests/CMakeFiles/test_user_persistence.dir/depend
 	$(MAKE) -f tests/CMakeFiles/test_user_persistence.dir/build.make tests/CMakeFiles/test_user_persistence.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  13
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  14
 	@echo "Built target test_user_persistence"
 .PHONY : tests/CMakeFiles/test_user_persistence.dir/all
 
@@ -326,7 +326,7 @@ all: tests/CMakeFiles/test_user_persistence.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test_user_persistence.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_user_persistence.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test_user_persistence.dir/rule
@@ -352,7 +352,7 @@ tests/CMakeFiles/test_user_set_name.dir/all: CMakeFiles/helloWorld.dir/all
 tests/CMakeFiles/test_user_set_name.dir/all: models/CMakeFiles/models.dir/all
 	$(MAKE) -f tests/CMakeFiles/test_user_set_name.dir/build.make tests/CMakeFiles/test_user_set_name.dir/depend
 	$(MAKE) -f tests/CMakeFiles/test_user_set_name.dir/build.make tests/CMakeFiles/test_user_set_name.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  14
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  15
 	@echo "Built target test_user_set_name"
 .PHONY : tests/CMakeFiles/test_user_set_name.dir/all
 
@@ -362,7 +362,7 @@ all: tests/CMakeFiles/test_user_set_name.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test_user_set_name.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_user_set_name.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test_user_set_name.dir/rule
@@ -387,7 +387,7 @@ clean: tests/CMakeFiles/test_user_set_name.dir/clean
 tests/CMakeFiles/usertest.dir/all: models/CMakeFiles/models.dir/all
 	$(MAKE) -f tests/CMakeFiles/usertest.dir/build.make tests/CMakeFiles/usertest.dir/depend
 	$(MAKE) -f tests/CMakeFiles/usertest.dir/build.make tests/CMakeFiles/usertest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  15
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles  16
 	@echo "Built target usertest"
 .PHONY : tests/CMakeFiles/usertest.dir/all
 
@@ -397,7 +397,7 @@ all: tests/CMakeFiles/usertest.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/usertest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/usertest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/usertest.dir/rule
