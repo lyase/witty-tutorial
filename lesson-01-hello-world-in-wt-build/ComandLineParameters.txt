@@ -64,3 +64,43 @@ parameter[5]:=--http-address=0.0.0.0
 parameter[6]:=--http-port=8000 
 parameter[7]:=-c 
 parameter[8]:=hellowt.xml 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 25269
+now year is:2013
+month is:3
+day is:31
+The local date and time is: Sun Mar 31 14:40:58 2013
+
+The UTC date and time is: Sun Mar 31 12:40:58 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt 
+parameter[1]:=. 
+parameter[2]:=--docroot 
+parameter[3]:=. 
+parameter[4]:=--http-address 
+parameter[5]:=0.0.0.0 
+parameter[6]:=--http-port 
+parameter[7]:=8080 
+parameter[8]:=-c 
+parameter[9]:=hellowt.xml 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+I am a app starting parent with pid: 25450
+now year is:2013
+month is:3
+day is:31
+The local date and time is: Sun Mar 31 14:44:04 2013
+
+The UTC date and time is: Sun Mar 31 12:44:04 2013
+
+here are the comand line parameters passed to app when started:
+parameter[0]:=/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/hellowt 
+parameter[1]:=. 
+parameter[2]:=--docroot 
+parameter[3]:=. 
+parameter[4]:=--http-address 
+parameter[5]:=0.0.0.0 
+parameter[6]:=--http-port 
+parameter[7]:=8080 
+parameter[8]:=-c 
+parameter[9]:=hellowt.xml 

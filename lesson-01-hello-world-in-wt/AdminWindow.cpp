@@ -19,21 +19,25 @@ chart->addSeries(series);
 
 AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
 {
-    parent->setStyleClass("container-fluid");
-    _debugOutput = new Wt::WText(parent);
-    _debugOutput->setText(Wt::WString("debug info: ") +  BUILD_INFO + " Docroot: " + Wt::WApplication::instance()->docRoot());
-    cout << std::endl << std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
-    new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", parent);
-    // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
-    new Wt::WText(Wt::WString::tr("scatter plot"), parent);
-
+parent->setStyleClass("container-fluid");
+_debugOutput = new Wt::WText(parent);
+_debugOutput->setText(Wt::WString("debug info: ") +  BUILD_INFO + " Docroot: " + Wt::WApplication::instance()->docRoot());
+addWidget(new Wt::WBreak());
+cout << std::endl << std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
+new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", parent);
+// copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
+addWidget(new Wt::WBreak());
+    new Wt::WText(Wt::WString::tr(" now: the scatter plot:"), parent);
+    addWidget(new Wt::WBreak());
     /*
      * Create the scatter plot.
      */
     chart = new Wt::Chart::WCartesianChart(parent);
     //chart->setPreferredMethod(WPaintedWidget::PngImage);
     //chart->setBackground(gray);
-    chart->setModel(model);        // set the model
+// should initialise  a amodel now with default values
+   // and set chartModel . after any data query the model should be updated
+// chart->setModel(model);        // set the model
     chart->setXSeriesColumn(0);    // set the column that holds the X data
     chart->setLegendEnabled(true); // enable the legend
 
