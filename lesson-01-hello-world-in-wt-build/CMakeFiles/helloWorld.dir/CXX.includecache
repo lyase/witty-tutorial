@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.cpp
+AdminWindow.hpp
+/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.hpp
+
 /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.hpp
 Wt/WContainerWidget
 -
@@ -84,10 +88,6 @@ sstream
 limits
 -
 
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.hpp
-Wt/WContainerWidget
--
-
 /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/CsvUtil.h
 iostream
 -
@@ -103,44 +103,6 @@ Wt/WAbstractItemModel
 -
 Wt/WString
 -
-
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/FactoryHelloWorldWebsite.hpp
-Wt/WObject
--
-IWebPageFactory.h
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/IWebPageFactory.h
-AskWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.hpp
-SayWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/SayWindow.hpp
-AdminWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AdminWindow.hpp
-MainWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/MainWindow.hpp
-iostream
--
-
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/HelloApp.cpp
-HelloApp.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/HelloApp.hpp
-Wt/Dbo/Session
--
-Wt/Dbo/backend/Sqlite3
--
-AskWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.hpp
-SayWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/SayWindow.hpp
-MainWindow.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/MainWindow.hpp
-IWebPageFactory.h
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/IWebPageFactory.h
-FactoryHelloWorldWebsite.hpp
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/FactoryHelloWorldWebsite.hpp
-Wt/Dbo/Exception
--
-models/User.h
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h
 
 /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/HelloApp.hpp
 memory
@@ -167,10 +129,6 @@ Wt/WString
 -
 models/User.h
 /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h
-
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/SayWindow.hpp
-Wt/WContainerWidget
--
 
 /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h
 Wt/Dbo/Dbo

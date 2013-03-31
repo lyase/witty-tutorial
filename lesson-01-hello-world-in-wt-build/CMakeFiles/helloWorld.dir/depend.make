@@ -8,6 +8,7 @@ CMakeFiles/helloWorld.dir/AdminWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tuto
 CMakeFiles/helloWorld.dir/AdminWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/IWebPageFactory.h
 CMakeFiles/helloWorld.dir/AdminWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/MainWindow.hpp
 CMakeFiles/helloWorld.dir/AdminWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/User.h
+CMakeFiles/helloWorld.dir/AdminWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/models/Yahoo.hpp
 
 CMakeFiles/helloWorld.dir/AskWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.cpp
 CMakeFiles/helloWorld.dir/AskWindow.cpp.o: /home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt/AskWindow.hpp

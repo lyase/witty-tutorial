@@ -47,11 +47,6 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
     /*
      * Add first two columns as line series
      */
-    for (int i = 1; i < 3; ++i) {
-      WDataSeries s(i, LineSeries);
-      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
-      chart->addSeries(s);
-    }
 
     chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
@@ -198,24 +193,12 @@ void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
     y.setMinimum(min);
     y.setMaximum(max);
     chart->setModel(model);
-    chart->setXSeriesColumn(1);
-    chart->addSeries(1);
-    chart->addSeries(2);
-    chart->addSeries(3);
-    chart->addSeries(4);
-
-/*auto addSeries = [=](int col, Cht::MarkerType marker=Cht::NoMarker) {
-WDataSeries series(col , LineSeries);
-series.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
-
-series.setMarker(marker);
-chart->addSeries(series);
-};*/
-addSeries(1, CircleMarker, LineSeries); // Open
-addSeries(2, SquareMarker , LineSeries);  // High
-addSeries(3, XCrossMarker,CurveSeries);  // Low
-addSeries(4, SquareMarker,PointSeries); // Close
-addSeries(3, TriangleMarker,CurveSeries);  // Adjusted Close
+    chart->setXSeriesColumn(0);
+    addSeries(1, CircleMarker, LineSeries); // Open
+    addSeries(2, SquareMarker , LineSeries);  // High
+    addSeries(3, XCrossMarker,CurveSeries);  // Low
+    addSeries(4, SquareMarker,PointSeries); // Close
+    addSeries(3, TriangleMarker,CurveSeries);  // Adjusted Close
 
     log("notice") << "Chart Updated";
     goBtn->enable();
