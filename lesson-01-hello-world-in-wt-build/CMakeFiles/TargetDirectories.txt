@@ -1,9 +1,0 @@
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/dbo_test.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/functional_test.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles/helloWorld.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/CMakeFiles/hellowt.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/models/CMakeFiles/models.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/test_user_full.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/test_user_persistence.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/test_user_set_name.dir
-/home/ubsafder/temp/dojo/witty-tutorial/lesson-01-hello-world-in-wt-build/tests/CMakeFiles/usertest.dir

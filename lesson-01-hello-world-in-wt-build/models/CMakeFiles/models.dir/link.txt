@@ -1,2 +1,0 @@
-/usr/bin/ar cr libmodels.a  CMakeFiles/models.dir/User.cpp.o CMakeFiles/models.dir/Yahoo.cpp.o
-/usr/bin/ranlib libmodels.a

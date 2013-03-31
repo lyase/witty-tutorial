@@ -1,1 +1,0 @@
-/usr/bin/c++   -g    CMakeFiles/hellowt.dir/main.cpp.o  -o hellowt -rdynamic libhelloWorld.a models/libmodels.a /usr/local/lib/libwthttp.so /usr/local/lib/libwtdbo.so /usr/local/lib/libwtdbosqlite3.so /usr/local/lib/libwt.so -lhpdf -lboost_system-mt -lboost_thread-mt -lboost_signals-mt -lboost_program_options-mt -lboost_filesystem-mt -Wl,-rpath,/usr/local/lib 

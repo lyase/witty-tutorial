@@ -1,1 +1,0 @@
-/usr/bin/c++   -g    CMakeFiles/functional_test.dir/functional_test.cpp.o  -o functional_test -rdynamic ../libhelloWorld.a ../models/libmodels.a -lboost_system-mt -lboost_unit_test_framework-mt -lboost_signals-mt -lhpdf -lboost_filesystem-mt /usr/local/lib/libwt.so /usr/local/lib/libwtdbo.so /usr/local/lib/libwttest.so /usr/local/lib/libwtdbosqlite3.so -Wl,-rpath,/usr/local/lib 
