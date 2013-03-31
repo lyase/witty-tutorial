@@ -66,6 +66,7 @@ private:
     void gotCSV(boost::system::error_code, Wt::Http::Message msg);
 void addSeries (int col, MarkerType marker, SeriesType LineSeries);
 public:
+   // AdminWindow(Wt::WContainerWidget* parent=0);
     AdminWindow(Wt::WContainerWidget* parent=0);
 };
 

@@ -32,7 +32,7 @@ using namespace Wt::Chart;
 // in file:///home/ubsafder/temp/dojo/witty-tutorial/wt/examples/charts/ChartsExample.C
 
 void readFromCsv(std::istream& f, Wt::WAbstractItemModel *model,
-		 int numRows, bool firstLineIsHeaders)
+         int numRows, bool firstLineIsHeaders)
 {
   int csvRow = 0;
 
@@ -42,46 +42,46 @@ void readFromCsv(std::istream& f, Wt::WAbstractItemModel *model,
 
     if (f) {
       typedef boost::tokenizer<boost::escaped_list_separator<char> >
-	CsvTokenizer;
+    CsvTokenizer;
       CsvTokenizer tok(line);
 
       int col = 0;
       for (CsvTokenizer::iterator i = tok.begin();
-	   i != tok.end(); ++i, ++col) {
+       i != tok.end(); ++i, ++col) {
 
-	if (col >= model->columnCount())
-	  model->insertColumns(model->columnCount(),
-			       col + 1 - model->columnCount());
+    if (col >= model->columnCount())
+      model->insertColumns(model->columnCount(),
+                   col + 1 - model->columnCount());
 
-	if (firstLineIsHeaders && csvRow == 0)
-	  model->setHeaderData(col, boost::any(Wt::WString::fromUTF8(*i)));
-	else {
-	  int dataRow = firstLineIsHeaders ? csvRow - 1 : csvRow;
+    if (firstLineIsHeaders && csvRow == 0)
+      model->setHeaderData(col, boost::any(Wt::WString::fromUTF8(*i)));
+    else {
+      int dataRow = firstLineIsHeaders ? csvRow - 1 : csvRow;
 
-	  if (numRows != -1 && dataRow >= numRows)
-	    return;
+      if (numRows != -1 && dataRow >= numRows)
+        return;
 
-	  if (dataRow >= model->rowCount())
-	    model->insertRows(model->rowCount(),
-			      dataRow + 1 - model->rowCount());
+      if (dataRow >= model->rowCount())
+        model->insertRows(model->rowCount(),
+                  dataRow + 1 - model->rowCount());
 
-	  boost::any data;
-	  std::string s = *i;
+      boost::any data;
+      std::string s = *i;
 
-	  char *endptr;
+      char *endptr;
 
-	  if (s.empty())
-	    data = boost::any();
-	  else {
-	    double d = strtod(s.c_str(), &endptr);
-	    if (*endptr == 0)
-	      data = boost::any(d);
-	    else
-	      data = boost::any(Wt::WString::fromUTF8(s));
-	  }
+      if (s.empty())
+        data = boost::any();
+      else {
+        double d = strtod(s.c_str(), &endptr);
+        if (*endptr == 0)
+          data = boost::any(d);
+        else
+          data = boost::any(Wt::WString::fromUTF8(s));
+      }
 
-	  model->setData(dataRow, col, data);
-	}
+      model->setData(dataRow, col, data);
+    }
       }
     }
 
@@ -116,17 +116,19 @@ WAbstractItemModel *readCsvFile(const std::string &fname,
     model->item(row, col)->setToolTip(toolTip);
      */
   }
-
+    /*
+     * Parses the first column as dates, to be able to use a date scale
+     */
+    for (int i = 0; i < model->rowCount(); ++i) {
+      WString s = asString(model->data(i, 0));
+      Wt::WDate d = Wt::WDate::fromString(s, "dd/MM/yy");
+      model->setData(i, 0, d);
+    }
     return model;
   } else {
     WString error(WString::tr("error-missing-data"));
     error.arg(fname, UTF8);
-    auto txt = new WText(error);
-    auto layout = parent->layout();
-    if (layout != nullptr)
-        layout->addWidget(txt);
-    else
-        parent->addWidget(txt);
+    new WText(error, parent);
     return 0;
   }
 }

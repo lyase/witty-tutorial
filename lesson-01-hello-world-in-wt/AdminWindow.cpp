@@ -17,193 +17,115 @@ series.setMarker(marker);
 chart->addSeries(series);
 };
 
-AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
+//AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
+  AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(parent), yahoo(new YahooStockHistory(this))
 {
-parent->setStyleClass("container-fluid");
-_debugOutput = new Wt::WText(parent);
-_debugOutput->setText(Wt::WString("debug info: ") +  BUILD_INFO + " Docroot: " + Wt::WApplication::instance()->docRoot());
+_debugOutput = new Wt::WText(this);
 addWidget(new Wt::WBreak());
-cout << std::endl << std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
-new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", parent);
-// copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
+std::string buildinfo;
+buildinfo = BUILD_INFO;
+_debugOutput->setText(Wt::WString("debug info: " + buildinfo + " Docroot: " + Wt::WApplication::instance()->docRoot()));
+cout <<std::endl<< std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
+_debugOutput->setText("debug info "+buildinfo);
 addWidget(new Wt::WBreak());
-    new Wt::WText(Wt::WString::tr(" now: the scatter plot:"), parent);
-    addWidget(new Wt::WBreak());
-    /*
-     * Create the scatter plot.
-     */
-    chart = new Wt::Chart::WCartesianChart(parent);
-    //chart->setPreferredMethod(WPaintedWidget::PngImage);
-    //chart->setBackground(gray);
-// should initialise  a amodel now with default values
-   // and set chartModel . after any data query the model should be updated
-// chart->setModel(model);        // set the model
-    chart->setXSeriesColumn(0);    // set the column that holds the X data
-    chart->setLegendEnabled(true); // enable the legend
+new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", this);
+      // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
+new WText(WString::tr("scatter plot"), this);
+// for file privider
+WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
+// for yahoo data provider
+// WAbstractItemModel *model = yahoo->provideModelObject( this);
+      if (!model)
+        return;
 
-    chart->setType(ScatterPlot);            // set type to ScatterPlot
-    chart->axis(XAxis).setScale(DateScale); // set scale of X axis to DateScale
 
-    // Provide space for the X and Y axis and title.
-    chart->setPlotAreaPadding(80, Left);
-    chart->setPlotAreaPadding(40, Top | Bottom);
+      // Show a view that allows editing of the model.
+      WContainerWidget *w = new WContainerWidget(this);
+      WTableView *table = new WTableView(w);
 
-    /*
-     * Add first two columns as line series
-     */
+      table->setMargin(10, Top | Bottom);
+      table->setMargin(WLength::Auto, Left | Right);
 
-    chart->resize(800, 400); // WPaintedWidget must be given explicit size
+      table->setModel(model);
+      table->setSortingEnabled(false); // Does not make much sense for time series
+      table->setColumnResizeEnabled(true);
+      table->setSelectionMode(NoSelection);
+      table->setAlternatingRowColors(true);
+      table->setColumnAlignment(0, AlignCenter);
+      table->setHeaderAlignment(0, AlignCenter);
+      table->setRowHeight(22);
 
-    chart->setMargin(10, Top | Bottom);            // add margin vertically
-    chart->setMargin(WLength::Auto, Left | Right); // center horizontally
+      // Editing does not really work without Ajax, it would require an
+      // additional button somewhere to confirm the edited value.
+      if (WApplication::instance()->environment().ajax()) {
+        table->resize(800, 20 + 5*22);
+        table->setEditTriggers(WAbstractItemView::SingleClicked);
+      } else {
+        table->resize(800, 20 + 5*22 + 25);
+        table->setEditTriggers(WAbstractItemView::NoEditTrigger);
+      }
 
-//    new ChartConfig(chart, this); unknown purpose
 
-    //chart->setPreferredMethod(WPaintedWidget::PngImage);
-    //chart->setBackground(gray);
-    chart->setLegendEnabled(true); // enable the legend
 
-    chart->setType(Wt::Chart::ScatterPlot);            // set type to ScatterPlot
-    chart->axis(Wt::Chart::XAxis).setScale(Wt::Chart::DateScale); // set scale of X axis to DateScale
+      table->setColumnWidth(0, 80);
+      for (int i = 1; i < model->columnCount(); ++i)
+        table->setColumnWidth(i, 90);
 
-         chart->setXSeriesColumn(0);    // set the column that holds the X data
-        chart->setLegendEnabled(true); // enable the legend
-    // Provide space for the X and Y axis and title.
-    chart->setPlotAreaPadding(80, Wt::Left);
-    chart->setPlotAreaPadding(40, Wt::Top | Wt::Bottom);
+      /*
+       * Create the scatter plot.
+       */
+      WCartesianChart *chart = new WCartesianChart(this);
+      //chart->setPreferredMethod(WPaintedWidget::PngImage);
+      //chart->setBackground(gray);
+      chart->setModel(model);        // set the model
+      chart->setXSeriesColumn(0);    // set the column that holds the X data
+      chart->setLegendEnabled(true); // enable the legend
 
-    chart->resize(800, 400); // WPaintedWidget must be given explicit size
+      chart->setType(ScatterPlot);            // set type to ScatterPlot
+      chart->axis(XAxis).setScale(DateScale); // set scale of X axis to DateScale
 
-    chart->setMargin(10, Wt::Top | Wt::Bottom);            // add margin vertically
-    chart->setMargin(Wt::WLength::Auto, Wt::Left | Wt::Right); // center horizontally
+      // Provide space for the X and Y axis and title.
+      chart->setPlotAreaPadding(80, Left);
+      chart->setPlotAreaPadding(40, Top | Bottom);
 
-    // Add what all the widgets we have so far to the vertical box layout
+      /*
+       * Add first two columns as line series
+       */
+      for (int i = 1; i < 3; ++i) {
+        WDataSeries s(i, LineSeries);
+        s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+        chart->addSeries(s);
+      }
 
-    // Yahoo query apparatus
-    auto row = new Wt::WContainerWidget(parent);
-    row->setStyleClass("row-fluid");
+      chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
-    auto lbl = new Wt::WLabel("yahoo query:", row);
-    auto txt = new Wt::WLineEdit("GOOG", row);
-    lbl->setBuddy(txt);
-    goBtn = new Wt::WPushButton("Go!", row);
+      chart->setMargin(10, Top | Bottom);            // add margin vertically
+      chart->setMargin(WLength::Auto, Left | Right); // center horizontally
 
-    // Need start and end dates
-    row = new Wt::WContainerWidget(parent);
-    row->setStyleClass("row-fluid");
+  //    new ChartConfig(chart, this); unknown purpose
+ //     Yahoo query apparatus
+      auto row = new Wt::WContainerWidget(parent);
+//      row->setStyleClass("row-fluid");
 
-    auto today = Wt::WDate::currentDate();
-    lbl = new Wt::WLabel("From:", row);
-    auto start = new Wt::WDatePicker(row);
-    start->setDate(today.addMonths(-1));
-    lbl->setBuddy(start->lineEdit());
+      auto lbl = new Wt::WLabel("yahoo query:", row);
+      auto txt = new Wt::WLineEdit("GOOG", row);
+      lbl->setBuddy(txt);
+      goBtn = new Wt::WPushButton("Go!", row);
 
-    lbl = new Wt::WLabel("From:", row);
-    auto end = new Wt::WDatePicker(row);
-    lbl->setBuddy(end->lineEdit());
-    end->setDate(today);
+/*      // Need start and end dates this creates internal wt error
+      row = new Wt::WContainerWidget(parent);
+      row->setStyleClass("row-fluid");
 
-    goBtn->clicked().connect(goBtn, &Wt::WPushButton::disable);
-    goBtn->clicked().connect([=](const Wt::WMouseEvent&) {
-        auto& gotit = yahoo->query(txt->text().toUTF8(), start->date(), end->date(), YahooStockHistory::daily);
-        gotit.connect(this, &AdminWindow::gotCSV);
-    }
-);
-//    new ChartConfig(chart, this); unknown purpose
-}
+      auto today = Wt::WDate::currentDate();
+      lbl = new Wt::WLabel("From:", row);
+      auto start = new Wt::WDatePicker(row);
+      start->setDate(today.addMonths(-1));
+      lbl->setBuddy(start->lineEdit());
 
-void AdminWindow::gotCSV(boost::system::error_code, Wt::Http::Message msg) {
-    std::stringstream csv(msg.body());
-    std::cout <<"response from yahoo: "<< csv.str() << "\n";
-    /*
-      Sample data that we are parsing;
+      lbl = new Wt::WLabel("From:", row);
+      auto end = new Wt::WDatePicker(row);
+      lbl->setBuddy(end->lineEdit());
+      end->setDate(today);
+*/
+  };
 
-    Date,Open,High,Low,Close,Volume,Adj Close
-    2013-03-25,812.41,819.23,806.82,809.64,1712000,809.64
-    2013-03-22,814.74,815.24,809.64,810.31,1488200,810.31
-    2013-03-21,811.29,816.92,809.85,811.26,1466800,811.26
-    */
-    auto log = [](char* level=nullptr){return Wt::log(level == nullptr ? "debug" : level);};
-    log() << "Reading Chart data";
-
-     model = new  Wt::WStandardItemModel(this);
-    // Read in the header
-    std::string linein;
-    std::getline(csv, linein);
-    log() << "Read header row: " << linein;
-    {   // Set Headers
-        std::stringstream headers(linein);
-        std::string header;
-        int i=0;
-        while (std::getline(headers, header, ',')) {
-            model->insertColumn(i);
-            log() << "Setting header: " << header;
-            model->setHeaderData(i++, Wt::Horizontal, boost::any(header));
-            std::getline(headers, header, ',');
-        }
-    }
-    namespace Cht = Wt::Chart;
-    chart->axis(Cht::XAxis).autoLimits();
-    double min = std::numeric_limits<double>::max();
-    double max = std::numeric_limits<double>::lowest();
-    int csvRow = 0;
-    while (true) {
-        std::vector<Wt::WStandardItem*> row(7);
-        auto pItem = row.begin();
-        if (!std::getline(csv, linein))
-
-            break;
-        log() << "Reading line:" << linein;
-        std::stringstream line(linein);
-        // Parse into bits
-        // Get the date
-        std::string part;
-        std::getline(line, part, ',');
-        log() << "Reading date: " << part;
-        auto date = Wt::WDate::fromString(part, "yyyy-mm-dd");
-        *pItem = new Wt::WStandardItem();
-        (*pItem)->setData(boost::any(date));
-        // Opening Price, High, Low, Close, Adjusted Close
-        size_t todo = 5;
-        while (todo--) {
-            // Don't read in the volume column 2 for now
-            if (todo == 2)
-                continue;
-            std::getline(line, part, ','); // Open
-            log() << "Read value: " << part;
-            *++pItem = new Wt::WStandardItem();
-            double val = boost::lexical_cast<double>(part);
-            if (val < min) min = val;
-            if (val > max) max = val;
-            (*pItem)->setData(boost::any(val));
-            model->insertRows(model->rowCount(),1);
-            model->setData(csvRow, todo, val);
-        }
-      //  model->appendRow(row);
-
-++csvRow;
-
-    }
-        chart->setModel(model);        // set the model
-       chart->setXSeriesColumn(0);    // set the column that holds the X data
-       chart->setLegendEnabled(true); // enable the legend
-       chart->setType(ScatterPlot);            // set type to ScatterPlot
-       chart->axis(XAxis).setScale(DateScale); // set scale of X axis to DateScale
-       // Provide space for the X and Y axis and title.
-       chart->setPlotAreaPadding(80, Left);
-       chart->setPlotAreaPadding(40, Top | Bottom);
-       // Now show the data in the chart
-    auto& y = chart->axis(Cht::YAxis);
-    y.setMinimum(min);
-    y.setMaximum(max);
-    chart->setModel(model);
-    chart->setXSeriesColumn(0);
-    addSeries(1, CircleMarker, LineSeries); // Open
-    addSeries(2, SquareMarker , LineSeries);  // High
-    addSeries(3, XCrossMarker,CurveSeries);  // Low
-    addSeries(4, SquareMarker,PointSeries); // Close
-    addSeries(3, TriangleMarker,CurveSeries);  // Adjusted Close
-
-    log("notice") << "Chart Updated";
-    goBtn->enable();
-};

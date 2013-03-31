@@ -34,7 +34,33 @@
 #include <Wt/Chart/WPieChart>
 #include <Wt/Chart/WDataSeries>
 #include <boost/lexical_cast.hpp>
+#include <stdlib.h>
+#include <boost/tokenizer.hpp>
+#include <Wt/WEnvironment>
+#include <Wt/WItemDelegate>
+#include <Wt/WStandardItemModel>
+#include <Wt/WText>
+#include <iostream>
+#include <Wt/WStandardItem>
+#include <Wt/WContainerWidget>
+#include <stdlib.h>
+#include <boost/tokenizer.hpp>
+#include <Wt/WAbstractItemModel>
+#include <Wt/WString>
 
+#include <Wt/WBorderLayout>
+#include <Wt/WFitLayout>
+
+#include <Wt/WStandardItem>
+#include <Wt/WTableView>
+
+#include <Wt/Chart/WCartesianChart>
+#include <Wt/Chart/WPieChart>
+
+#include <Wt/WAbstractItemModel>
+#include <Wt/WString>
+#include <iostream>
+#include <fstream>
 #include <math.h>
 #include <fstream>
 #include <iterator>
@@ -54,12 +80,10 @@ public:
     YahooStockHistory(Wt::WObject* parent);
     GotCSVSignal& query(const std::string& query);
     GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
-
+    Wt::WAbstractItemModel * provideModelObject(  Wt::WContainerWidget* parent );
 private:
     Wt::Http::Client* http = new Wt::Http::Client(this);
-
     std::string urlEncode(const std::string& input) ;
-
 };
 
 #endif // YAHOO_H
