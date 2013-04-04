@@ -54,18 +54,20 @@ std::string YahooStockHistory::urlEncode(const std::string& input) {
     Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerWidget *parent)
     {
         Wt::WStandardItemModel *model = new Wt::WStandardItemModel(0, 0, parent);
-        /* i will generate fake data in model as exemple 50 rows 6col*/
+        /* i will generate fake data in model as exemple 365 rows, 6 col*/
         /*
-         * Parses the first column as dates, to be able to use a date scale
+         * set  the first column as dates every day from (1988,6,14) to (1987,6,14);
          */
-        for( int row = 0;row<12; row++)
-{                       Wt::WDate d =  Wt::WDate::currentDate();
-            if (row >= model->rowCount())
-              model->insertRows(model->rowCount(),
-                        row + 1 - model->rowCount());
+         std::cout<<"the model \n"<<model<<std::endl;
+        for( int row = 0;row<365; row++)
+{          Wt:: WDate d(1988,6,14);
+         //   Wt::WDate d =  Wt::WDate::currentDate();
+            // this is very long could be refactored as we need only one new row
+            if (row > model->rowCount())
+            model->insertRows(model->rowCount(),  row + 1 - model->rowCount());
             /* Parses the first column as dates, to be able to use a date scale
             */
-           model->setData(row, 0, d.addMonths(-row));
+           model->setData(row, 0, d.addDays(-row));
            for( int col = 0;col<6; col++)
 {
        if (col >= model->columnCount())
@@ -73,12 +75,11 @@ std::string YahooStockHistory::urlEncode(const std::string& input) {
 
         boost::any data=row+col;
                   data = boost::any();
-          double d = row+col;
+          double d =1000+ row+col;
           data = boost::any(d);
-
-
         model->setData(row, col, data);
-      }}
+      }//col
+        }// end row
+std::cout<<"created model \n"<<model<<std::endl;
             return model;
     };
-
