@@ -439,7 +439,7 @@
 
                or we'll have a CNAME set up pointing there, so it'e be simply: http://cdn.mydomain.com.
               -->
-            <property name="resourcesURL"></property>
+            <property name="resourcesURL">/resources</property>
 
             <!-- extBaseURL property
 

@@ -45,8 +45,7 @@ struct DBConfigEntry {
      void persist(Action& a) {
           Wt::Dbo::field(a, key, "key");
           Wt::Dbo::field(a, description, "description");
-          Wt::Dbo::field(a, valueType, "type");
-          Wt::Dbo::field(a, asString, "asString");
+          Wt::Dbo::field(a, valueType, "type"); Wt::Dbo::field(a, asString, "asString");
           Wt::Dbo::field(a, asDouble, "asDouble");
           Wt::Dbo::field(a, asInt, "asInt");
      }
