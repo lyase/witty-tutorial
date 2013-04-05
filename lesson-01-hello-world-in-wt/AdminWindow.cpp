@@ -26,9 +26,9 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
      new WText(WString::tr("scatter plot"), this);
 // for file privider
-WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
+    //WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
 // for yahoo data provider
-//     WAbstractItemModel *model = yahoo->provideModelObject( this);
+     WAbstractItemModel *model = yahoo->provideModelObject(this);
      if (!model)
           return;
 // Show a view that allows editing of the model.

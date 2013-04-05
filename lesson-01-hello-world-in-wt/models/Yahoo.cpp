@@ -53,31 +53,29 @@ YahooStockHistory::GotCSVSignal& YahooStockHistory::query(const std::string& id,
  **/
 Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerWidget *parent)
 {
-     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(0, 0, parent);
+     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(0, 2, parent);
      /* i will generate fake data in model as exemple 365 rows, 6 col*/
      /*
       * set  the first column as dates every day from (1988,6,14) to (1987,6,14);
       */
      std::cout<<"the model \n"<<model<<std::endl;
-     for( int row = 0; row<365; row++) {
+     for( int i = 0; i<365; i++) {
           Wt:: WDate d(1988,6,14);
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
-          if (row > model->rowCount())
-               model->insertRows(model->rowCount(),  row + 1 - model->rowCount());
-          /* Parses the first column as dates, to be able to use a date scale
-          */
-          model->setData(row, 0, d.addDays(-row));
-          for( int col = 0; col<6; col++) {
-               if (col >= model->columnCount())
-                    model->insertColumns(model->columnCount(),col + 1 - model->columnCount());
+          std::vector<Wt::WStandardItem*> row;
 
-               boost::any data=row+col;
-               data = boost::any();
-               double d =1000+ row+col;
-               data = boost::any(d);
-               model->setData(row, col, data);
-          }//col
+          Wt::WStandardItem* val = new Wt::WStandardItem(0, 2);
+          val->setData(d);
+          row.push_back(val);
+
+          val = new Wt::WStandardItem();
+          val->setData(i);
+          row.push_back(val);
+
+          model->appendRow(row);
+
+          d = d.addDays(1);
      }// end row
      std::cout<<"created model \n"<<model<<std::endl;
      return model;
