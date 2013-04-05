@@ -35,6 +35,11 @@ add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp A
 # Models Library
 add_subdirectory(models)
 
+# docroot stuff
+file(COPY run.sh DESTINATION .)
+file(COPY resources DESTINATION .)
+
+
 # This tells cmake that we want to create an executable called 'hellowt' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
 add_executable(hellowt main.cpp )
