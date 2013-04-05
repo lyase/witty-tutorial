@@ -1,5 +1,7 @@
 #include"Yahoo.hpp"
 
+#include <boost/random.hpp>
+
 
 std::string YahooStockHistory::urlEncode(const std::string& input)
 {
@@ -60,11 +62,19 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
       */
      std::cout<<"the model \n"<<model<<std::endl;
      Wt:: WDate d(1988,6,14);
+
+     boost::random::mt19937 rng;
+     boost::random::uniform_int_distribution<> money(1,100);
+     boost::random::uniform_int_distribution<> five(-5,5);
+
+     int val = money(rng);
+
      for( int i = 0; i<365; i++) {
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
           model->setData(i, 0, boost::any(d));
-          model->setData(i, 1, boost::any(i));
+          val += five(rng);
+          model->setData(i, 1, boost::any(val));
           d = d.addDays(1);
      }// end row
      std::cout<<"created model \n"<<model<<std::endl;
