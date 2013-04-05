@@ -102,7 +102,7 @@ WAbstractItemModel *readCsvFile(const std::string &fname,
     readFromCsv(f, model);
 
     for (int row = 0; row < model->rowCount(); ++row)
-  for (int col = 0; col < model->columnCount(); ++col) {
+      for (int col = 0; col < model->columnCount(); ++col) {
     model->item(row, col)->setFlags(ItemIsSelectable | ItemIsEditable);
 
     /*
