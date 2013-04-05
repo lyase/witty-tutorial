@@ -1,6 +1,7 @@
 #include"Yahoo.hpp"
 
-#include <boost/random.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 
 std::string YahooStockHistory::urlEncode(const std::string& input)
@@ -55,7 +56,9 @@ YahooStockHistory::GotCSVSignal& YahooStockHistory::query(const std::string& id,
  **/
 Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerWidget *parent)
 {
-     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(365, 2, parent);
+     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(366, 2, parent);
+     model->setHeaderData(0, std::string("Date"));
+     model->setHeaderData(1, std::string("Price"));
      /* i will generate fake data in model as exemple 365 rows, 6 col*/
      /*
       * set  the first column as dates every day from (1988,6,14) to (1987,6,14);
@@ -63,20 +66,22 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
      std::cout<<"the model \n"<<model<<std::endl;
      Wt:: WDate d(1988,6,14);
 
-     boost::random::mt19937 rng;
-     boost::random::uniform_int_distribution<> money(1,100);
-     boost::random::uniform_int_distribution<> five(-5,5);
+     Wt::WDateTime now = Wt::WDateTime::currentDateTime();
 
-     int val = money(rng);
+     std::default_random_engine generator(now.toTime_t());
+     std::uniform_real_distribution<double> hundred(1,100);
+     double price = hundred(generator);
 
      for( int i = 0; i<365; i++) {
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
           model->setData(i, 0, boost::any(d));
-          val += five(rng);
-          model->setData(i, 1, boost::any(val));
+          std::uniform_real_distribution<double> five(-5,5);
+          price += five(generator);
+          model->setData(i, 1, boost::any(price));
           d = d.addDays(1);
      }// end row
+
      std::cout<<"created model \n"<<model<<std::endl;
      return model;
 };

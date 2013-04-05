@@ -55,7 +55,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
           table->setEditTriggers(WAbstractItemView::NoEditTrigger);
      }
      table->setColumnWidth(0, 80);
-     for (int i = 1; i < model->columnCount(); ++i)
+     for (int i = 0; i < model->columnCount(); ++i)
           table->setColumnWidth(i, 90);
      /*
         * Create the scatter plot.
@@ -75,11 +75,9 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
      /*
       * Add first two columns as line series
       */
-     for (int i = 1; i < 3; ++i) {
-          WDataSeries s(i, LineSeries);
-          s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
-          chart->addSeries(s);
-     }
+      WDataSeries s(1, LineSeries);
+      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+      chart->addSeries(s);
      chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
      chart->setMargin(10, Top | Bottom);            // add margin vertically
