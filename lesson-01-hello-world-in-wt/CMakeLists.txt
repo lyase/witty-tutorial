@@ -38,6 +38,7 @@ add_subdirectory(models)
 # docroot stuff
 file(COPY run.sh DESTINATION .)
 file(COPY resources DESTINATION .)
+file(COPY timeseries.csv DESTINATION .)
 
 
 # This tells cmake that we want to create an executable called 'hellowt' and the source files are just 'main.cpp'
