@@ -77,7 +77,7 @@ class YahooStockHistory : public Wt::WObject {
 public:
      enum TradingPeriod {daily='d', monthly='m', weekly='w'};
      typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
-     YahooStockHistory(Wt::WObject* parent);
+     YahooStockHistory(Wt::WObject* parent=nullptr);
      GotCSVSignal& query(const std::string& query);
      GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
      Wt::WAbstractItemModel * provideModelObject(  Wt::WContainerWidget* parent );

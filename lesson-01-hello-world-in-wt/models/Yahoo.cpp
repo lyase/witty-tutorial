@@ -22,11 +22,8 @@ std::string YahooStockHistory::urlEncode(const std::string& input)
      return result.str();
 };
 
-YahooStockHistory::YahooStockHistory(Wt::WObject* parent=nullptr): Wt::WObject(parent)
-{
-     int i;
-     i=0;
-};
+YahooStockHistory::YahooStockHistory(Wt::WObject* parent): Wt::WObject(parent) { };
+
 YahooStockHistory::GotCSVSignal& YahooStockHistory::query(const std::string& query)
 {
      std::string url = "http://ichart.yahoo.com/table.csv?";

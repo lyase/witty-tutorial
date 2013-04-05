@@ -36,10 +36,10 @@ struct DBConfigEntry {
 
      std::string key;
      ValueType valueType;
-     std::string description;
      std::string asString;
      double asDouble;
      int asInt;
+     std::string description;
 
      template<class Action>
      void persist(Action& a) {
@@ -56,19 +56,19 @@ struct DBConfigEntry {
      DBConfigEntry() {}
 
      DBConfigEntry(const std::string& key, const std::string& value, const std::string& description="") :
-          key(key), asString(value), valueType(vtString), description(description) {}
+          key(key), valueType(vtString), asString(value), description(description) {}
 
      DBConfigEntry(const std::string& key, const char* value, const std::string& description="") :
-          key(key), asString(value), valueType(vtString), description(description) {}
+          key(key), valueType(vtString), asString(value), description(description) {}
 
      DBConfigEntry(const std::string& key, double value, const std::string& description="") :
-          key(key), asDouble(value), valueType(vtDouble), description(description) {}
+          key(key), valueType(vtDouble), asDouble(value), description(description) {}
 
      DBConfigEntry(const std::string& key, int value, const std::string& description=""):
-          key(key), asInt(value), valueType(vtInt), description(description) {}
+          key(key), valueType(vtInt), asInt(value), description(description) {}
 
      DBConfigEntry(const std::string& key, bool value, const std::string& description=""):
-          key(key), asInt(value ? 1 : 0), valueType(vtInt), description(description) {}
+          key(key), valueType(vtInt), asInt(value ? 1 : 0), description(description) {}
 
      // Cast operations
 

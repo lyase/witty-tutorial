@@ -5,9 +5,9 @@
 /** Gets historical stock inforation from yahoo:
   * API Specifcation: http://code.google.com/p/yahoo-finance-managed/wiki/csvHistQuotesDownload
   */
-void AdminWindow::addSeries(int col, MarkerType marker=NoMarker,SeriesType LineSeries=LineSeries )
+void AdminWindow::addSeries(int col, MarkerType marker=NoMarker,SeriesType lineSeries=LineSeries)
 {
-     WDataSeries series(col , LineSeries);
+     WDataSeries series(col, lineSeries);
      series.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
      series.setMarker(marker);
      chart->addSeries(series);
