@@ -59,8 +59,8 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
       * set  the first column as dates every day from (1988,6,14) to (1987,6,14);
       */
      std::cout<<"the model \n"<<model<<std::endl;
+     Wt:: WDate d(1988,6,14);
      for( int i = 0; i<365; i++) {
-          Wt:: WDate d(1988,6,14);
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
           model->setData(i, 0, boost::any(d));
