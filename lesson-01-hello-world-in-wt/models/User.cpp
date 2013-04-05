@@ -43,58 +43,58 @@ namespace dbo = Wt::Dbo;
 using namespace std ;
 User::User()
 {
-    cout<<"creating new user\n";
-    m_name="Joe";
-    m_password="aUserpassword";
-    setRole(Visitor);
-    m_karma=1;
+     cout<<"creating new user\n";
+     m_name="Joe";
+     m_password="aUserpassword";
+     setRole(Visitor);
+     m_karma=1;
 };
 User::~User()
 {
-    cout <<"destroying user\n ";
+     cout <<"destroying user\n ";
 }
 void User::setName(string myName)
 {
-    m_name=myName;
-    return ;
+     m_name=myName;
+     return ;
 }
 void User::setPassword(string myPass)
 {
-    m_password=myPass;
-    return ;
+     m_password=myPass;
+     return ;
 }
 void User::setRole(Role myRole)
 {
-    m_role=myRole;
-    return ;
+     m_role=myRole;
+     return ;
 }
 void User::setKarma(int myKarma)
 {
-    m_karma=myKarma;
-    return ;
+     m_karma=myKarma;
+     return ;
 }
 
 
 void User::render2pdf()
 {
-    cout<<"shouldbeImplemented this function should output all user's data to a pdf file or as a mime object  ";
-    //    Wt::WPdfImage a(100,100,"my test") ;
-    return ;
+     cout<<"shouldbeImplemented this function should output all user's data to a pdf file or as a mime object  ";
+     //    Wt::WPdfImage a(100,100,"my test") ;
+     return ;
 }
 string User::getName() const
 {
-    return m_name;
+     return m_name;
 }
 string User::getPassword() const
 {
 
-    return m_password;
+     return m_password;
 }
 Role User::getRole() const
 {
-    return m_role;
+     return m_role;
 }
 int User::getKarma() const
 {
-    return m_karma;
+     return m_karma;
 }

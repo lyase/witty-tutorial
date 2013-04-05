@@ -57,17 +57,17 @@ class WLink;
 
 class AdminWindow : public Wt::WContainerWidget {
 private:
-    Wt::WText* _debugOutput;
-    Wt::WPushButton* goBtn;
-    YahooStockHistory* yahoo;
+     Wt::WText* _debugOutput;
+     Wt::WPushButton* goBtn;
+     YahooStockHistory* yahoo;
      WAbstractItemModel *model;
      Wt::Chart::WCartesianChart* chart;
-    void handlePathChanged(const std::string& newPath);
-    void gotCSV(boost::system::error_code, Wt::Http::Message msg);
-void addSeries (int col, MarkerType marker, SeriesType LineSeries);
+     void handlePathChanged(const std::string& newPath);
+     void gotCSV(boost::system::error_code, Wt::Http::Message msg);
+     void addSeries (int col, MarkerType marker, SeriesType LineSeries);
 public:
-   // AdminWindow(Wt::WContainerWidget* parent=0);
-    AdminWindow(Wt::WContainerWidget* parent=0);
+     // AdminWindow(Wt::WContainerWidget* parent=0);
+     AdminWindow(Wt::WContainerWidget* parent=0);
 };
 
 #endif // ASKWINDOW_HPP

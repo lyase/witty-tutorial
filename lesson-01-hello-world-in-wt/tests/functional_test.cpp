@@ -35,24 +35,24 @@
 #include <Wt/Dbo/backend/Sqlite3>
 #include <boost/filesystem.hpp>
 struct LiveAppFixture {
-    Wt::Test::WTestEnvironment env;
-    HelloApp app;
-    LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env) {
-        app.initialize();
-        if (createTables)
-            app.db().createTables();
-    }
-    // the tearDown
-    ~LiveAppFixture() {
-        app.db().flush();
-        boost::filesystem::remove("./blog.db");
-    }
+     Wt::Test::WTestEnvironment env;
+     HelloApp app;
+     LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env) {
+          app.initialize();
+          if (createTables)
+               app.db().createTables();
+     }
+     // the tearDown
+     ~LiveAppFixture() {
+          app.db().flush();
+          boost::filesystem::remove("./blog.db");
+     }
 
-    MainWindow* getMainWindow() {
-        // We are getting a handle on the MainWindow
-        Wt::WWidget* result = app.root()->widget(0);
-        return dynamic_cast<MainWindow*>(result);
-    }
+     MainWindow* getMainWindow() {
+          // We are getting a handle on the MainWindow
+          Wt::WWidget* result = app.root()->widget(0);
+          return dynamic_cast<MainWindow*>(result);
+     }
 };
 
 // we are testing here:
@@ -61,8 +61,8 @@ BOOST_FIXTURE_TEST_SUITE( FunctionalSuite, LiveAppFixture );
 
 BOOST_AUTO_TEST_CASE( testMainWindowExists )
 {
-    MainWindow* main = getMainWindow();
-    BOOST_REQUIRE(main);
+     MainWindow* main = getMainWindow();
+     BOOST_REQUIRE(main);
 }
 // we are testing here:
 //the application can change the name of the current user
@@ -70,15 +70,15 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists )
 BOOST_AUTO_TEST_CASE( testuserNameManagement )
 {
 
-    if (app.userName() == "John") {
-        std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
-        // pre condition not met test should fail
-        BOOST_CHECK_EQUAL( 0, 1 );
-    } else {
-        app.setUserName("John");
-        //std::string name = app.userName();
-        BOOST_CHECK_EQUAL( app.userName(), "John" );
-    }
+     if (app.userName() == "John") {
+          std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
+          // pre condition not met test should fail
+          BOOST_CHECK_EQUAL( 0, 1 );
+     } else {
+          app.setUserName("John");
+          //std::string name = app.userName();
+          BOOST_CHECK_EQUAL( app.userName(), "John" );
+     }
 }
 // we are testing here:
 //clicking the link to ask page  from the  landing page we
@@ -87,12 +87,12 @@ BOOST_AUTO_TEST_CASE( testuserNameManagement )
 //ultimately this should be tested using something like selenium
 BOOST_AUTO_TEST_CASE( testAskLink )
 {
-    MainWindow* main = getMainWindow();
-    BOOST_REQUIRE(main);
-    cout<<"before click path is "<< app.internalPath() << endl;
-    BOOST_REQUIRE( app.internalPath() != "/ask" );
-    test_helpers::click(main->_askLink);
-    BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
+     MainWindow* main = getMainWindow();
+     BOOST_REQUIRE(main);
+     cout<<"before click path is "<< app.internalPath() << endl;
+     BOOST_REQUIRE( app.internalPath() != "/ask" );
+     test_helpers::click(main->_askLink);
+     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

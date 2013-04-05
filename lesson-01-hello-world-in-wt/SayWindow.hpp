@@ -5,7 +5,7 @@
 
 class SayWindow : public Wt::WContainerWidget {
 public:
-    SayWindow(Wt::WContainerWidget* parent=0);
+     SayWindow(Wt::WContainerWidget* parent=0);
 };
 
 #endif // SAYWINDOW_HPP

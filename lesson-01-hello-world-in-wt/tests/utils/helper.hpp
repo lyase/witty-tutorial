@@ -15,21 +15,21 @@ namespace test_helpers {
 template <class Widget>
 void click(Widget* widget)
 {
-    Wt::WMouseEvent click;
-    widget->clicked().emit(click);
+     Wt::WMouseEvent click;
+     widget->clicked().emit(click);
 }
 
 template <>
 void click<Wt::WAnchor>(Wt::WAnchor* widget)
 {
-    const Wt::WLink& link = widget->link();
-    switch (link.type()) {
-    case Wt::WLink::Url:  // A static URL.
-    case Wt::WLink::Resource:   // A dynamic resource.
-    case Wt::WLink::InternalPath: // An internal path.
-        Wt::WApplication* app = Wt::WApplication::instance();
-        app->setInternalPath(link.internalPath().toUTF8(), true);
-    }
+     const Wt::WLink& link = widget->link();
+     switch (link.type()) {
+     case Wt::WLink::Url:  // A static URL.
+     case Wt::WLink::Resource:   // A dynamic resource.
+     case Wt::WLink::InternalPath: // An internal path.
+          Wt::WApplication* app = Wt::WApplication::instance();
+          app->setInternalPath(link.internalPath().toUTF8(), true);
+     }
 }
 
 }

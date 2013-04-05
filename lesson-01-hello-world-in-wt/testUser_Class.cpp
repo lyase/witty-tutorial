@@ -32,47 +32,47 @@ using namespace std ;
 */
 
 struct CMyFooTestFixture {
-    /*! \fn CMyFooTestFixture()
-    * \brief constructor
-    * to be used as fixture setup() \n
-    * initialise here all you need for  the tests
-    */
-    CMyFooTestFixture() {
-        // TODO: Common set-up each test case here.
+     /*! \fn CMyFooTestFixture()
+     * \brief constructor
+     * to be used as fixture setup() \n
+     * initialise here all you need for  the tests
+     */
+     CMyFooTestFixture() {
+          // TODO: Common set-up each test case here.
 
-        user = new User();
-    }
-    /*! \fn ~CMyFooTestFixture()
-    * \brief destructor
-    * to be used as fixture teardown() \n
-    * clean all here
-    */
+          user = new User();
+     }
+     /*! \fn ~CMyFooTestFixture()
+     * \brief destructor
+     * to be used as fixture teardown() \n
+     * clean all here
+     */
 
-    ~CMyFooTestFixture() {
-        // TODO: Common tear-down after  each test case here.
-        delete user;
-        user=0;
-        // Delete the sqlite db
-        boost::filesystem::remove("./blog.db");
+     ~CMyFooTestFixture() {
+          // TODO: Common tear-down after  each test case here.
+          delete user;
+          user=0;
+          // Delete the sqlite db
+          boost::filesystem::remove("./blog.db");
 
-    }
-    // TODO: Possibly put some function common to  tests.
-    void TestSaveLoad(User& user, bool asBinary) {
-    }
+     }
+     // TODO: Possibly put some function common to  tests.
+     void TestSaveLoad(User& user, bool asBinary) {
+     }
 
-    // TODO: Declare some common values accesses in tests here.
-    User *user;/**< the a object user to be used in each test  */
+     // TODO: Declare some common values accesses in tests here.
+     User *user;/**< the a object user to be used in each test  */
 };
 
 BOOST_FIXTURE_TEST_SUITE(UserTestSuite, CMyFooTestFixture);
 BOOST_AUTO_TEST_CASE(readdefaultUserKarma)
 {
-    /*!
-    * will test a user has a karma
-    *
-    */
-    BOOST_REQUIRE(user->getKarma());   // Stop here if it fails.
-    //	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
+     /*!
+     * will test a user has a karma
+     *
+     */
+     BOOST_REQUIRE(user->getKarma());   // Stop here if it fails.
+     //	BOOST_CHECK_THROW(foo.Save(nullptr), exception); would be an alternative if you want to continue testing even after exception in test
 }
 /*!
 * will test a user can get a new name
@@ -80,8 +80,8 @@ BOOST_AUTO_TEST_CASE(readdefaultUserKarma)
 */
 BOOST_AUTO_TEST_CASE(SettingUserName)
 {
-    user->setName("  foooooo ");
-    BOOST_CHECK_EQUAL(user->getName(), "  foooooo ");
+     user->setName("  foooooo ");
+     BOOST_CHECK_EQUAL(user->getName(), "  foooooo ");
 }
 
 BOOST_AUTO_TEST_SUITE_END();

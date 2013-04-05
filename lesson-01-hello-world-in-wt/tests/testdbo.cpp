@@ -35,22 +35,22 @@
 #include <boost/test/unit_test.hpp>
 
 struct DBOFixture {
-    Wt::WLogger logger;
-    Wt::Dbo::backend::Sqlite3 conn;
-    Wt::Dbo::Session session;
-    DBOFixture() : conn(":memory:") {
-        logger.configure("* -debug");
-        logger.addField("datetime", false);
-        logger.addField("type", false);
-        logger.addField("message", true);
-        conn.setProperty("show-queries", "true");
-        session.setConnection(conn);
-        DBConfig::mapTables(session);
-        DBConfig::install(session);
-    }
-    ~DBOFixture() {
-        DBConfig::uninstall(session);
-    }
+     Wt::WLogger logger;
+     Wt::Dbo::backend::Sqlite3 conn;
+     Wt::Dbo::Session session;
+     DBOFixture() : conn(":memory:") {
+          logger.configure("* -debug");
+          logger.addField("datetime", false);
+          logger.addField("type", false);
+          logger.addField("message", true);
+          conn.setProperty("show-queries", "true");
+          session.setConnection(conn);
+          DBConfig::mapTables(session);
+          DBConfig::install(session);
+     }
+     ~DBOFixture() {
+          DBConfig::uninstall(session);
+     }
 };
 
 
@@ -58,16 +58,16 @@ BOOST_FIXTURE_TEST_SUITE( dbo_test, DBOFixture )
 
 BOOST_AUTO_TEST_CASE( dbo_test1 )
 {
-    //Create starting logger
-    logger.entry("info") << Wt::WLogger::timestamp << Wt::WLogger::sep
-                         << '[' << "notice" << ']' << Wt::WLogger::sep << "Starting up server!";
+     //Create starting logger
+     logger.entry("info") << Wt::WLogger::timestamp << Wt::WLogger::sep
+                          << '[' << "notice" << ']' << Wt::WLogger::sep << "Starting up server!";
 
 
-    // Check that the default parameters were loaded
-    bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle");
-    BOOST_CHECK_EQUAL(dosPuzzle, true);
+     // Check that the default parameters were loaded
+     bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle");
+     BOOST_CHECK_EQUAL(dosPuzzle, true);
 
-    // Todo: check more config options
+     // Todo: check more config options
 
 
 

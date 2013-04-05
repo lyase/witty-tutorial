@@ -75,15 +75,15 @@
 #include <hpdf.h>
 class YahooStockHistory : public Wt::WObject {
 public:
-    enum TradingPeriod {daily='d', monthly='m', weekly='w'};
-    typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
-    YahooStockHistory(Wt::WObject* parent);
-    GotCSVSignal& query(const std::string& query);
-    GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
-    Wt::WAbstractItemModel * provideModelObject(  Wt::WContainerWidget* parent );
+     enum TradingPeriod {daily='d', monthly='m', weekly='w'};
+     typedef Wt::Signal<boost::system::error_code, Wt::Http::Message> GotCSVSignal;
+     YahooStockHistory(Wt::WObject* parent);
+     GotCSVSignal& query(const std::string& query);
+     GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
+     Wt::WAbstractItemModel * provideModelObject(  Wt::WContainerWidget* parent );
 private:
-    Wt::Http::Client* http = new Wt::Http::Client(this);
-    std::string urlEncode(const std::string& input) ;
+     Wt::Http::Client* http = new Wt::Http::Client(this);
+     std::string urlEncode(const std::string& input) ;
 };
 
 #endif // YAHOO_H

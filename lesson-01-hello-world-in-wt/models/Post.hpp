@@ -1,10 +1,9 @@
 #ifndef POST_HPP
 #define POST_HPP
 
-class Post
-{
+class Post {
 public:
-    Post();
+     Post();
 };
 
 #endif // POST_HPP
