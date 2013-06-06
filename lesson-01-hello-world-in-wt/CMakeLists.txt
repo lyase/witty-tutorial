@@ -104,12 +104,13 @@ set(SERVER_DEST ${SERVER_LINK}:${SERVER_PATH})
 # .. then paste it there and ctrl+d to finish ..
 add_custom_target(upload
     COMMAND ssh ${SERVER_LINK} "mkdir -p ${SERVER_PATH}" 
-    COMMAND ssh ${SERVER_LINK} "if [ -e \"${SERVER_PATH}/cmdl\" ]; then ${SERVER_PATH}/cmdl stop; fi;" 
+    COMMAND scp ${CMAKE_CURRENT_SOURCE_DIR}/cmdl ${SERVER_DEST}
+    COMMAND ssh ${SERVER_LINK} "chmod u+x ${SERVER_PATH}/cmdl" 
+    COMMAND ssh ${SERVER_LINK} "${SERVER_PATH}/cmdl stop" 
     COMMAND scp hellowt ${SERVER_DEST}
     COMMAND scp hellowt.xml ${SERVER_DEST}
     COMMAND scp -r generatedStatic ${SERVER_DEST}
     COMMAND scp wt-config.xml ${SERVER_DEST}
-    COMMAND scp ${CMAKE_CURRENT_SOURCE_DIR}/cmdl ${SERVER_DEST}
     COMMAND ssh ${SERVER_LINK} "${SERVER_PATH}/cmdl start" 
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic
