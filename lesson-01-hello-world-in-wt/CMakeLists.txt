@@ -79,6 +79,14 @@ add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic)
 
 set(SERVER_LINK "desafder@debian-witty-prod-srv" CACHE string 
     "The scp destination base for the 'make upload' target")
+set(SERVER_PATH "hello" CACHE string 
+    "The scp destination directory for the 'make upload' target")
+
+if (${SERVER_PATH} STREQUAL "")
+    set(SERVER_PATH .)
+endif()
+
+set(SERVER_DEST ${SERVER_LINK}:${SERVER_PATH})
 
 # In order to use the 'upload' command you need passwordless ssh access to the
 # 'SERVER_LINK'. You can optain this by generating ssh keys and uploading them
@@ -95,14 +103,19 @@ set(SERVER_LINK "desafder@debian-witty-prod-srv" CACHE string
 #   SERVER $ cat >> ~/.ssh/authorized_hosts
 # .. then paste it there and ctrl+d to finish ..
 add_custom_target(upload
-    COMMAND scp hellowt ${SERVER_LINK}:
-    COMMAND scp hellowt.xml ${SERVER_LINK}:
-    #COMMAND scp -r generatedStatic ${SERVER_LINK}:
-    COMMAND scp wt-config.xml ${SERVER_LINK}:
+    COMMAND ssh ${SERVER_LINK} "mkdir -p ${SERVER_PATH}" 
+    COMMAND ssh ${SERVER_LINK} "if [ -e \"${SERVER_PATH}/cmdl\" ]; then ${SERVER_PATH}/cmdl stop; fi;" 
+    COMMAND scp hellowt ${SERVER_DEST}
+    COMMAND scp hellowt.xml ${SERVER_DEST}
+    COMMAND scp -r generatedStatic ${SERVER_DEST}
+    COMMAND scp wt-config.xml ${SERVER_DEST}
+    COMMAND scp ${CMAKE_CURRENT_SOURCE_DIR}/cmdl ${SERVER_DEST}
+    COMMAND ssh ${SERVER_LINK} "${SERVER_PATH}/cmdl start" 
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic
             ${CMAKE_CURRENT_BINARY_DIR}/hellowt 
             ${CMAKE_CURRENT_BINARY_DIR}/hellowt.xml 
             ${CMAKE_CURRENT_BINARY_DIR}/wt-config.xml
+            ${CMAKE_CURRENT_SOURCE_DIR}/cmdl
 )
 
