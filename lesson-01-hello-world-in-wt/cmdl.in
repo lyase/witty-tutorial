@@ -18,7 +18,7 @@ NAME=hellowt
 #SCRIPTNAME=/etc/init.d/$NAME
 SCRIPTNAME=cmdl
 #DAEMON=`which bash`
-DAEMON='/home/desafder/hellowt'
+DAEMON='hellowt'
 #DAEMON_USER=place here the name of the user that is to be used to run b3
 DAEMON_USER=desafder
 
@@ -26,7 +26,7 @@ DAEMON_USER=desafder
 DAEMON_GROUP=desafder
 
 #B3_BASEDIR=place here the path of the directory containing b3_run.py
-B3_BASEDIR=/home/desafder/ 
+B3_BASEDIR=${SERVER_PATH}/
 #B3_CONFIGFILE="place here the path of the b3.xml config file you want to use"
 # strange you can not use quote in the arguments of the daemon 
 # bash will add single quotes when runing the command
