@@ -1,7 +1,7 @@
 #include "AdminWindow.hpp"
-#ifndef BUILD_INFO
-#define BUILD_INFO "No build info"
-#endif
+
+#include <sstream>
+
 /** Gets historical stock inforation from yahoo:
   * API Specifcation: http://code.google.com/p/yahoo-finance-managed/wiki/csvHistQuotesDownload
   */
@@ -16,11 +16,11 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 {
      _debugOutput = new Wt::WText(this);
      addWidget(new Wt::WBreak());
-     std::string buildinfo;
-     buildinfo = BUILD_INFO;
-     _debugOutput->setText(Wt::WString("debug info: " + buildinfo + " Docroot: " + Wt::WApplication::instance()->docRoot()));
-     cout <<std::endl<< std::endl <<  " Docroot: " << Wt::WApplication::instance()->docRoot()<<"::"<<std::endl;
-     _debugOutput->setText("debug info "+buildinfo);
+     std::stringstream buildinfo;
+     buildinfo << "Compiled on " << __DATE__ << " at " << __TIME__ << "<br/>"
+               << "Doc Root: " << Wt::WApplication::instance()->docRoot(); 
+     log("DEBUG") << buildinfo.str();
+     _debugOutput->setText(buildinfo.str());
      addWidget(new Wt::WBreak());
      new Wt::WAnchor(Wt::WLink("/generetedStatic/doc/html/index.html"), "show docs", this);
 // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
