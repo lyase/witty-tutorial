@@ -62,3 +62,62 @@ target_link_libraries(hellowt
 enable_testing()
 
 add_subdirectory(tests)
+
+#------------------------------------------------------------------------------------------------------
+# Deploy
+
+# This will generate a 'doc' folder in the source directory, then move it to
+# the build directory under 'generatedStatic'
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generatedStatic"
+    COMMAND doxygen doxy.config 
+    COMMAND mkdir ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic
+    COMMAND mv doc ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic/
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic)
+
+set(SERVER_LINK "desafder@192.168.10.21" CACHE string 
+    "The scp destination base for the 'make install' target")
+set(SERVER_PATH "~/hello" CACHE string 
+    "The scp destination directory for the 'make install' target")
+
+if (${SERVER_PATH} STREQUAL "")
+    set(SERVER_PATH .)
+endif()
+
+set(SERVER_DEST ${SERVER_LINK}:${SERVER_PATH})
+configure_file(cmdl.in cmdl)
+
+# In order to use the 'install' command you need passwordless ssh access to the
+# 'SERVER_LINK'. You can optain this by generating ssh keys and uploading them
+# to the server.
+#
+# On your development computer, generate some ssh keys:
+#   ssh-keygen  
+#
+# On your deployment server, put the contents of id_rsa.pub on a line on its own in ~/.ssh/authorized_keys.
+# If that file is empty, you could just copy it there. Maybe the easiest way is
+# to 'cat' it on the dev machine and copy and paste it on the dev machine:
+#   LOCAL $ cat ~/.ssh/id_rsa
+# .. then copy and paste that line ..
+#   SERVER $ cat >> ~/.ssh/authorized_hosts
+# .. then paste it there and ctrl+d to finish ..
+add_custom_target(install
+    COMMAND ssh ${SERVER_LINK} "mkdir -p ${SERVER_PATH}" 
+    COMMAND scp cmdl ${SERVER_DEST}
+    COMMAND ssh ${SERVER_LINK} "chmod u+x ${SERVER_PATH}/cmdl" 
+    COMMAND ssh ${SERVER_LINK} "${SERVER_PATH}/cmdl stop" 
+    COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/hellowt ${SERVER_DEST}
+    COMMAND scp hellowt.xml ${SERVER_DEST}
+    COMMAND scp -r generatedStatic ${SERVER_DEST}
+    COMMAND scp wt-config.xml ${SERVER_DEST}
+    COMMAND ssh ${SERVER_LINK} "${SERVER_PATH}/cmdl start" 
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic
+            ${CMAKE_CURRENT_BINARY_DIR}/hellowt 
+            ${CMAKE_CURRENT_BINARY_DIR}/hellowt.xml 
+            ${CMAKE_CURRENT_BINARY_DIR}/wt-config.xml
+            ${CMAKE_CURRENT_BINARY_DIR}/cmdl
+)
+
