@@ -14,6 +14,7 @@
 #ifndef HELLOFACTORY_H_
 #define HELLOFACTORY_H_
 #include <Wt/WObject>
+#include <Wt/WApplication>
 #include"IWebPageFactory.h"
 #include "AskWindow.hpp"
 #include "SayWindow.hpp"
@@ -49,6 +50,8 @@ public:
      virtual void createWebPage(const std::string newPath, Wt::WContainerWidget* aroot ) {
           // we are using an enum you can  add more pages here but  best implementation with a Map
           // see https://github.com/matiu2/witty-plus/blob/master/wittyPlus/base/URLs.hpp
+          
+          Wt::WApplication::instance()->log("info") << "Create web page called: " << newPath;
           switch (hashit(newPath)) {
           case ask:
                new AskWindow(aroot);

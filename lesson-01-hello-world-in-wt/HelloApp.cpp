@@ -12,6 +12,7 @@
  */
 
 #include "HelloApp.hpp"
+#include <Wt/WServer>
 #include <Wt/Dbo/Session>
 #include <Wt/Dbo/backend/Sqlite3>
 #include "AskWindow.hpp"
@@ -22,6 +23,7 @@
 #include <Wt/Dbo/Exception>
 #include <Wt/WCssTheme>
 #include "models/User.h"
+
 
 struct HelloApp::DBInfo : public Wt::WObject {
      Wt::Dbo::backend::Sqlite3 connection;
@@ -42,6 +44,7 @@ struct HelloApp::DBInfo : public Wt::WObject {
 HelloApp::HelloApp(const Wt::WEnvironment& env) :
      Wt::WApplication(env)
 {
+     log("info") << "App created";
      setTheme(new Wt::WCssTheme("polished", this));
      setTitle("Hello world");
      // Set up the DB
@@ -52,6 +55,8 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
           throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
      _db = new DBInfo(this, dbConnString);
 
+     calc = new Calculator("/calc", this);
+
      // Pretend we know who the user is
      user = new User();
      // Fire up the page generator
@@ -59,6 +64,7 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
      // Finally navigate to where we are
      internalPathChanged().connect(this, &HelloApp::handlePathChanged);
      handlePathChanged(internalPath());
+
 
 }
 /**
