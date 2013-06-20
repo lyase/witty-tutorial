@@ -7,6 +7,7 @@
 #include "IWebPageFactory.h"
 #include "MainWindow.hpp"
 #include "models/User.h"
+#include "calc.hpp"
 
 namespace Wt {
 namespace Dbo {
@@ -35,6 +36,7 @@ public:
      int countUser(const std::string name);
      void first_Dbinitialize();
      void Dbinitialize();
+     Calculator* calc;
 };
 
 #endif // HELLOAPP_HPP

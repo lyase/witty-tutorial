@@ -1,4 +1,5 @@
 #include "MainWindow.hpp"
+
 #include <Wt/WLineEdit>
 #include <Wt/WText>
 #include <Wt/WLabel>
@@ -8,6 +9,9 @@
 #include <Wt/WLink>
 #include <Wt/WAnchor>
 #include <Wt/WApplication>
+
+#include "HelloApp.hpp"
+
 MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
      _inputLabel = new Wt::WLabel("What is your name?", this);
@@ -27,6 +31,10 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
      _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Ask your name page", this);
      addWidget(new Wt::WBreak());
      _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
+
+     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
+     new Wt::WAnchor(app->calc, "Calculator", this);
+
 }
 void MainWindow::sayHi()
 {
