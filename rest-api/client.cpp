@@ -13,8 +13,8 @@ struct Client {
         api.done().connect(this, &Client::gotResponse);
         api.setTimeout(10);
     }
-    void test() {
-        api.get("http://localhost:8000/");
+    bool test() {
+        return api.get("http://localhost:8000/");
     }
     void gotResponse(boost::system::error_code code, Wt::Http::Message msg) {
         last_msg = msg;
@@ -31,7 +31,13 @@ int main(int, char**) {
     Wt::WIOService io;
     Client client(io);
     cout << "Sending Request..." << endl;
-    client.test();
+    bool sent = client.test();
+    if (sent) 
+        cout << "Sent Request" << endl;
+    else {
+        cout << "Could not send!" << endl;
+        return -1;
+    }
     cout << "Waiting for completion..." << endl;
     io.stop();
     cout << "Body: " << client.last_msg.body() << endl;

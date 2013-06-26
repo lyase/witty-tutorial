@@ -1,14 +1,18 @@
 #include <Wt/WServer>
 #include <Wt/WResource>
-#include <Wt/WGlobals>
+#include <Wt/Http/Response>
+#include <Wt/Http/Request>
+
+#include <csignal>
 
 struct API : public Wt::WResource {
-	void handleRequest (const Http::Request &request, Http::Response &response) {
+	void handleRequest (const Wt::Http::Request &request, Wt::Http::Response &response) {
         response.out() << "hello\n";
     }
 };
 
-int main (int, char**) {
+int main (int argc, char** argv) {
+    using Wt::WServer;
   try {
     // use argv[0] as the application name to match a suitable entry
     // in the Wt configuration file, and use the default configuration
@@ -17,7 +21,7 @@ int main (int, char**) {
     WServer server(argv[0]);
 
     // WTHTTP_CONFIGURATION is e.g. "/etc/wt/wthttpd"
-    server.setServerConfiguration(argc, argv, Wt::WTHTTP_CONFIGURATION);
+    server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
 
     // add a single entry point, at the default location (as determined
     // by the server configuration's deploy-path)
