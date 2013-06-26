@@ -1,3 +1,19 @@
+/* this simple server will provide a hello message on port 8000
+manual testing see result with 
+curl -vv localhost:8000
+note reply type is 
+Transfer-Encoding: chunked
+
+6
+hello
+
+0
+
+
+6 is number of char in contents
+answer end with sequence : "0\r\n" followed "\r\n".
+
+*/
 #include <Wt/WServer>
 #include <Wt/WResource>
 #include <Wt/Http/Response>
