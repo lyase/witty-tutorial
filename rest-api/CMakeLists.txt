@@ -23,4 +23,4 @@ add_executable(test_conn test.cpp)
 target_link_libraries(test_conn ${ALL_LIBS})
 
 enable_testing()
-add_test(client client)
+add_test(conn test_conn --docroot . --http-address 0.0.0.0 --http-port 8000)

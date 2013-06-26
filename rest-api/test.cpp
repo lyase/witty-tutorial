@@ -2,5 +2,7 @@
 #include "client.hpp"
 
 int main(int argc, char** argv) {
-    runServer(argc, argv, runClient);
+    int result;
+    runServer(argc, argv, [&]{result = runClient();});
+    return result;
 }
