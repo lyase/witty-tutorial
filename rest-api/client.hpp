@@ -43,7 +43,7 @@ int runClient() {
     io.stop();
     cout << "Body: " << client.last_msg.body() << endl;
     cout << "status code: " << client.last_msg.status() << endl;
-    if (client.last_msg.body() == "hello")
+    if (client.last_msg.body() == "hello\n")
         return 0;
     else
         return 1;
