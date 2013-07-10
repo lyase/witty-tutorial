@@ -29,6 +29,7 @@ int runClient() {
 
     cout << "Initializing..." << endl;
     Wt::WIOService io;
+    io.start();
     Client client(io);
     cout << "Sending Request..." << endl;
     bool sent = client.test();
