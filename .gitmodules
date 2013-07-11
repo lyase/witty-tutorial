@@ -1,3 +1,6 @@
 [submodule "wt"]
 	path = wt
 	url = https://github.com/kdeforche/wt.git
+[submodule "lesson-07-rest-api/curl"]
+	path = lesson-07-rest-api/curl
+	url = git://github.com/bagder/curl.git
