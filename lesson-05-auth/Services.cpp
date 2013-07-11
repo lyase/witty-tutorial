@@ -14,5 +14,3 @@ Services::Services() : auth(), pword(auth) {
     pword.setAttemptThrottlingEnabled(true);
     pword.setStrengthValidator(new Wt::Auth::PasswordStrengthValidator());
 }
-
-}

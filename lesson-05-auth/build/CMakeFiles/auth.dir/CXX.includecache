@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lyase/projects/witty-tutorial/lesson-05-auth/App.hpp
+Wt/WApplication
+-
+Session.hpp
+/home/lyase/projects/witty-tutorial/lesson-05-auth/Session.hpp
+
+/home/lyase/projects/witty-tutorial/lesson-05-auth/Services.hpp
+Wt/Auth/AuthService
+-
+Wt/Auth/PasswordService
+-
+
+/home/lyase/projects/witty-tutorial/lesson-05-auth/Session.hpp
+Wt/Dbo/Session
+-
+Wt/Dbo/ptr
+-
+Wt/Dbo/backend/Sqlite3
+-
+Wt/Auth/Login
+-
+Wt/Auth/AbstractUserDatabase
+-
+User.hpp
+/home/lyase/projects/witty-tutorial/lesson-05-auth/User.hpp
+Services.hpp
+/home/lyase/projects/witty-tutorial/lesson-05-auth/Services.hpp
+
+/home/lyase/projects/witty-tutorial/lesson-05-auth/User.hpp
+Wt/Dbo/Dbo
+-
+
+/home/lyase/projects/witty-tutorial/lesson-05-auth/main.cpp
+App.hpp
+/home/lyase/projects/witty-tutorial/lesson-05-auth/App.hpp
+Services.hpp
+/home/lyase/projects/witty-tutorial/lesson-05-auth/Services.hpp
+

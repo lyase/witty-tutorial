@@ -1,0 +1,2 @@
+/home/lyase/projects/witty-tutorial/lesson-05-auth/build/CMakeFiles/app.dir
+/home/lyase/projects/witty-tutorial/lesson-05-auth/build/CMakeFiles/auth.dir
