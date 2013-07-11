@@ -2,6 +2,10 @@
 #include <Wt/Http/Message>
 #include <Wt/WIOService>
 
+#include <Wt/Json/Parser>
+#include <Wt/Json/Value>
+#include <Wt/Json/Object>
+
 #include <iostream>
 
 #include <boost/system/error_code.hpp>
@@ -41,8 +45,19 @@ int runClient() {
     }
     cout << "Waiting for completion..." << endl;
     io.stop();
+
     cout << "Body: " << client.last_msg.body() << endl;
     cout << "status code: " << client.last_msg.status() << endl;
+
+    Wt::Json::Object result;
+    Wt::Json::parse(client.last_msg.body(), result);
+
+    std::string name = result.get("name");
+    int age = result.get("age");
+
+    cout << "name: " << name << endl;
+    cout << "age: " << age << endl;
+
     if (client.last_msg.body() == "hello\n")
         return 0;
     else

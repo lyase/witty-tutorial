@@ -25,7 +25,7 @@ answer end with sequence : "0\r\n" followed "\r\n".
 
 struct API : public Wt::WResource {
 	void handleRequest (const Wt::Http::Request &request, Wt::Http::Response &response) {
-        response.out() << "hello\n";
+        response.out() << "{\"name\": \"Super man\", \"age\": 12}";
     }
 };
 
