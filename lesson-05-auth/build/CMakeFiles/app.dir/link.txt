@@ -1,2 +1,0 @@
-/usr/bin/ar cr libapp.a  CMakeFiles/app.dir/App.cpp.o CMakeFiles/app.dir/Session.cpp.o CMakeFiles/app.dir/Services.cpp.o
-/usr/bin/ranlib libapp.a

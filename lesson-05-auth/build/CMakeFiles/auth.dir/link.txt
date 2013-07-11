@@ -1,1 +1,0 @@
-/usr/bin/c++   -I/usr/local/include -I/usr/include -I/usr/include/x86_64-linux-gnu -I/usr/include/x86_64-linux-gnu/c++/4.8 -g    CMakeFiles/auth.dir/main.cpp.o  -o auth -rdynamic libapp.a -lwtd -lwthttpd -lwtdbod -lwtdbosqlite3d -lboost_system -lboost_signals 
