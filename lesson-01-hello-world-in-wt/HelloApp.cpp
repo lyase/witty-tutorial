@@ -29,7 +29,7 @@
 struct HelloApp::DBInfo : public Wt::WObject {
      Wt::Dbo::backend::Sqlite3 connection;
      ::Auth::Session session;
-     DBInfo(Wt::WObject* parent, const std::string& dbConnString, ::Auth::Services& services) :
+     DBInfo(Wt::WObject* parent, const std::string& dbConnString, const ::Auth::Services& services) :
           Wt::WObject(parent), connection(dbConnString), session(connection, services) {
           session.setConnection(connection);
           session.mapClass<Post>("post");
@@ -42,7 +42,7 @@ struct HelloApp::DBInfo : public Wt::WObject {
 * for dbo internal use
 * \param a a Action .
 */
-HelloApp::HelloApp(const Wt::WEnvironment& env, ::Auth::Services& services) :
+HelloApp::HelloApp(const Wt::WEnvironment& env, const ::Auth::Services& services) :
      Wt::WApplication(env)
 {
      log("info") << "App created";

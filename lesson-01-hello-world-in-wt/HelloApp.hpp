@@ -31,7 +31,7 @@ private:
      IWebPageFactory* mFactory ;
      void handlePathChanged(const std::string& newPath);
 public:
-     HelloApp(const Wt::WEnvironment& env, Auth::Services& services);
+     HelloApp(const Wt::WEnvironment& env, const Auth::Services& services);
      void setUserName(const Wt::WString& newName);
      const Wt::WString userName();
      ::Auth::Session& db();
