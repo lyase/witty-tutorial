@@ -11,11 +11,15 @@
 
 namespace Wt {
 namespace Dbo {
-class Session;
 namespace backend {
 class Sqlite3;
 }
 }
+}
+
+namespace Auth {
+    class Session;
+    class Services;
 }
 
 class HelloApp : public Wt::WApplication {
@@ -27,10 +31,10 @@ private:
      IWebPageFactory* mFactory ;
      void handlePathChanged(const std::string& newPath);
 public:
-     HelloApp(const Wt::WEnvironment& env);
+     HelloApp(const Wt::WEnvironment& env, Auth::Services& services);
      void setUserName(const Wt::WString& newName);
      const Wt::WString userName();
-     Wt::Dbo::Session& db();
+     ::Auth::Session& db();
      void saveUser(User* user);
      Wt::Dbo::ptr<User> findUser(const std::string name);
      int countUser(const std::string name);

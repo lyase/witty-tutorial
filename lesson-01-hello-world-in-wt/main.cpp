@@ -23,15 +23,11 @@
 #include <Wt/WEnvironment>
 #include "HelloApp.hpp"
 
-Wt::WApplication* createApplication(const Wt::WEnvironment& env)
-{
-     return new HelloApp(env);
-}
-
 int main(int argc, char** argv)
 {
      using std::ofstream;
      using std::endl;
+     Auth::Services services; // Lives for the life of the app
      cout<< "\n starting application to  debug comand line parameters  logging command line parameters to file\n";
      ofstream out("ComandLineParameters.txt", fstream::app);
      out<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
@@ -54,5 +50,8 @@ int main(int argc, char** argv)
      }
      out.close();
 
-     return Wt::WRun(argc, argv, &createApplication);
+     return Wt::WRun(argc, argv, [&appCreator](const Wt::WEnvironment& env) {
+         return new HelloApp(env, services);
+     });
+
 }

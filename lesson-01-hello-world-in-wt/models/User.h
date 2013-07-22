@@ -15,20 +15,16 @@
  */
 #ifndef USER_H
 #define USER_H
-#include <Wt/Dbo/Dbo>
+#include <ctype.h>
 #include <iostream>
-#include <Wt/Dbo/backend/Sqlite3>
-#include <Wt/Dbo/Dbo>
-#include <Wt/Dbo/Types>
 #include <string>
-#include <Wt/WDate>
-#include <Wt/WString>
+#include <Wt/Auth/Dbo/AuthInfo>
+#include <Wt/Dbo/backend/Sqlite3>
 #include <Wt/Dbo/collection>
 #include <Wt/Dbo/Dbo>
-#include <Wt/Dbo/WtSqlTraits>
-#include <string>
-#include <ctype.h>
 #include <Wt/Dbo/Impl>
+#include <Wt/Dbo/Types>
+#include <Wt/Dbo/WtSqlTraits>
 #include <Wt/WDate>
 #include <Wt/WString>
 
@@ -44,6 +40,8 @@ enum Role {
     Alien  /**< the user is nothing  value 2 */
 };
 class User;
+typedef Wt::Auth::Dbo::AuthInfo<User> AuthInfo;
+
 /*! A Post   class
 * \details This class is  a document contents created by a user of app
 * this class has dbo support example of Many-to-One relations with user.

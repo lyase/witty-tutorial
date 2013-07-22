@@ -13,7 +13,6 @@
 
 #include "HelloApp.hpp"
 #include <Wt/WServer>
-#include <Wt/Dbo/Session>
 #include <Wt/Dbo/backend/Sqlite3>
 #include "AskWindow.hpp"
 #include "SayWindow.hpp"
@@ -23,13 +22,15 @@
 #include <Wt/Dbo/Exception>
 #include <Wt/WCssTheme>
 #include "models/User.h"
+#include "Auth/Session.hpp"
+#include "Auth/Services.hpp"
 
 
 struct HelloApp::DBInfo : public Wt::WObject {
      Wt::Dbo::backend::Sqlite3 connection;
-     Wt::Dbo::Session session;
-     DBInfo(Wt::WObject* parent, const std::string& dbConnString) :
-          Wt::WObject(parent), connection(dbConnString), session() {
+     ::Auth::Session session;
+     DBInfo(Wt::WObject* parent, const std::string& dbConnString, ::Auth::Services& services) :
+          Wt::WObject(parent), connection(dbConnString), session(connection, services) {
           session.setConnection(connection);
           session.mapClass<Post>("post");
           session.mapClass<User>("user");
@@ -41,7 +42,7 @@ struct HelloApp::DBInfo : public Wt::WObject {
 * for dbo internal use
 * \param a a Action .
 */
-HelloApp::HelloApp(const Wt::WEnvironment& env) :
+HelloApp::HelloApp(const Wt::WEnvironment& env, ::Auth::Services& services) :
      Wt::WApplication(env)
 {
      log("info") << "App created";
@@ -53,7 +54,7 @@ HelloApp::HelloApp(const Wt::WEnvironment& env) :
      readConfigurationProperty(configSettingName, dbConnString);
      if (dbConnString.empty())
           throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
-     _db = new DBInfo(this, dbConnString);
+     _db = new DBInfo(this, dbConnString, services);
 
      calc = new Calculator("/calc", this);
 
@@ -98,7 +99,7 @@ const Wt::WString HelloApp::userName()
      return user->getName();
 }
 
-Wt::Dbo::Session& HelloApp::db()
+::Auth::Session& HelloApp::db()
 {
      return _db->session;
 }
