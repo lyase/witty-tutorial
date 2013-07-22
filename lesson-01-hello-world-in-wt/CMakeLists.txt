@@ -31,10 +31,13 @@ else()
 endif()
 CONFIGURE_FILE(wt-config.xml wt-config.xml)
 
-# Main Library
-add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp CsvUtil.C)
+
 # Models Library
 add_subdirectory(models)
+add_subdirectory(Auth)
+# Main Library
+add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp CsvUtil.C)
+target_link_libraries(helloWorld models Auth)
 
 # docroot stuff
 file(COPY run.sh DESTINATION .)
@@ -48,7 +51,6 @@ add_executable(hellowt main.cpp )
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
     helloWorld
-    models
     ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
     ${hpdf}
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}

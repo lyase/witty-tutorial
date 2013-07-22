@@ -30,7 +30,8 @@ Session::Session(dbo::SqlConnection& connection, const Services& services)
         // Set his password
         services.pword.updatePassword(user, "admin");
         // Create one of our users
-        Wt::Dbo::ptr<User> real_user = add(new User{12, "Mister Admin"});
+        Wt::Dbo::ptr<User> real_user = add(new User());
+        real_user.modify()->setName("Mister Adiminstrator");
         // Get the Authentication data
         Wt::Dbo::ptr<AuthInfo> auth_info = users_->find(user);
         // Now hook our user up to the witty user

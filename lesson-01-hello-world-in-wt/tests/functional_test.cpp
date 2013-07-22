@@ -32,12 +32,15 @@
 #include <Wt/WApplication>
 #include <Wt/Test/WTestEnvironment>
 #include "../HelloApp.hpp"
+#include "../Auth/Services.hpp"
+#include "../Auth/Session.hpp"
 #include <Wt/Dbo/backend/Sqlite3>
 #include <boost/filesystem.hpp>
 struct LiveAppFixture {
      Wt::Test::WTestEnvironment env;
      HelloApp app;
-     LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env) {
+     ::Auth::Services services;
+     LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env, services) {
           app.initialize();
           if (createTables)
                app.db().createTables();
