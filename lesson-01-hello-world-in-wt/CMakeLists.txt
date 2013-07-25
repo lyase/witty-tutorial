@@ -40,7 +40,7 @@ add_library(helloWorld HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWindow.cpp A
 target_link_libraries(helloWorld models Auth)
 
 # docroot stuff
-file(COPY run.sh DESTINATION .)
+file(COPY run.sh debug.sh DESTINATION .)
 file(COPY resources DESTINATION .)
 file(COPY timeseries.csv DESTINATION .)
 
