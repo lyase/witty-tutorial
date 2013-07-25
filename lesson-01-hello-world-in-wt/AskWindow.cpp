@@ -1,5 +1,6 @@
 #include "AskWindow.hpp"
 #include "HelloApp.hpp"
+#include "Auth/Session.hpp"
 #include <Wt/WLineEdit>
 #include <Wt/WText>
 #include <Wt/WLabel>
@@ -8,22 +9,32 @@
 #include <Wt/WAnchor>
 #include <Wt/WLink>
 #include <Wt/WApplication>
+#include <Wt/WMessageBox>
 
 AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
-     _inputLabel = new Wt::WLabel("What is your name?", this);
+    _inputLabel = new Wt::WLabel("New User name", this);
      _nameInput = new Wt::WLineEdit(this);
      _nameInput->setFocus();
      _inputLabel->setBuddy(_nameInput);
-     _btnHi = new Wt::WPushButton("Say Hi", this);
+ 
+    auto pwordLabel = new Wt::WLabel("New Password", this);
+     _pwordInput = new Wt::WLineEdit(this);
+     pwordLabel->setBuddy(_nameInput);
+
+     _btnCreateUser = new Wt::WPushButton("Create User", this);
      _nameOutput = new Wt::WText(this);
-     _btnHi->clicked().connect(this, &AskWindow::sayHi);
+     _btnCreateUser->clicked().connect(this, &AskWindow::sayHi);
 }
 
 void AskWindow::sayHi()
 {
      Wt::WString name = _nameInput->valueText();
+     Wt::WString pword = _pwordInput->valueText();
      HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
-     app->setUserName(name);
-     app->setInternalPath("/say", true);
+     app->db().createUser(name.toUTF8(), pword.toUTF8());
+     Wt::WMessageBox::show("User Created",
+                           std::string("Created User: ") + name,
+                           Wt::Ok);
+
 }

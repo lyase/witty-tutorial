@@ -39,6 +39,7 @@ public:
      Wt::Dbo::ptr<User> findUser(const std::string name);
      int countUser(const std::string name);
      Calculator* calc;
+     Wt::Dbo::collection<Wt::Dbo::ptr<User>> userList();
 };
 
 #endif // HELLOAPP_HPP

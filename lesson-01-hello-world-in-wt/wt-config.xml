@@ -5,7 +5,7 @@
         <num-processes>50</num-processes>
       </shared-process>
       <tracking>Auto</tracking>
-      <send-xhtml-mime-type>true</send-xhtml-mime-type>
+      <send-xhtml-mime-type>false</send-xhtml-mime-type>
       <reload-is-new-session>true</reload-is-new-session>
       <timeout>600</timeout>
     </session-management>

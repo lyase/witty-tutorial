@@ -26,6 +26,9 @@ public:
     UserDatabase& users() { return *users_; }
     Wt::Auth::Login& login() { return login_; }
     const Services& services() { return _services; }
+    void createUser(const std::string& loginName,
+                    const std::string& password,
+                    const std::string& fullName="");
 };
 
 }

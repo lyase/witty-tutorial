@@ -17,8 +17,9 @@ class AskWindow : public Wt::WContainerWidget {
 private:
      Wt::WLabel* _inputLabel;
      Wt::WLineEdit* _nameInput;
+     Wt::WLineEdit* _pwordInput;
      Wt::WText* _nameOutput;
-     Wt::WPushButton* _btnHi;
+     Wt::WPushButton* _btnCreateUser;
      Wt::WPushButton* _btnToggleTheme;
      void sayHi();
      void handlePathChanged(const std::string& newPath);

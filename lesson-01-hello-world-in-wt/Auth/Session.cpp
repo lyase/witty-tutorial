@@ -24,19 +24,7 @@ Session::Session(dbo::SqlConnection& connection, const Services& services)
     try {
         Wt::Dbo::Transaction t(*this);
         createTables();
-        // Create a new Wt user
-        auto user = users_->registerNew();
-        // Give him a login name
-        user.addIdentity(Wt::Auth::Identity::LoginName, "admin");
-        // Set his password
-        services.pword.updatePassword(user, "admin");
-        // Create one of our users
-        Wt::Dbo::ptr<User> real_user = add(new User());
-        real_user.modify()->setName("Mister Adiminstrator");
-        // Get the Authentication data
-        Wt::Dbo::ptr<AuthInfo> auth_info = users_->find(user);
-        // Now hook our user up to the witty user
-        auth_info.modify()->setUser(real_user);
+        createUser("admin", "admin", "Mister Administrator");
         t.commit();
         std::cerr << "Created database." << std::endl;
     } catch (std::exception& e) {
@@ -44,6 +32,25 @@ Session::Session(dbo::SqlConnection& connection, const Services& services)
         std::cerr << "Using existing database";
     }
 
+}
+
+void Session::createUser(const std::string& loginName,
+                const std::string& password,
+                const std::string& fullName) 
+{
+    // Create a new Wt user
+    auto user = users_->registerNew();
+    // Give him a login name
+    user.addIdentity(Wt::Auth::Identity::LoginName, loginName);
+    // Set his password
+    services().pword.updatePassword(user, password);
+    // Create one of our users
+    Wt::Dbo::ptr<User> real_user = add(new User());
+    real_user.modify()->setName(fullName.empty() ? loginName : fullName);
+    // Get the Authentication data
+    Wt::Dbo::ptr<AuthInfo> auth_info = users_->find(user);
+    // Now hook our user up to the witty user
+    auth_info.modify()->setUser(real_user);
 }
 
 }

@@ -20,6 +20,7 @@
 #include "IWebPageFactory.h"
 #include "FactoryHelloWorldWebsite.hpp"
 #include <Wt/Dbo/Exception>
+#include <Wt/Dbo/collection>
 #include <Wt/WCssTheme>
 #include "models/User.h"
 #include "Auth/Session.hpp"
@@ -126,4 +127,9 @@ int HelloApp::countUser(const std::string name)
           count= 0;
      }
      return count ;
+}
+
+Wt::Dbo::collection<Wt::Dbo::ptr<User>> HelloApp::userList() {
+     Wt::Dbo::Transaction t(_db->session);
+     return db().find<User>();
 }

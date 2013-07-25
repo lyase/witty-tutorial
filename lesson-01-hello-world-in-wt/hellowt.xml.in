@@ -220,7 +220,7 @@
            respect to default CSS rules, you may want to disable
            sending the XHTML mime-type alltogether, at least if you
            are not using SVG (used by the WPaintedWidget).  -->
-        <send-xhtml-mime-type>true</send-xhtml-mime-type>
+        <send-xhtml-mime-type>false</send-xhtml-mime-type>
 
         <!-- Do strict serialization of events.
 
