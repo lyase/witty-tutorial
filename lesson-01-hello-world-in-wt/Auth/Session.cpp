@@ -38,6 +38,7 @@ void Session::createUser(const std::string& loginName,
                 const std::string& password,
                 const std::string& fullName) 
 {
+    Wt::Dbo::Transaction t(*this);
     // Create a new Wt user
     auto user = users_->registerNew();
     // Give him a login name
@@ -51,6 +52,7 @@ void Session::createUser(const std::string& loginName,
     Wt::Dbo::ptr<AuthInfo> auth_info = users_->find(user);
     // Now hook our user up to the witty user
     auth_info.modify()->setUser(real_user);
+    t.commit();
 }
 
 }
