@@ -30,8 +30,6 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
           // Create an app
           Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");
           HelloApp app1(env1, services);
-          // first_Dbinitialize this is required if database did not exist when starting app.
-          app1.first_Dbinitialize();
           app1.initialize();
 
           cout<< " checking i can query database before any operation it sould be  empty \n";

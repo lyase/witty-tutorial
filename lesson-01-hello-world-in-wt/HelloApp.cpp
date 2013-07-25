@@ -32,8 +32,6 @@ struct HelloApp::DBInfo : public Wt::WObject {
      DBInfo(Wt::WObject* parent, const std::string& dbConnString, const ::Auth::Services& services) :
           Wt::WObject(parent), connection(dbConnString), session(connection, services) {
           session.setConnection(connection);
-          session.mapClass<Post>("post");
-          session.mapClass<User>("user");
      }
 };
 /*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env)
@@ -116,6 +114,7 @@ Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name)
      Wt::Dbo::Transaction t(_db->session);
      return _db->session.find<User>().where("name = ?").bind(name);
 }
+
 int HelloApp::countUser(const std::string name)
 {
      Wt::Dbo::Transaction t(_db->session);
@@ -127,30 +126,4 @@ int HelloApp::countUser(const std::string name)
           count= 0;
      }
      return count ;
-}
-void HelloApp::first_Dbinitialize()
-{
-     // mapping here not required it has been done while opening the db connection
-     //db().mapClass<User>("user");
-     //db().mapClass<Post>("post");
-     try {
-          Wt::Dbo::Transaction t(_db->session);
-          _db->session.createTables();
-          t.commit();
-     } catch (Wt::Dbo::Exception e) {
-          cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
-     }
-}
-
-void HelloApp::Dbinitialize()
-{
-     db().mapClass<User>("user");
-     db().mapClass<Post>("post");
-     //following should only be done on first dbinitialize only
-     /*try {
-         db().createTables();
-     } catch (Wt::Dbo::Exception e) {
-         cout <<"in createTables() caught a Wt::Dbo::Exception:/ "<<e.what()<<"/ could not createTableForUser check blog.db is empty\n";
-     }
-     */
 }

@@ -16,6 +16,7 @@ Session::Session(dbo::SqlConnection& connection, const Services& services)
     setConnection(connection_);
     // Map the classes to the DB types
     mapClass<User>("user");
+    mapClass<Post>("post");
     mapClass<AuthInfo>("auth_info");
     mapClass<AuthInfo::AuthIdentityType>("auth_identity");
     mapClass<AuthInfo::AuthTokenType>("auth_token");

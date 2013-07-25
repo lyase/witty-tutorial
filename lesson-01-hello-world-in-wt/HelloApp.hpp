@@ -38,8 +38,6 @@ public:
      void saveUser(User* user);
      Wt::Dbo::ptr<User> findUser(const std::string name);
      int countUser(const std::string name);
-     void first_Dbinitialize();
-     void Dbinitialize();
      Calculator* calc;
 };
 
