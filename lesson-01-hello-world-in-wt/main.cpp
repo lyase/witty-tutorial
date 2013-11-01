@@ -52,7 +52,7 @@ int main(int argc, char** argv)
      out.close();
 
      return Wt::WRun(argc, argv, [&services](const Wt::WEnvironment& env) {
-         return new HelloApp(env, services);
+          return new HelloApp(env, services);
      });
 
 }

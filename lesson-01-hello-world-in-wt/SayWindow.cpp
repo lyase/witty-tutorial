@@ -20,8 +20,8 @@ SayWindow::SayWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
      Wt::Dbo::Transaction t(app->db());
      auto users = app->userList();
      int i=0;
-     for (auto user : users)
-         table->elementAt(i++, 0)->addWidget(
-            new Wt::WText(user->getName())
-         );
+for (auto user : users)
+          table->elementAt(i++, 0)->addWidget(
+               new Wt::WText(user->getName())
+          );
 }

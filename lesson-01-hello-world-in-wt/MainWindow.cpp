@@ -42,6 +42,6 @@ void MainWindow::sayHi()
      if( (user->getName()=="") or(user->getName()=="Joe")) {
           user->setName(" visiteur inconnu");
      } else {
-          _nameOutput->setText("Hi there " + user->getName());
+          _nameOutput->setText("in page message on button click I say Hi there " + user->getName());
      }
 }

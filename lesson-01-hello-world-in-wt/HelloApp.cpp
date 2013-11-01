@@ -129,7 +129,8 @@ int HelloApp::countUser(const std::string name)
      return count ;
 }
 
-Wt::Dbo::collection<Wt::Dbo::ptr<User>> HelloApp::userList() {
+Wt::Dbo::collection<Wt::Dbo::ptr<User>> HelloApp::userList()
+{
      Wt::Dbo::Transaction t(_db->session);
      return db().find<User>();
 }

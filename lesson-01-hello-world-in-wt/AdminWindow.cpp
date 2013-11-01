@@ -18,7 +18,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
      addWidget(new Wt::WBreak());
      std::stringstream buildinfo;
      buildinfo << "Compiled on " << __DATE__ << " at " << __TIME__ << "<br/>"
-               << "Doc Root: " << Wt::WApplication::instance()->docRoot(); 
+               << "Doc Root: " << Wt::WApplication::instance()->docRoot();
      log("DEBUG") << buildinfo.str();
      _debugOutput->setText(buildinfo.str());
      addWidget(new Wt::WBreak());
@@ -26,7 +26,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 // copy below here from line 165 to 250 of file charExample.C but you need function readCsvFile to compile for now in cvsUtils.c in comments
      new WText(WString::tr("scatter plot"), this);
 // for file privider
-    //WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
+     //WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
 // for yahoo data provider
      WAbstractItemModel *model = yahoo->provideModelObject(this);
      if (!model)
@@ -75,9 +75,9 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
      /*
       * Add first two columns as line series
       */
-      WDataSeries s(1, LineSeries);
-      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
-      chart->addSeries(s);
+     WDataSeries s(1, LineSeries);
+     s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
+     chart->addSeries(s);
      chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
      chart->setMargin(10, Top | Bottom);            // add margin vertically

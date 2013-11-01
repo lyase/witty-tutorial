@@ -18,8 +18,8 @@ class Sqlite3;
 }
 
 namespace Auth {
-    class Session;
-    class Services;
+class Session;
+class Services;
 }
 
 class HelloApp : public Wt::WApplication {

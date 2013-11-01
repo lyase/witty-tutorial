@@ -13,12 +13,12 @@
 
 AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
-    _inputLabel = new Wt::WLabel("New User name", this);
+     _inputLabel = new Wt::WLabel("New User name", this);
      _nameInput = new Wt::WLineEdit(this);
      _nameInput->setFocus();
      _inputLabel->setBuddy(_nameInput);
- 
-    auto pwordLabel = new Wt::WLabel("New Password", this);
+
+     auto pwordLabel = new Wt::WLabel("New Password", this);
      _pwordInput = new Wt::WLineEdit(this);
      pwordLabel->setBuddy(_nameInput);
 
