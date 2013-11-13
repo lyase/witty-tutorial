@@ -2,8 +2,10 @@
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
+#include <boost/numeric/conversion/cast.hpp>
+using boost::numeric_cast;
 
-
+using boost::numeric::bad_numeric_cast;
 std::string YahooStockHistory::urlEncode(const std::string& input)
 {
      std::stringstream result;
@@ -61,23 +63,42 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
      model->setHeaderData(1, std::string("Price"));
      /* i will generate fake data in model as exemple 365 rows, 6 col*/
      /*
-      * set  the first column as dates every day from (1988,6,14) to (1987,6,14);
+      *       * set  the first column 0 as dates every day from (1988,6,14) to (1987,6,14);
+       *the second colum is prices a brownian motion log normal process r=5% sigma=10%
       */
      std::cout<<"the model \n"<<model<<std::endl;
      Wt:: WDate d(1988,6,14);
 
      Wt::WDateTime now = Wt::WDateTime::currentDateTime();
+      double r=0.05/36000;
+      double sigma=0.1/360;
 
      std::default_random_engine generator(now.toTime_t());
      std::uniform_real_distribution<double> hundred(1,100);
+               std::uniform_real_distribution<double> centrereduite(-1,1);
      double price = hundred(generator);
-
+double rand= hundred(generator);
      for( int i = 0; i<365; i++) {
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
           model->setData(i, 0, boost::any(d));
-          std::uniform_real_distribution<double> five(-5,5);
-          price += five(generator);
+         // std::uniform_real_distribution<double> five(-1,1);
+          rand = centrereduite(generator);
+          if (i!=0)
+          {
+
+          double oldPrice=boost::any_cast<double>((model->data((i-1),1)));
+                  // new price with brownian
+                  price= oldPrice*(1+r+sigma*rand);
+
+ //                 price= oldPrice+(1+r+sigma*rand/5000000);
+   //               price= i;
+
+          }
+          else
+          { // it's the first date set price to unit to start brownian motion
+              price=1;
+          }
           model->setData(i, 1, boost::any(price));
           d = d.addDays(1);
      }// end row
