@@ -40,7 +40,7 @@ void Session::createUser(const std::string& loginName,
 {
     Wt::Dbo::Transaction t(*this);
     // Create a new Wt user
-    auto user = users_->registerNew();
+    Wt::Auth::User user = users_->registerNew();
     // Give him a login name
     user.addIdentity(Wt::Auth::Identity::LoginName, loginName);
     // Set his password

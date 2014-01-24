@@ -18,7 +18,7 @@ AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
      _nameInput->setFocus();
      _inputLabel->setBuddy(_nameInput);
 
-     auto pwordLabel = new Wt::WLabel("New Password", this);
+     Wt::WLabel* pwordLabel = new Wt::WLabel("New Password", this);
      _pwordInput = new Wt::WLineEdit(this);
      pwordLabel->setBuddy(_nameInput);
 

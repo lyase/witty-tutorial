@@ -11,7 +11,7 @@
 class Calculator : public Wt::WResource {
 private:
 public:
-     Calculator(const std::string& path, Wt::WObject* parent=nullptr)
+     Calculator(const std::string& path, Wt::WObject* parent=NULL)
           : Wt::WResource(parent) {
           setInternalPath(path);
           Wt::WApplication::instance()->log("info") << "Resource URL: " << url();

@@ -1,6 +1,7 @@
 #include "SayWindow.hpp"
 #include "HelloApp.hpp"
 #include "Auth/Session.hpp"
+#include "models/User.h"
 #include <Wt/WApplication>
 #include <Wt/WString>
 #include <Wt/WText>
@@ -16,12 +17,13 @@ SayWindow::SayWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
      new Wt::WText(Wt::WString("Hi ") + app->userName(), this);
      new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Go back to ask page", this);
      // Show a list of users
-     auto table = new Wt::WTable(this);
+     Wt::WTable* table = new Wt::WTable(this);
      Wt::Dbo::Transaction t(app->db());
-     auto users = app->userList();
+     Users users = app->userList();
      int i=0;
-for (auto user : users)
+     for (Users::const_iterator user=users.begin(); user != users.end(); ++user) {
           table->elementAt(i++, 0)->addWidget(
-               new Wt::WText(user->getName())
+               new Wt::WText((*user)->getName())
           );
+     }
 }

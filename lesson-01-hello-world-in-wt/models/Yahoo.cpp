@@ -1,16 +1,19 @@
 #include"Yahoo.hpp"
 
-#include <boost/random/mersenne_twister.hpp>
+#include <cstdlib>
+
 #include <boost/random/uniform_real_distribution.hpp>
 #include <boost/numeric/conversion/cast.hpp>
+
 using boost::numeric_cast;
 
 using boost::numeric::bad_numeric_cast;
 std::string YahooStockHistory::urlEncode(const std::string& input)
 {
+     http = new Wt::Http::Client(this);
      std::stringstream result;
-     auto in = input.begin();
-     auto end = input.end();
+     std::string::const_iterator in = input.begin();
+     std::string::const_iterator end = input.end();
      while (in != end) {
           if (((*in <= 'Z') && (*in >= 'A')) ||
                     ((*in <= 'a') && (*in >= 'z')) ||
@@ -73,25 +76,22 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
       double r=0.05/36000;
       double sigma=0.1/360;
 
-     std::default_random_engine generator(now.toTime_t());
-     std::uniform_real_distribution<double> hundred(1,100);
-               std::uniform_real_distribution<double> centrereduite(-1,1);
-     double price = hundred(generator);
-double rand= hundred(generator);
+     double price = (rand() % 100) + ((rand() % 100) / 10);
+     double delta = (rand() % 2) - 1;
      for( int i = 0; i<365; i++) {
           //   Wt::WDate d =  Wt::WDate::currentDate();
           // this is very long could be refactored as we need only one new row
           model->setData(i, 0, boost::any(d));
          // std::uniform_real_distribution<double> five(-1,1);
-          rand = centrereduite(generator);
+          delta = (rand() % 2) - 1;
           if (i!=0)
           {
 
           double oldPrice=boost::any_cast<double>((model->data((i-1),1)));
                   // new price with brownian
-                  price= oldPrice*(1+r+sigma*rand);
+                  price= oldPrice*(1+r+sigma*delta);
 
- //                 price= oldPrice+(1+r+sigma*rand/5000000);
+ //                 price= oldPrice+(1+r+sigma*delta/5000000);
    //               price= i;
 
           }
