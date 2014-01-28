@@ -2,6 +2,7 @@
 #define ADMINWINDOW_HPP
 /// This window sows admin monitoring option get to documentation build log and test results
 
+#include"GoogleMapExample.hpp"
 #include <Wt/WContainerWidget>
 #include <Wt/Chart/WCartesianChart>
 #include <boost/system/error_code.hpp>
@@ -9,6 +10,7 @@
 #include <Wt/WLineEdit>
 #include <Wt/WText>
 #include <Wt/WLabel>
+#include <Wt/WGoogleMap>
 #include <Wt/WPushButton>
 #include <Wt/WString>
 #include <Wt/WAnchor>
@@ -58,6 +60,8 @@ class WLink;
 class AdminWindow : public Wt::WContainerWidget {
 private:
      Wt::WText* _debugOutput;
+// GoogleMapExample *map     Wt::WGoogleMap* map_ ;
+     GoogleMapExample *mapexample ;
      Wt::WPushButton* goBtn;
      YahooStockHistory* yahoo;
      WAbstractItemModel *model;

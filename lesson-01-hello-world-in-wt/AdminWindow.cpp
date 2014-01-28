@@ -85,12 +85,15 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 
      //    new ChartConfig(chart, this); unknown purpose
 //     Yahoo query apparatus
-     auto row = new Wt::WContainerWidget(parent);
+     Wt::WContainerWidget*  row = new Wt::WContainerWidget(parent);
      row->setStyleClass("row-fluid");
-     auto lbl = new Wt::WLabel("yahoo query:", row);
-     auto txt = new Wt::WLineEdit("GOOG", row);
+     Wt::WLabel* lbl = new Wt::WLabel("yahoo query:", row);
+     Wt::WLineEdit* txt = new Wt::WLineEdit("GOOG", row);
      lbl->setBuddy(txt);
      goBtn = new Wt::WPushButton("Go!", row);
+//    map_ = new Wt::WGoogleMap(Wt::WGoogleMap::Version3);
+     mapexample = new GoogleMapExample(this);
+     new WText(WString::tr("you should see map above this"), this);
      /*      // Need start and end dates this creates internal wt error
            row = new Wt::WContainerWidget(parent);
            row->setStyleClass("row-fluid");
