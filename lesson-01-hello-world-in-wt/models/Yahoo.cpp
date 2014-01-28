@@ -56,15 +56,22 @@ YahooStockHistory::GotCSVSignal& YahooStockHistory::query(const std::string& id,
  **/
 Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerWidget *parent)
 {
-     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(366, 2, parent);
+     Wt::WStandardItemModel *model = new Wt::WStandardItemModel(366, 5, parent);
      model->setHeaderData(0, std::string("Date"));
      model->setHeaderData(1, std::string("Price"));
+     model->setHeaderData(2, std::string("PricePredictionmoins1"));
+     model->setHeaderData(3, std::string("PricePredictionmoins2"));
+     model->setHeaderData(4, std::string("PricePredictionmoins3"));
+
+
      /* i will generate fake data in model as exemple 365 rows, 2 cols */
      /*
       * set  the first column 0 as dates every day from (1988,6,14) to (1989,6,13);
       *the second colum col=1 is prices a brownian motion log normal process r=5% sigma=10%( anualised)
       */
      std::cout<<"the model \n"<<model<<std::endl;
+     for (int si=1;si<5;si++){
+
      Wt:: WDate d(1988,6,14);
      Wt::WDateTime now = Wt::WDateTime::currentDateTime();
      double r=exp(log(1.05)/365)-1.0;
@@ -78,7 +85,7 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
           double wt = (((rand()%100)/100.0) -0.5)*2.0;
           ret= (1+r+sigma*wt/100);
           if (i!=0) {
-               double oldPrice=boost::any_cast<double>((model->data((i-1),1)));
+               double oldPrice=boost::any_cast<double>((model->data((i-1),si)));
                // new price with brownian
                //
                price= oldPrice*ret ;
@@ -89,10 +96,10 @@ Wt::WAbstractItemModel * YahooStockHistory::provideModelObject(  Wt::WContainerW
                // it's the first date set price to unit to start brownian motion
                price=1;
           }
-          model->setData(i, 1, boost::any(price));
+          model->setData(i, si, boost::any(price));
           d = d.addDays(1);
      }// end row
-
+}// model colum si  filled
      std::cout<<"created model \n"<<model<<std::endl;
      return model;
 };

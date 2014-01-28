@@ -76,8 +76,15 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
       * Add first two columns as line series
       */
      WDataSeries s(1, LineSeries);
+     WDataSeries smoins1(2, LineSeries);
+     WDataSeries smoins2(3, LineSeries);
+     WDataSeries smoins3(4, LineSeries);
+
      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
-     chart->addSeries(s);
+     chart->addSeries(smoins1);
+          chart->addSeries(smoins2);
+               chart->addSeries(smoins3);
+                    chart->addSeries(s);
      chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
      chart->setMargin(10, Top | Bottom);            // add margin vertically
