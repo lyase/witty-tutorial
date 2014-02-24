@@ -28,7 +28,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 // for file privider
      //WAbstractItemModel *model = readCsvFile(WApplication::appRoot() + "timeseries.csv", this);
 // for yahoo data provider
-     WAbstractItemModel *model = yahoo->provideModelObject(this);
+     model = yahoo->provideModelObject(this);
      if (!model)
           return;
 // Show a view that allows editing of the model.
@@ -114,4 +114,10 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
            lbl->setBuddy(end->lineEdit());
            end->setDate(today);
      */
+     
+     modelUpdater = new Wt::WTimer(this);
+     modelUpdater->setInterval(100);
+     auto updatePrices = [this]() { yahoo->updateModelWithFakePrices(model); };
+     modelUpdater->timeout().connect(std::bind(updatePrices));
+     goBtn->clicked().connect(modelUpdater, &Wt::WTimer::start);
 };

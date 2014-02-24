@@ -47,6 +47,7 @@ public:
      GotCSVSignal& query(const std::string& query);
      GotCSVSignal& query(const std::string& id, const Wt::WDate& start, const Wt::WDate& end, TradingPeriod interval) ;
      Wt::WAbstractItemModel * provideModelObject(  Wt::WContainerWidget* parent );
+     void updateModelWithFakePrices(Wt::WAbstractItemModel* model);
 private:
      Wt::Http::Client* http;
      std::string urlEncode(const std::string& input) ;

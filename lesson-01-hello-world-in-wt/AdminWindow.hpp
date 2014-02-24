@@ -18,6 +18,7 @@
 #include <Wt/WApplication>
 #include "CsvUtil.h"
 #include <Wt/WDate>
+#include <Wt/WTimer>
 #include <Wt/WDatePicker>
 #include <Wt/WEnvironment>
 #include <Wt/WItemDelegate>
@@ -66,6 +67,7 @@ private:
      YahooStockHistory* yahoo;
      WAbstractItemModel *model;
      Wt::Chart::WCartesianChart* chart;
+     Wt::WTimer* modelUpdater;
      void handlePathChanged(const std::string& newPath);
      void gotCSV(boost::system::error_code, Wt::Http::Message msg);
      void addSeries (int col, MarkerType marker, SeriesType LineSeries);
