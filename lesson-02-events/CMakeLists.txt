@@ -18,4 +18,4 @@ add_executable(hellowt main.cpp MainWindow.cpp)
 
 target_link_libraries(hellowt
 		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-		      wt wthttp)
+		      ${wt} ${wthttp})

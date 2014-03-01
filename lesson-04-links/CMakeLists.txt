@@ -21,7 +21,7 @@ add_executable(hellowt main.cpp HelloApp.cpp MainWindow.cpp AskWindow.cpp SayWin
 
 target_link_libraries(hellowt
 		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-		      wt wthttp)
+		      ${wt} ${wthttp})
 
 # We'll need our configuration file, so we can tell the app to look in '/static'
 if( ${CMAKE_BUILD_TYPE} STREQUAL DEBUG )

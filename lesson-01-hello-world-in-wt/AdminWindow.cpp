@@ -99,7 +99,7 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
      lbl->setBuddy(txt);
      goBtn = new Wt::WPushButton("Go!", row);
 //    map_ = new Wt::WGoogleMap(Wt::WGoogleMap::Version3);
-     mapexample = new GoogleMapExample(this);
+//     mapexample = new GoogleMapExample(this);
      new WText(WString::tr("you should see map above this"), this);
      /*      // Need start and end dates this creates internal wt error
            row = new Wt::WContainerWidget(parent);
