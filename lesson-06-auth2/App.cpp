@@ -9,6 +9,7 @@ App::App(const Wt::WEnvironment& env, const Services& services)
      : Wt::WApplication(env), session(appRoot() + "myapp.db", services)
 {
     msg = new Wt::WText(root());
+    msg->setText("created a default user in database when initialized</BR> you can log with admin/admin");
     session.login().changed().connect(this, &App::authEvent);
     // Show the login form
     auto authWidget = new Wt::Auth::AuthWidget(services.auth, session.users(), session.login());

@@ -1,4 +1,4 @@
-project (lesson05-auth)
+project (lesson06-auth)
 
 cmake_minimum_required(VERSION 2.8)
 
