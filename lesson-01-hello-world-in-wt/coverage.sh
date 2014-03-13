@@ -10,7 +10,7 @@ if [ -e ".coverage_rc" ]
 
                if [ -z ${FILENAME+x} ]
                     then
-                    FILENAME=./test/testController
+                    FILENAME=./tests/test_user_full
                              fi
 
 rm -rvf build ; mkdir build ; cd build ; cmake -DCMAKE_BUILD_TYPE:STRING=Coverage .. ; make
