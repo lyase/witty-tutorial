@@ -4,7 +4,7 @@
 #include <Wt/Dbo/backend/Sqlite3>
 #include <Wt/Auth/Login>
 #include <Wt/Auth/Dbo/UserDatabase>
-
+#include <Wt/Dbo/SqlConnection>
 #include "User.hpp"
 #include "Services.hpp"
 

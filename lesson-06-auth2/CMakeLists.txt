@@ -11,7 +11,7 @@ find_library(WTHTTP NAMES wthttpd wthttp)
 find_library(WTDBO NAMES wtdbod wtdbo)
 find_library(WTDBOSQLITE3 NAMES wtdbosqlite3d wtdbosqlite3)
 
-add_library(app STATIC App.cpp Session.cpp Services.cpp)
+add_library(app STATIC App.cpp Session.cpp Services.cpp User.hpp )
 target_link_libraries(app
     ${Boost_SYSTEM_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${Boost_THREAD_LIBRARY}
     ${WT} ${WTHTTP} ${WTDBO} ${WTDBOSQLITE3})
