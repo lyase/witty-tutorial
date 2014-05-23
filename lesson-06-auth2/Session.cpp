@@ -9,8 +9,8 @@
 
 using namespace Wt;
 
-Session::Session(const std::string& sqliteDb, const Services& services)
-  : connection_(sqliteDb), _services(services) {
+Session::Session(const std::string& sqliteDbFileName, const Services& services)
+  : connection_(sqliteDbFileName), _services(services) {
     setConnection(connection_);
     // Map the classes to the DB types
     mapClass<User>("user");

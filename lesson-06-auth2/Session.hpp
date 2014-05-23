@@ -19,7 +19,7 @@ private:
     Wt::Auth::Login login_;
     const Services& _services;
 public:
-    Session(const std::string& sqliteDb, const Services& services);
+    Session(const std::string& sqliteDbFileName, const Services& services);
 
     UserDatabase& users() { return *users_; }
     Wt::Auth::Login& login() { return login_; }
