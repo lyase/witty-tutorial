@@ -17,9 +17,9 @@ find_library(wt wt)
 find_library(wthttp wthttp)
 
 # This tells cmake that we want to create an executable called 'hello' and the source files are just 'main.cpp'
-add_executable(hellowt main.cpp MainWindow.cpp)
+add_executable(lesson-03-static-content main.cpp MainWindow.cpp)
 
-target_link_libraries(hellowt
+target_link_libraries(lesson-03-static-content
 		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
 		      wt wthttp)
 

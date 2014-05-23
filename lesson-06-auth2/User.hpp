@@ -10,11 +10,11 @@ typedef Wt::Auth::Dbo::AuthInfo<User> AuthInfo;
 
 class User {
 public:
-    int age;
-    std::string name;
-    template<class Action>
-    void persist(Action& a) {
-        dbo::field(a, age, "age");
-        dbo::field(a, name, "name");
-    }
+     int age;
+     std::string name;
+     template<class Action>
+     void persist(Action& a) {
+          dbo::field(a, age, "age");
+          dbo::field(a, name, "name");
+     }
 };

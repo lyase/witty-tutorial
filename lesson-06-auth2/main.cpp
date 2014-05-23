@@ -1,11 +1,14 @@
 #include "App.hpp"
 #include "Services.hpp"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
 
-    const Services services;
+     const Services services;
 
-    auto createApplication = [&](const Wt::WEnvironment& env) { return new App(env, services); };
+     auto createApplication = [&](const Wt::WEnvironment& env) {
+          return new App(env, services);
+     };
 
-    return Wt::WRun(argc, argv, createApplication);
+     return Wt::WRun(argc, argv, createApplication);
 }

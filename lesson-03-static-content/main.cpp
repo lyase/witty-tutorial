@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Matthew Sherborne (), msherborne@gmail.com
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
@@ -21,27 +21,29 @@
 
 class HelloApp : public Wt::WApplication {
 public:
-    MainWindow* mainWindow;
-    HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
-        setTitle("Hello world");
-        mainWindow = new MainWindow(root());
-        setCssTheme("default");
-        declareJavaScriptFunction("updateStyles",
-                                  "function () {"
+     MainWindow* mainWindow;
+     HelloApp(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+          setTitle("Hello world");
+          mainWindow = new MainWindow(root());
+          setCssTheme("default");
+          declareJavaScriptFunction("updateStyles",
+                                    "function () {"
                                     "var es = $('link[href$=\"request=style\"]');"
                                     "for (i=0;i<es.length;++i){"
-                                      "var e = es[0];"
-                                      "e.setAttribute('href', e.getAttribute('href'));"
+                                    "var e = es[0];"
+                                    "e.setAttribute('href', e.getAttribute('href'));"
                                     "}"
-                                  "}"
-        );
-    }
+                                    "}"
+                                   );
+     }
 };
 
-Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-    return new HelloApp(env);
+Wt::WApplication* createApplication(const Wt::WEnvironment& env)
+{
+     return new HelloApp(env);
 }
 
-int main(int argc, char** argv) {
-    return Wt::WRun(argc, argv, &createApplication);
+int main(int argc, char** argv)
+{
+     return Wt::WRun(argc, argv, &createApplication);
 }

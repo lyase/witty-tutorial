@@ -1,5 +1,6 @@
 #include "client.hpp"
 
-int main(int, char**) {
-    return runClient();
+int main(int, char**)
+{
+     return runClient();
 }

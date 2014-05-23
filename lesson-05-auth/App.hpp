@@ -5,9 +5,9 @@
 
 class App : public Wt::WApplication {
 private:
-    Session session;
-    void authEvent();
-    Wt::WText* msg;
+     Session session;
+     void authEvent();
+     Wt::WText* msg;
 public:
-    App(const Wt::WEnvironment& env, const Services& services);
+     App(const Wt::WEnvironment& env, const Services& services);
 };

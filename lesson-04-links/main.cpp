@@ -11,17 +11,19 @@
  *       Compiler:  gcc
  *
  *         Author:  Matthew Sherborne (), msherborne@gmail.com
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
 
 #include "HelloApp.hpp"
 
-Wt::WApplication* createApplication(const Wt::WEnvironment& env) {
-    return new HelloApp(env);
+Wt::WApplication* createApplication(const Wt::WEnvironment& env)
+{
+     return new HelloApp(env);
 }
 
-int main(int argc, char** argv) {
-    return Wt::WRun(argc, argv, &createApplication);
+int main(int argc, char** argv)
+{
+     return Wt::WRun(argc, argv, &createApplication);
 }

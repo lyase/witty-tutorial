@@ -11,13 +11,13 @@ find_library(WTHTTP NAMES wthttpd wthttp)
 find_library(WTDBO NAMES wtdbod wtdbo)
 find_library(WTDBOSQLITE3 NAMES wtdbosqlite3d wtdbosqlite3)
 
-add_library(app STATIC App.cpp Session.cpp Services.cpp)
-target_link_libraries(app
+add_library(lesson-05-authlib STATIC App.cpp Session.cpp Services.cpp)
+target_link_libraries(lesson-05-authlib
     ${Boost_SYSTEM_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${Boost_THREAD_LIBRARY}
     ${WT} ${WTHTTP} ${WTDBO} ${WTDBOSQLITE3})
 
-add_executable(auth main.cpp)
-target_link_libraries(auth app)
+add_executable(lesson-05-auth main.cpp)
+target_link_libraries(lesson-05-auth lesson-05-authlib)
 
 file(COPY debug.sh DESTINATION .)
 file(COPY run.sh DESTINATION .)
