@@ -33,7 +33,7 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
      _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
 
      HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
-     new Wt::WAnchor(app->calc, "Calculator", this);
+     new Wt::WAnchor(app->calc, "go calc xml ressource", this);
 
 }
 void MainWindow::sayHi()

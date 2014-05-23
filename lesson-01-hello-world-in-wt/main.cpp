@@ -26,8 +26,9 @@
 
 ::Auth::Services services; // Lives for the life of the app
 
-Wt::WApplication* runApp(const Wt::WEnvironment& env) {
-    return new HelloApp(env, services);
+Wt::WApplication* runApp(const Wt::WEnvironment& env)
+{
+     return new HelloApp(env, services);
 }
 
 int main(int argc, char** argv)

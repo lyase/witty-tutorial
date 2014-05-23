@@ -82,9 +82,9 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
 
      s.setShadow(WShadow(3, 3, WColor(0, 0, 0, 127), 3));
      chart->addSeries(smoins1);
-          chart->addSeries(smoins2);
-               chart->addSeries(smoins3);
-                    chart->addSeries(s);
+     chart->addSeries(smoins2);
+     chart->addSeries(smoins3);
+     chart->addSeries(s);
      chart->resize(800, 400); // WPaintedWidget must be given explicit size
 
      chart->setMargin(10, Top | Bottom);            // add margin vertically
@@ -114,10 +114,12 @@ AdminWindow::AdminWindow(Wt::WContainerWidget* parent): Wt::WContainerWidget(par
            lbl->setBuddy(end->lineEdit());
            end->setDate(today);
      */
-     
+
      modelUpdater = new Wt::WTimer(this);
      modelUpdater->setInterval(100);
-     auto updatePrices = [this]() { yahoo->updateModelWithFakePrices(model); };
+     auto updatePrices = [this]() {
+          yahoo->updateModelWithFakePrices(model);
+     };
      modelUpdater->timeout().connect(std::bind(updatePrices));
      goBtn->clicked().connect(modelUpdater, &Wt::WTimer::start);
 };

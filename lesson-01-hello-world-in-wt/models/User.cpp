@@ -28,8 +28,6 @@
    @param[in,out] _inoutArg3 Description of third function argument.
    @return Description of returned value.
  */
-
-
 #include <Wt/Dbo/Dbo>
 #include "User.h"
 #include <string>
@@ -73,8 +71,6 @@ void User::setKarma(int myKarma)
      m_karma=myKarma;
      return ;
 }
-
-
 void User::render2pdf()
 {
      cout<<"shouldbeImplemented this function should output all user's data to a pdf file or as a mime object  ";
@@ -87,7 +83,6 @@ string User::getName() const
 }
 string User::getPassword() const
 {
-
      return m_password;
 }
 Role User::getRole() const

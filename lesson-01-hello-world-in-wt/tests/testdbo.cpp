@@ -53,7 +53,6 @@ struct DBOFixture {
      }
 };
 
-
 BOOST_FIXTURE_TEST_SUITE( dbo_test, DBOFixture )
 
 BOOST_AUTO_TEST_CASE( dbo_test1 )
@@ -62,15 +61,11 @@ BOOST_AUTO_TEST_CASE( dbo_test1 )
      logger.entry("info") << Wt::WLogger::timestamp << Wt::WLogger::sep
                           << '[' << "notice" << ']' << Wt::WLogger::sep << "Starting up server!";
 
-
      // Check that the default parameters were loaded
      bool dosPuzzle = DBConfig::getConfigOption<bool>(session, "DosPuzzle");
      BOOST_CHECK_EQUAL(dosPuzzle, true);
 
      // Todo: check more config options
-
-
-
 }
 
 BOOST_AUTO_TEST_SUITE_END()
