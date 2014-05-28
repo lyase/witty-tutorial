@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
 {
      DBCleaner cleaner; // When this obj goes out of scope, it'll drop the tables in the db
      {
-         ::Auth::Services services;
+          ::Auth::Services services;
           // Scope brackets so that app1 is deleted before session2 is created
           // Create an app
           Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");

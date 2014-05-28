@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
-
+#include <Wt/WPushButton>
+#include <Wt/WStackedWidget>
+#include <Wt/WTemplate>
+#include <Wt/WText>
 #include <Wt/WContainerWidget>
 #include <Wt/WString>
 #include "models/User.h"
@@ -21,7 +24,11 @@ private:
      User *user;
      Wt::WString _lastNameEntered;
      Wt::WAnchor* _askLink;
+          Wt::WAnchor* _sayLink;
      Wt::WAnchor* _adminLink;
+       Wt::WTemplate *loginStatus_;
+//         AppLoginWidget *loginWidget_;
+
      /*! \fn MainWindow::sayHi()
      * \brief a event handler behind the sayhi button on this page\n
      *this function will update theuser model with input widget\n
@@ -37,9 +44,11 @@ public:
      * \return a new object if all ok.
      */
      MainWindow(Wt::WContainerWidget* parent=0);
-     const Wt::WString& getLastName() {
-          return _lastNameEntered;
-     }
+     const Wt::WString& getLastName() ;
+     void login(const std::string& user);
+     void logout();
+    void  onUserChanged();
+    void loggedIn();
 };
 
 #endif // MAINWINDOW_HPP

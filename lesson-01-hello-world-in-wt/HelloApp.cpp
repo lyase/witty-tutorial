@@ -35,9 +35,9 @@ struct HelloApp::DBInfo : public Wt::WObject {
           session.setConnection(connection);
      }
 };
-/*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env)
+/*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env, const ::Auth::Services& services)
 * \brief a webapps  constructor
-* the constructor  will Set up the _db a DBInfo()connection to  sqliteand map required tables from config file
+* the constructor  will Set up the _db a DBInfo()connection to  sqlite and map required tables from config file
 * for dbo internal use
 * \param a a Action .
 */
