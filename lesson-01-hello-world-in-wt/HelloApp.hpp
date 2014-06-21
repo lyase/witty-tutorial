@@ -24,22 +24,22 @@ class Services;
 
 class HelloApp : public Wt::WApplication {
 private:
-     struct DBInfo;
-     DBInfo* _db;
-     Wt::WString _userName;
-     User *user;
-     IWebPageFactory* mFactory ;
-     void handlePathChanged(const std::string& newPath);
+    struct DBInfo;
+    DBInfo* _db;
+    Wt::WString _userName;
+    User *user;
+    IWebPageFactory* mFactory ;
+    void handlePathChanged(const std::string& newPath);
 public:
-     HelloApp(const Wt::WEnvironment& env, const Auth::Services& services);
-     void setUserName(const Wt::WString& newName);
-     const Wt::WString userName();
-     ::Auth::Session& db();
-     void saveUser(User* user);
-     Wt::Dbo::ptr<User> findUser(const std::string name);
-     int countUser(const std::string name);
-     Calculator* calc;
-     Wt::Dbo::collection< Wt::Dbo::ptr<User> > userList();
+    HelloApp(const Wt::WEnvironment& env, const Auth::Services& services);
+    void setUserName(const Wt::WString& newName);
+    const Wt::WString userName();
+    ::Auth::Session& session();
+    void saveUser(User* user);
+    Wt::Dbo::ptr<User> findUser(const std::string name);
+    int countUser(const std::string name);
+    Calculator* calc;
+    Wt::Dbo::collection< Wt::Dbo::ptr<User> > userList();
 };
 
 #endif // HELLOAPP_HPP

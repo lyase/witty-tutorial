@@ -16,25 +16,27 @@ typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
 class Session : public dbo::Session {
 private:
-     dbo::SqlConnection& connection_;
-     UserDatabase *users_;
-     Wt::Auth::Login login_;
-     const Services& _services;
+    dbo::SqlConnection& connection_;
+    UserDatabase *users_;
+    Wt::Auth::Login login_;
+    const Services& _services;
 public:
-     Session(dbo::SqlConnection& connection, const Services& services);
+    Session(dbo::SqlConnection& connection, const Services& services);
 
-     UserDatabase& users() {
-          return *users_;
-     }
-     Wt::Auth::Login& login() {
-          return login_;
-     }
-     const Services& services() {
-          return _services;
-     }
-     void createUser(const std::string& loginName,
-                     const std::string& password,
-                     const std::string& fullName="");
+    UserDatabase& users() {
+        return *users_;
+    }
+    Wt::Auth::Login& login() {
+        return login_;
+    }
+    const Services& services() {
+        return _services;
+    }
+    void createUser(const std::string& loginName,
+                    const std::string& password,
+                    const std::string& fullName="");
+    /// Returns the currently logged in user
+    dbo::ptr<User> user() const;
 };
 
 }

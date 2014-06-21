@@ -28,12 +28,12 @@
 
 
 struct HelloApp::DBInfo : public Wt::WObject {
-     Wt::Dbo::backend::Sqlite3 connection;
-     ::Auth::Session session;
-     DBInfo(Wt::WObject* parent, const std::string& dbConnString, const ::Auth::Services& services) :
-          Wt::WObject(parent), connection(dbConnString), session(connection, services) {
-          session.setConnection(connection);
-     }
+    Wt::Dbo::backend::Sqlite3 connection;
+    ::Auth::Session session;
+    DBInfo(Wt::WObject* parent, const std::string& dbConnString, const ::Auth::Services& services) :
+        Wt::WObject(parent), connection(dbConnString), session(connection, services) {
+        session.setConnection(connection);
+    }
 };
 /*! \fn HelloApp::HelloApp(const Wt::WEnvironment& env, const ::Auth::Services& services)
 * \brief a webapps  constructor
@@ -42,28 +42,28 @@ struct HelloApp::DBInfo : public Wt::WObject {
 * \param a a Action .
 */
 HelloApp::HelloApp(const Wt::WEnvironment& env, const ::Auth::Services& services) :
-     Wt::WApplication(env)
+    Wt::WApplication(env)
 {
-     log("info") << "App created";
-     setTheme(new Wt::WCssTheme("polished", this));
-     setTitle("Hello world");
-     // Set up the DB
-     std::string dbConnString = "";
-     const char* configSettingName = "DB"; // Set in tests/CMakeLists.txt
-     readConfigurationProperty(configSettingName, dbConnString);
-     if (dbConnString.empty())
-          throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
-     _db = new DBInfo(this, dbConnString, services);
+    log("info") << "App created";
+    setTheme(new Wt::WCssTheme("polished", this));
+    setTitle("Hello world");
+    // Set up the DB
+    std::string dbConnString = "";
+    const char* configSettingName = "DB"; // Set in tests/CMakeLists.txt
+    readConfigurationProperty(configSettingName, dbConnString);
+    if (dbConnString.empty())
+        throw std::invalid_argument(std::string("Please set the ") + configSettingName + " in the configuration file");
+    _db = new DBInfo(this, dbConnString, services);
 
-     calc = new Calculator("/calc", this);
+    calc = new Calculator("/calc", this);
 
-     // Pretend we know who the user is
-     user = new User();
-     // Fire up the page generator
-     mFactory = new FactoryHelloWorldWebsite(this);
-     // Finally navigate to where we are
-     internalPathChanged().connect(this, &HelloApp::handlePathChanged);
-     handlePathChanged(internalPath());
+    // Pretend we know who the user is
+    user = new User();
+    // Fire up the page generator
+    mFactory = new FactoryHelloWorldWebsite(this);
+    // Finally navigate to where we are
+    internalPathChanged().connect(this, &HelloApp::handlePathChanged);
+    handlePathChanged(internalPath());
 
 
 }
@@ -77,60 +77,60 @@ HelloApp::HelloApp(const Wt::WEnvironment& env, const ::Auth::Services& services
 */
 void HelloApp::handlePathChanged(const std::string& newPath)
 {
-     root()->clear();
-     Wt::WContainerWidget* aroot=root();
-     mFactory ->createWebPage(newPath, aroot);
-     /* manual  way of doing things now implemented in the Factory ask the WebSiteFactory to create the required page
-     if (newPath == "/ask")
-         new AskWindow(root());
-     else if (newPath == "/say")
-         new SayWindow(root());
-     else
-         new MainWindow(root());
-         */
+    root()->clear();
+    Wt::WContainerWidget* aroot=root();
+    mFactory ->createWebPage(newPath, aroot);
+    /* manual  way of doing things now implemented in the Factory ask the WebSiteFactory to create the required page
+    if (newPath == "/ask")
+        new AskWindow(root());
+    else if (newPath == "/say")
+        new SayWindow(root());
+    else
+        new MainWindow(root());
+        */
 }
 void HelloApp::setUserName(const Wt::WString& newName)
 {
-     user->setName( newName.toUTF8());
+    user->setName( newName.toUTF8());
 }
 const Wt::WString HelloApp::userName()
 {
-     return user->getName();
+    return user->getName();
 }
 
-::Auth::Session& HelloApp::db()
+::Auth::Session& HelloApp::session()
 {
-     return _db->session;
+    return _db->session;
 }
 
 void HelloApp::saveUser(User* user)
 {
-     Wt::Dbo::Transaction t(_db->session);
-     _db->session.add(user);
-     t.commit();
+    Wt::Dbo::Transaction t(_db->session);
+    _db->session.add(user);
+    t.commit();
 }
 
 Wt::Dbo::ptr<User> HelloApp::findUser(const std::string name)
 {
-     Wt::Dbo::Transaction t(_db->session);
-     return _db->session.find<User>().where("name = ?").bind(name);
+    Wt::Dbo::Transaction t(_db->session);
+    return _db->session.find<User>().where("name = ?").bind(name);
 }
 
 int HelloApp::countUser(const std::string name)
 {
-     Wt::Dbo::Transaction t(_db->session);
-     int count=0;
-     try {
-          count= _db->session.query<int>("select count(1) from user").where("name = ?").bind(name);
-     } catch( exception& e) {
-          cout <<"got exception: "<< e.what () <<"\n in countUser count is set to 0 \n";
-          count= 0;
-     }
-     return count ;
+    Wt::Dbo::Transaction t(_db->session);
+    int count=0;
+    try {
+        count= _db->session.query<int>("select count(1) from user").where("name = ?").bind(name);
+    } catch( exception& e) {
+        cout <<"got exception: "<< e.what () <<"\n in countUser count is set to 0 \n";
+        count= 0;
+    }
+    return count ;
 }
 
 Wt::Dbo::collection< Wt::Dbo::ptr<User> > HelloApp::userList()
 {
-     Wt::Dbo::Transaction t(_db->session);
-     return db().find<User>();
+    Wt::Dbo::Transaction t(_db->session);
+    return session().find<User>();
 }
