@@ -32,7 +32,7 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
      _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Create  User Account", this);
      addWidget(new Wt::WBreak());
      _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
-_sayLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/say"), "User List page:", this);
+     _sayLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/say"), "User List page:", this);
      addWidget(new Wt::WBreak());
      HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
      new Wt::WAnchor(app->calc, "go calc xml ressource", this);
@@ -50,47 +50,49 @@ void MainWindow::sayHi()
           _nameOutput->setText("in page message on button click I say Hi there " + user->getName());
      }
 }
-const Wt::WString& MainWindow::getLastName() {
+const Wt::WString& MainWindow::getLastName()
+{
      return _lastNameEntered;
 }
-void MainWindow::onUserChanged() {
-         HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
-  if (app->db().login().loggedIn())
-    loggedIn();
-  else
-    loggedOut();
+void MainWindow::onUserChanged()
+{
+     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
+     if (app->db().login().loggedIn())
+          loggedIn();
+     else
+          loggedOut();
 }
-void loggedIn() {
-  WApplication::instance()->changeSessionId();
+void loggedIn()
+{
+     WApplication::instance()->changeSessionId();
 
-  refresh();
+     refresh();
 
-  loginStatus_->resolveWidget("login")->show();
-  loginStatus_->resolveWidget("login-link")->hide();
-  loginStatus_->resolveWidget("register-link")->hide();
+     loginStatus_->resolveWidget("login")->show();
+     loginStatus_->resolveWidget("login-link")->hide();
+     loginStatus_->resolveWidget("register-link")->hide();
 
-  WText *profileLink = new WText(tr("profile"));
-  profileLink->setStyleClass("link");
-  profileLink->clicked().connect(this, &BlogImpl::editProfile);
+     Wt::WText *profileLink = new WText(tr("profile"));
+     profileLink->setStyleClass("link");
+     profileLink->clicked().connect(this, &BlogImpl::editProfile);
 
-  dbo::ptr<User> user = session().user();
+     dbo::ptr<User> user = session().user();
 
-  if (user->role == User::Admin) {
-    WText *editUsersLink = new WText(tr("edit-users"));
-    editUsersLink->setStyleClass("link");
-    editUsersLink->clicked().connect(SLOT(this, BlogImpl::editUsers));
-    loginStatus_->bindWidget("userlist-link", editUsersLink);
+     if (user->role == User::Admin) {
+          Wt::WText *editUsersLink = new WText(tr("edit-users"));
+          editUsersLink->setStyleClass("link");
+          editUsersLink->clicked().connect(SLOT(this, BlogImpl::editUsers));
+          loginStatus_->bindWidget("userlist-link", editUsersLink);
+          Wt::WText *authorPanelLink = new WText(tr("author-post"));
+          authorPanelLink->setStyleClass("link");
+          authorPanelLink->clicked().connect(SLOT(this, BlogImpl::authorPanel));
+          loginStatus_->bindWidget("author-panel-link", authorPanelLink);
+     } else {
+          loginStatus_->bindEmpty("userlist-link");
+          loginStatus_->bindEmpty("author-panel-link");
+     }
 
-    WText *authorPanelLink = new WText(tr("author-post"));
-    authorPanelLink->setStyleClass("link");
-    authorPanelLink->clicked().connect(SLOT(this, BlogImpl::authorPanel));
-    loginStatus_->bindWidget("author-panel-link", authorPanelLink);
-  } else {
-    loginStatus_->bindEmpty("userlist-link");
-    loginStatus_->bindEmpty("author-panel-link");
-  }
+     loginStatus_->bindWidget("profile-link", profileLink);
 
-  loginStatus_->bindWidget("profile-link", profileLink);
-
-  bindPanelTemplates();
+     bindPanelTemplates();
 }
