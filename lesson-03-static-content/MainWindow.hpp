@@ -16,9 +16,13 @@ private:
      Wt::WLineEdit* _nameInput;
      Wt::WText* _nameOutput;
      Wt::WPushButton* _btnHi;
-     Wt::WPushButton* _btnToggleTheme;
+     Wt::WPushButton* _btnTogglePolishTheme;
+     Wt::WPushButton* _btnToggleDefaultTheme;
+
      void sayHi();
-     void toggleTheme();
+     void toggleDefaultTheme();
+     void togglePolishedTheme();
+
 public:
      MainWindow(Wt::WContainerWidget* parent=0);
 };

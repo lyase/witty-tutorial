@@ -5,7 +5,7 @@
 #include "../HelloApp.hpp"
 #include "../Auth/Services.hpp"
 
-struct DBCleaner {
+class DBCleaner {
      ~DBCleaner() {
           // you can put here more cleaning instructions if needed
           //Wt::Test::WTestEnvironment env("..", "../wt-config.xml");

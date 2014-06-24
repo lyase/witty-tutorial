@@ -8,3 +8,5 @@ add_subdirectory(lesson-04-links)
 add_subdirectory(lesson-05-auth)
 add_subdirectory(lesson-06-auth2)
 add_subdirectory(lesson-07-rest-api)
+# Tests
+enable_testing()

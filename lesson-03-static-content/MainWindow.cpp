@@ -18,8 +18,11 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
      _btnHi = new Wt::WPushButton("Say Hi", this);
      _nameOutput = new Wt::WText(this);
      _btnHi->clicked().connect(this, &MainWindow::sayHi);
-     _btnToggleTheme = new Wt::WPushButton("Change to polished", this);
-     _btnToggleTheme->clicked().connect(this, &MainWindow::toggleTheme);
+     _btnTogglePolishTheme = new Wt::WPushButton("Change to polished", this);
+     _btnToggleDefaultTheme= new Wt::WPushButton("Change to default", this);
+     _btnTogglePolishTheme->clicked().connect(this, &MainWindow::togglePolishedTheme);
+     _btnToggleDefaultTheme->clicked().connect(this, &MainWindow::toggleDefaultTheme);
+
      new Wt::WAnchor(Wt::WLink("/docs.html"), "Show Docs", this);
 }
 
@@ -31,14 +34,32 @@ void MainWindow::sayHi()
      else
           _nameOutput->setText("Hi there " + name);
 }
-
-void MainWindow::toggleTheme()
+void MainWindow::toggleDefaultTheme()
 {
      Wt::WApplication* app = Wt::WApplication::instance(); // Get the Wt::WApplication intstance for our thread
-     std::string oldTheme = app->cssTheme();
-     std::string newTheme = oldTheme == "default" ? "polished" : "default";
+     std::string oldTheme = "polished";
+//     oldTheme = app->theme()->name();
+     std::string newTheme = "default";
+
+//     std::string newTheme = oldTheme == "default" ? "polished" : "default";
      app->setCssTheme(newTheme); // Toggle the theme between 'default' and 'polished'
-     _btnToggleTheme->setText("Change to " + oldTheme);
+     _btnToggleDefaultTheme->hide();
+     _btnTogglePolishTheme->setText("Change to  polished theme" );
      // Make the client reload the css
      app->doJavaScript(app->javaScriptClass() + ".updateStyles()");
+     app->refresh();
+
+}
+void MainWindow::togglePolishedTheme()
+{
+     Wt::WApplication* app = Wt::WApplication::instance(); // Get the Wt::WApplication intstance for our thread
+
+     std::string newTheme = "polished";
+//     std::string newTheme = oldTheme == "default" ? "polished" : "default";
+     app->setCssTheme(newTheme); // Toggle the theme between 'default' and 'polished'
+     _btnToggleDefaultTheme->setText("Change to default");
+     _btnTogglePolishTheme->hide();
+     // Make the client reload the css
+     app->doJavaScript(app->javaScriptClass() + ".updateStyles()");
+     app->refresh();
 }

@@ -20,8 +20,13 @@ find_library(wthttp wthttp)
 add_executable(lesson-03-static-content main.cpp MainWindow.cpp)
 
 target_link_libraries(lesson-03-static-content
-		      ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
-		      wt wthttp)
+    ${wthttp} ${wtdbo} ${wtdbosqlite3} ${wt} 
+    ${hpdf}
+    ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
+)
 
 # We'll need all the static content copied over from the source directory, to the build directory.
 file(COPY static DESTINATION .)
@@ -34,3 +39,4 @@ else()
 endif()
 
 configure_file(hellowt.xml.in hellowt.xml)
+file(COPY run.sh debug.sh DESTINATION .)
