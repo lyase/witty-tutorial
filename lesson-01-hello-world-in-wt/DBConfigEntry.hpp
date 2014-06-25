@@ -1,4 +1,4 @@
-/** \file  BDConfig.hpp
+/** \file  DBConfigEntry.hpp
 *source file defining DBConfig struct
 *\n
  *\version  0.1

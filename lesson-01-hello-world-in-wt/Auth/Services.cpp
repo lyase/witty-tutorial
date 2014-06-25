@@ -1,10 +1,8 @@
 #include "Services.hpp"
-
 #include <Wt/Auth/HashFunction>
 #include <Wt/Auth/PasswordStrengthValidator>
 #include <Wt/Auth/PasswordVerifier>
-
-namespace Auth {
+namespace lesson01Auth {
 
 Services::Services() : auth(), pword(auth)
 {

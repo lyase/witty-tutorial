@@ -7,6 +7,7 @@
 
 class DBCleaner {
      ~DBCleaner() {
+          boost::filesystem::remove("./blog.db");
           // you can put here more cleaning instructions if needed
           //Wt::Test::WTestEnvironment env("..", "../wt-config.xml");
           //HelloApp app(env);
@@ -25,7 +26,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
 {
      DBCleaner cleaner; // When this obj goes out of scope, it'll drop the tables in the db
      {
-          ::Auth::Services services;
+          lesson01Auth::Services services;
           // Scope brackets so that app1 is deleted before session2 is created
           // Create an app
           Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");
@@ -59,7 +60,7 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
           // Kill the app
           app1.quit();
      }
-     ::Auth::Services services;
+     lesson01Auth::Services services;
      // Start a app2 a new app
      Wt::Test::WTestEnvironment env2("..", "../wt-config.xml");
      HelloApp app2(env2, services);

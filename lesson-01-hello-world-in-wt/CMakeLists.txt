@@ -48,7 +48,7 @@ CONFIGURE_FILE(wt-config.xml wt-config.xml)
 add_subdirectory(models)
 add_subdirectory(Auth)
 # Main Library
-add_library(helloWorld HelloApp.cpp calc.hpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp CsvUtil.C GoogleMapExample.hpp FactoryHelloWorldWebsite.hpp)
+add_library(helloWorld HelloApp.cpp calc.hpp MainWindow.cpp AskWindow.cpp SayWindow.cpp AdminWindow.cpp CsvUtil.C GoogleMapExample.hpp FactoryHelloWorldWebsite.hpp FactoryHelloWorldWebsite.cpp DBConfigEntry.hpp )
 target_link_libraries(helloWorld models Auth)
 
 # docroot stuff

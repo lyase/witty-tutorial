@@ -24,7 +24,7 @@
 #include "Auth/Services.hpp"
 #include "HelloApp.hpp"
 
-::Auth::Services services; // Lives for the life of the app
+lesson01Auth::Services services; // Lives for the life of the app//TODO why is this not in HelloApp ?
 
 Wt::WApplication* runApp(const Wt::WEnvironment& env)
 {
