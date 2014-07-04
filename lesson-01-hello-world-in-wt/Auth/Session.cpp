@@ -21,7 +21,7 @@ Session::Session(dbo::SqlConnection& connection, const lesson01Auth::Services& s
      mapClass<AuthInfo>("auth_info");
      mapClass<AuthInfo::AuthIdentityType>("auth_identity");
      mapClass<AuthInfo::AuthTokenType>("auth_token");
-     users_ = new UserDatabase(*this);
+     users_.reset(new UserDatabase(*this));
      try {
           Wt::Dbo::Transaction t(*this);
           createTables();

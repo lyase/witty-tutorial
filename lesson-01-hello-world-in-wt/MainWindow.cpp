@@ -26,8 +26,7 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     _nameOutput = new Wt::WText(this);
     addWidget(new Wt::WBreak());
     _btnHi->clicked().connect(this, &MainWindow::sayHi);
-    // because of the following  you need to delete user memory del user in destructor to prevent memory leak
-    user = new User();
+    user.reset(new User());
     addWidget(new Wt::WBreak());
     _askLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/ask"), "Create  User Account", this);
     addWidget(new Wt::WBreak());

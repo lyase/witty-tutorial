@@ -5,6 +5,8 @@
 #include <Wt/Auth/Login>
 #include <Wt/Auth/Dbo/UserDatabase>
 
+#include <memory>
+
 #include "../models/User.h"
 #include "Services.hpp"
 
@@ -17,7 +19,7 @@ typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 class Session : public dbo::Session {
 private:
      dbo::SqlConnection& connection_;
-     UserDatabase *users_;
+     std::unique_ptr<UserDatabase> users_;
      Wt::Auth::Login login_;
      const lesson01Auth::Services& _services;
 public:

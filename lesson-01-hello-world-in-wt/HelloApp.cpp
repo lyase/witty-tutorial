@@ -59,6 +59,15 @@ HelloApp::HelloApp(const Wt::WEnvironment& env, const ::lesson01Auth::Services& 
 
 
 }
+
+HelloApp::~HelloApp() {
+  if (user) {
+    delete user;
+    user = nullptr;
+  }
+  Wt::WApplication::~WApplication();
+}
+
 /**
 * \fn void void HelloApp::handlePathChanged(const std::string& newPath)
 * \brief this function will be called each time the user changes webpage
