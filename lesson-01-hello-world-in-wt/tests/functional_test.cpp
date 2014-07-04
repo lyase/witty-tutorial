@@ -38,9 +38,9 @@
 #include <boost/filesystem.hpp>
 struct LiveAppFixture {
      Wt::Test::WTestEnvironment env;
-     HelloApp app;
      lesson01Auth::Services services;
-     LiveAppFixture(bool createTables=true) : env("..", "../wt-config.xml"), app(env, services) {
+     HelloApp app;
+     LiveAppFixture(bool createTables=false) : env("..", "../wt-config.xml"), services(), app(env, services) {
           app.initialize();
           if (createTables)
                app.session().createTables();
