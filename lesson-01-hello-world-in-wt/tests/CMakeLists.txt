@@ -27,7 +27,7 @@ add_test(test_user_full ./test_user_full)
 
 ADD_DEFINITIONS( -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN ) # So tests load the test lib dynamically
 
-add_executable(functional_test functional_test.cpp LiveAppFixture.hpp  )
+add_executable(functional_test functional_test.cpp  )
 TARGET_LINK_LIBRARIES(functional_test
     testlibs helloWorld
     models
