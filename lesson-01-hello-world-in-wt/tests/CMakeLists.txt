@@ -1,7 +1,7 @@
 project(tests)
 
 ADD_DEFINITIONS( -fno-access-control ) # So tests can access private members of the classes they're testing
-add_library(testlibs  LiveAppFixture.cpp)
+add_library(mytests  LiveAppFixture.cpp)
 
 
 find_library(wttest wttest)
@@ -29,7 +29,7 @@ ADD_DEFINITIONS( -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN ) # So tests load the t
 
 add_executable(functional_test functional_test.cpp  )
 TARGET_LINK_LIBRARIES(functional_test
-    testlibs helloWorld
+    mytests helloWorld
     models
     ${Boost_SYSTEM_LIBRARY} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${hpdf} ${Boost_FILESYSTEM_LIBRARY}

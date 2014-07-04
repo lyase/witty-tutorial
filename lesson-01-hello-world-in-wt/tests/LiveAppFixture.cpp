@@ -18,7 +18,7 @@ LiveAppFixture::~LiveAppFixture()
      boost::filesystem::remove("./blog.db");
      delete env;
      delete services;
-     delete app;
+     //delete app;
 
 };
 MainWindow* LiveAppFixture::getMainWindow()

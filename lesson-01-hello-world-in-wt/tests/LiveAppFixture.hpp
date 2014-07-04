@@ -15,7 +15,6 @@
 #include <Wt/WWidget>
 #include <boost/filesystem.hpp>
 #include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test.hpp>
 class LiveAppFixture {
      Wt::Test::WTestEnvironment* env;
      lesson01Auth::Services* services;

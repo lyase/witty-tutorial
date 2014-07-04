@@ -32,7 +32,7 @@ private:
      void handlePathChanged(const std::string& newPath);
 public:
      HelloApp(const Wt::WEnvironment& env, const lesson01Auth::Services& services);
-     virtual    ~HelloApp();
+     ~HelloApp();
      void setUserName(const Wt::WString& newName);
      const Wt::WString userName();
      ::Auth::Session& session();
