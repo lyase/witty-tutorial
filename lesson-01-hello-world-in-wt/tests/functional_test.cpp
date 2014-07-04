@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists )
 {
      MainWindow* main = getMainWindow();
      BOOST_REQUIRE(main);
-};
+}
 // we are testing here:
 //the application can change the name of the current user
 //this is mostly an developper test howto test a functionality of the app
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE( testuserNameManagement )
           //std::string name = app.userName();
           BOOST_CHECK_EQUAL( app->userName(), "John" );
      }
-};
+}
 // we are testing here:
 //clicking the link to ask page  from the  landing page we
 //can  will change the path to the ask window
@@ -76,6 +76,6 @@ BOOST_AUTO_TEST_CASE( testAskLink )
      BOOST_REQUIRE( app->internalPath() != "/ask" );
      test_helpers::click(main->_askLink);
      BOOST_CHECK_EQUAL( app->internalPath(), "/ask" );
-};
+}
 
 BOOST_AUTO_TEST_SUITE_END();

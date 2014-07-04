@@ -16,6 +16,7 @@
 #include <Wt/Test/WTestEnvironment>
 #include "../HelloApp.hpp"
 #include "../models/User.h"
+#include <Wt/WApplication>
 
 #include <Wt/Test/WTestEnvironment>
 #include "../HelloApp.hpp"
