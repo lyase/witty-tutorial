@@ -60,7 +60,7 @@ class WLink;
 
 class AdminWindow : public Wt::WContainerWidget {
 private:
-      Wt::Signal<Wt::WString> userChanged_;
+     Wt::Signal<Wt::WString> userChanged_;
      Wt::WText* _debugOutput;
      Wt::WGoogleMap* map_ ;
      GoogleMapExample *mapexample ;
@@ -76,6 +76,8 @@ public:
      // AdminWindow(Wt::WContainerWidget* parent=0);
      AdminWindow(Wt::WContainerWidget* parent=0);
 
-  Wt::Signal<Wt::WString>& userChanged() { return userChanged_; }
-  };
+     Wt::Signal<Wt::WString>& userChanged() {
+          return userChanged_;
+     }
+};
 #endif // ASKWINDOW_HPP

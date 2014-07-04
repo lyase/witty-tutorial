@@ -60,12 +60,13 @@ HelloApp::HelloApp(const Wt::WEnvironment& env, const ::lesson01Auth::Services& 
 
 }
 
-HelloApp::~HelloApp() {
-  if (user) {
-    delete user;
-    user = nullptr;
-  }
-  Wt::WApplication::~WApplication();
+HelloApp::~HelloApp()
+{
+     if (user) {
+          delete user;
+          user = nullptr;
+     }
+//  Wt::WApplication::~WApplication(); virtual destructor will take care of it
 }
 
 /**

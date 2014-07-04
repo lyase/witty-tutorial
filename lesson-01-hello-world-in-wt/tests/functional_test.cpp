@@ -34,29 +34,9 @@
 #include "../HelloApp.hpp"
 #include "../Auth/Services.hpp"
 #include "../Auth/Session.hpp"
+#include "LiveAppFixture.hpp"
 #include <Wt/Dbo/backend/Sqlite3>
 #include <boost/filesystem.hpp>
-struct LiveAppFixture {
-     Wt::Test::WTestEnvironment env;
-     lesson01Auth::Services services;
-     HelloApp app;
-     LiveAppFixture(bool createTables=false) : env("..", "../wt-config.xml"), services(), app(env, services) {
-          app.initialize();
-          if (createTables)
-               app.session().createTables();
-     }
-     // the tearDown
-     ~LiveAppFixture() {
-          app.session().flush();
-          boost::filesystem::remove("./blog.db");
-     }
-
-     MainWindow* getMainWindow() {
-          // We are getting a handle on the MainWindow
-          Wt::WWidget* result = app.root()->widget(0);
-          return dynamic_cast<MainWindow*>(result);
-     }
-};
 
 // we are testing here:
 //if the app can create  it's landing page
@@ -66,23 +46,23 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists )
 {
      MainWindow* main = getMainWindow();
      BOOST_REQUIRE(main);
-}
+};
 // we are testing here:
 //the application can change the name of the current user
 //this is mostly an developper test howto test a functionality of the app
 BOOST_AUTO_TEST_CASE( testuserNameManagement )
 {
 
-     if (app.userName() == "John") {
-          std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app.userName() << std::endl;
+     if (app->userName() == "John") {
+          std::cerr << "name is already john precondition is not met I can not run this test the current name is  " << app->userName() << std::endl;
           // pre condition not met test should fail
           BOOST_CHECK_EQUAL( 0, 1 );
      } else {
-          app.setUserName("John");
+          app->setUserName("John");
           //std::string name = app.userName();
-          BOOST_CHECK_EQUAL( app.userName(), "John" );
+          BOOST_CHECK_EQUAL( app->userName(), "John" );
      }
-}
+};
 // we are testing here:
 //clicking the link to ask page  from the  landing page we
 //can  will change the path to the ask window
@@ -92,10 +72,10 @@ BOOST_AUTO_TEST_CASE( testAskLink )
 {
      MainWindow* main = getMainWindow();
      BOOST_REQUIRE(main);
-     cout<<"before click path is "<< app.internalPath() << endl;
-     BOOST_REQUIRE( app.internalPath() != "/ask" );
+     cout<<"before click path is "<< app->internalPath() << endl;
+     BOOST_REQUIRE( app->internalPath() != "/ask" );
      test_helpers::click(main->_askLink);
-     BOOST_CHECK_EQUAL( app.internalPath(), "/ask" );
-}
+     BOOST_CHECK_EQUAL( app->internalPath(), "/ask" );
+};
 
 BOOST_AUTO_TEST_SUITE_END();
