@@ -66,7 +66,7 @@ HelloApp::~HelloApp()
           delete user;
           user = nullptr;
      }
-//  Wt::WApplication::~WApplication(); virtual destructor will take care of it
+// Wt::WApplication::~WApplication();// virtual destructor will take care of it
 }
 
 /**

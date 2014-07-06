@@ -32,7 +32,7 @@ int runClient()
      using std::cout;
      using std::endl;
 
-     cout << "Initializing..." << endl;
+     cout << "Initializing client connection...\n" << endl;
      Wt::WIOService io;
      io.start();
      Client client(io);

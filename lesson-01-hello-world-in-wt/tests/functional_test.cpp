@@ -46,6 +46,7 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists )
 {
      MainWindow* main = getMainWindow();
      BOOST_REQUIRE(main);
+     cout<<"done checking main window\n";
 }
 // we are testing here:
 //the application can change the name of the current user

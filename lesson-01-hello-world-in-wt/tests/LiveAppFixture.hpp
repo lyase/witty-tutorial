@@ -16,6 +16,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/test_tools.hpp>
 class LiveAppFixture {
+private:
      Wt::Test::WTestEnvironment* env;
      lesson01Auth::Services* services;
      HelloApp* app;
