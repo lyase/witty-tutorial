@@ -16,11 +16,10 @@ LiveAppFixture::~LiveAppFixture()
 {
      app->session().flush();
      boost::filesystem::remove("./blog.db");
-     delete env;
-     delete services;
      app->quit();
-//     delete app;
-
+     delete app;
+     delete services;
+     delete env;
 };
 MainWindow* LiveAppFixture::getMainWindow()
 {
