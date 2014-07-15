@@ -10,3 +10,10 @@ add_subdirectory(lesson-06-auth2)
 add_subdirectory(lesson-07-rest-api)
 # Tests
 enable_testing()
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generatedStatic"
+    COMMAND doxygen doxy.config
+    COMMAND mkdir ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic
+    COMMAND mv doc ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic/
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+add_custom_target(topleveldoc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/generatedStatic)
