@@ -12,15 +12,16 @@ set(ALL_LIBS ${wt} ${wthttp}
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${Boost_FILESYSTEM_LIBRARY})
+add_subdirectory(ressource)
 
 add_executable(client client.cpp)
 target_link_libraries(client ${ALL_LIBS})
 
-add_executable(server server.cpp)
-target_link_libraries(server ${ALL_LIBS})
+add_executable(server server.cpp )
+target_link_libraries(server ressource ${ALL_LIBS})
 
-add_executable(test_conn test.cpp)
-target_link_libraries(test_conn ${ALL_LIBS})
+add_executable(test_conn test.cpp )
+target_link_libraries(test_conn ressource ${ALL_LIBS})
 
 add_executable(clientfromscratch webclient.cpp)
 target_link_libraries(clientfromscratch ${ALL_LIBS})
