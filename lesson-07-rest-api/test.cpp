@@ -4,6 +4,6 @@
 int main(int argc, char** argv)
 {
      int result;
-     runServer(argc, argv, [&] {result = runClient();});
+     runServer(argc, argv, [&] {return runClient();});
      return result;
 }

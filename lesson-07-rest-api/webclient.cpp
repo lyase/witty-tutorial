@@ -8,6 +8,14 @@
 #include <cassert> // For assert().
 #include <string>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
 using namespace std;
 
 // file from linux magazine hors serie 40
@@ -47,8 +55,10 @@ int main()
 {
      int s;
      struct sockaddr_in serv;
-     char request[]="GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nHost:localhost:8000\r\nAccept: */*\r\n\r\n";
+     char request[]="GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n";
      char buffer[900];
+     for (char* p=buffer; p < buffer + sizeof(buffer); ++p)
+       *p = 0;
      serv.sin_family= AF_INET;
      serv.sin_port = htons(8000);
      serv.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -69,13 +79,17 @@ int main()
           perror("send(): ");
           exit(1);
      }
-     if(recv(s, buffer, sizeof(buffer), 0)<0) {
+     shutdown(s, 1); // We will no longer transmit
+     size_t got = recv(s, buffer, sizeof(buffer), 0);
+     if(got < 0) {
           perror("error in receiving(): \n");
           exit(1);
      }
+     buffer[got] = 0;
      buffer[899]='\0';
      printf("server reply :\n\n%s\n\n",buffer);
      printf("\n buffer end \n");
+     close(s);
 
      return 0;
 }

@@ -27,4 +27,5 @@ add_executable(clientfromscratch webclient.cpp)
 target_link_libraries(clientfromscratch ${ALL_LIBS})
 
 enable_testing()
-add_test(conn test_conn --docroot . --http-address 0.0.0.0 --http-port 8000)
+file(COPY test.sh DESTINATION .)
+add_test(conn test.sh)
