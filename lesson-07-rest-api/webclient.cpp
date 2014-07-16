@@ -1,21 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <iostream>
 #include <cassert> // For assert().
-#include <string>
-#include <vector>
+#include <iostream>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <vector>
 using namespace std;
 
 // file from linux magazine hors serie 40
