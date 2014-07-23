@@ -38,10 +38,10 @@ void MainWindow::toggleDefaultTheme()
 {
      Wt::WApplication* app = Wt::WApplication::instance(); // Get the Wt::WApplication intstance for our thread
      std::string oldTheme = "polished";
-//     oldTheme = app->theme()->name();
+     oldTheme = app->theme()->name();
      std::string newTheme = "default";
 
-//     std::string newTheme = oldTheme == "default" ? "polished" : "default";
+     std::string newTheme = oldTheme == "default" ? "polished" : "default";
      app->setCssTheme(newTheme); // Toggle the theme between 'default' and 'polished'
      _btnToggleDefaultTheme->hide();
      _btnTogglePolishTheme->setText("Change to  polished theme" );

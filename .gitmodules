@@ -4,3 +4,6 @@
 [submodule "lesson-07-rest-api/curl"]
 	path = lesson-07-rest-api/curl
 	url = git://github.com/bagder/curl.git
+[submodule "json--11"]
+	path = json--11
+	url = https://github.com/matiu2/json--11.git
