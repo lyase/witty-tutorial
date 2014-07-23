@@ -1,21 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <iostream>
 #include <cassert> // For assert().
-#include <string>
-#include <vector>
+#include <iostream>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <vector>
+#include <sstream>
+#include <iterator>
+#include <algorithm>
 using namespace std;
 
 // file from linux magazine hors serie 40
@@ -85,11 +83,25 @@ int main()
           perror("error in receiving(): \n");
           exit(1);
      }
-     buffer[got] = 0;
-     buffer[899]='\0';
-     printf("server reply :\n\n%s\n\n",buffer);
-     printf("\n buffer end \n");
      close(s);
+
+     // Get the body of the response
+     buffer[got] = 0;
+     const char* in = buffer;
+     const char* end = buffer + got;
+     const char marker[]="\r\n\r\n";
+     const char *start_of_body =
+         search(in, end, marker, marker + sizeof(marker) - 1) + sizeof(marker);
+     const char *end_of_body =
+         search(start_of_body, end, marker, marker + sizeof(marker) - 1);
+     ++start_of_body; // For some reason we get '0' in the reply
+     --end_of_body; // For some reason we get '0' at the end too
+
+     std::string body;
+     body.reserve(end_of_body - start_of_body);
+     copy(start_of_body, end_of_body, back_inserter(body));
+
+     cout << "BODY: " << endl << body << endl << "</BODY>" << endl;
 
      return 0;
 }
