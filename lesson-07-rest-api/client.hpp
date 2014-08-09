@@ -59,6 +59,8 @@ int runClient()
      cout << "name: " << name << endl;
      cout << "age: " << age << endl;
 
+     io.stop();
+
      if (client.last_msg.body() == "hello\n")
           return 0;
      else

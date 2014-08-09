@@ -8,6 +8,7 @@
 #include <Wt/WLink>
 #include <Wt/WAnchor>
 #include <Wt/WApplication>
+#include <Wt/WTheme>
 
 MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
@@ -41,7 +42,7 @@ void MainWindow::toggleDefaultTheme()
      oldTheme = app->theme()->name();
      std::string newTheme = "default";
 
-     std::string newTheme = oldTheme == "default" ? "polished" : "default";
+     newTheme = oldTheme == "default" ? "polished" : "default";
      app->setCssTheme(newTheme); // Toggle the theme between 'default' and 'polished'
      _btnToggleDefaultTheme->hide();
      _btnTogglePolishTheme->setText("Change to  polished theme" );
