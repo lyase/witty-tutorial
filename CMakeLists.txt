@@ -1,4 +1,4 @@
-PROJECT(ilearningWittystepbystep)
+PROJECT(LearningWittystepbystep)
 cmake_minimum_required(VERSION 2.8)
 add_subdirectory(lesson-00-hello-world-in-cpp)
 add_subdirectory(lesson-01-hello-world-in-wt)

@@ -26,7 +26,7 @@ answer end with sequence : "0\r\n" followed "\r\n".
 #include <csignal>
 
 
-int runServer (int argc, char** argv, std::function<void()> b4wait=std::function<void()>())
+int runServer (int argc, char** argv)
 {
      using Wt::WServer;
      try {
@@ -44,16 +44,12 @@ int runServer (int argc, char** argv, std::function<void()> b4wait=std::function
           // by the server configuration's deploy-path)
           server.addResource(&api, "/");
           if (server.start()) {
-               if(b4wait) {
-                    b4wait();
-                    server.stop();
-               } else {
-                    int sig = WServer::waitForShutdown(argv[0]);
-                    std::cerr << "Shutdown (signal = " << sig << ")" << std::endl;
-                    server.stop();
-                    if (sig == SIGHUP)
-                         WServer::restart(argc, argv, environ);
-               }
+               int sig = WServer::waitForShutdown(argv[0]);
+               std::cerr << "Shutdown (signal = " << sig << ")" << std::endl;
+               server.stop();
+               if (sig == SIGHUP)
+                    WServer::restart(argc, argv, environ);
+
           }
      } catch (WServer::Exception& e) {
           std::cerr << e.what() << "\n";

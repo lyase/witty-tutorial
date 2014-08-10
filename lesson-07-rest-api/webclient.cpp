@@ -49,6 +49,27 @@ using namespace std;
 // < Transfer-Encoding: chunked
 // <
 // hello
+/*
+ you can https
+https requests look just like http requests, but with transparent encryption of the actual communication between the client and the server, and on a different default port. The good news is that transparent encryption allows you to program just like you're writing a regular HTTP client. The bad news is that the encryption is complex enough that you need a specialized library to implement it for you.
+
+One such library is OpenSSL. Using OpenSSL, the minimal code for a client would look like this:
+#include <openssl/ssl.h>
+
+// first connect to the remote as usual, but use the port 443 instead of 80
+
+// initialize OpenSSL - do this once and stash ssl_ctx in a global var
+SSL_load_error_strings ();
+SSL_library_init ();
+SSL_CTX *ssl_ctx = SSL_CTX_new (SSLv23_client_method ());
+
+// create an SSL connection and attach it to the socket
+SSL *conn = SSL_new(ssl_ctx);
+SSL_set_fd(conn, sock);
+
+// now proceed with HTTP traffic, using SSL_read instead of recv() and
+// SSL_write instead of send(), and SSL_shutdown/SSL_free before close()
+ */
 int main()
 {
      int s;

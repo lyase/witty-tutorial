@@ -20,12 +20,10 @@ target_link_libraries(client ${ALL_LIBS})
 add_executable(server server.cpp )
 target_link_libraries(server ressource ${ALL_LIBS})
 
-add_executable(test_conn test.cpp )
-target_link_libraries(test_conn ressource ${ALL_LIBS})
 
 add_executable(clientfromscratch webclient.cpp)
 target_link_libraries(clientfromscratch ${ALL_LIBS})
 
 enable_testing()
 file(COPY test.sh DESTINATION .)
-add_test(conn test.sh)
+add_test(clientfromscratch ./test.sh)
