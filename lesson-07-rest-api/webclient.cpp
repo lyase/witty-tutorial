@@ -91,17 +91,14 @@ struct SocketResource {
 struct Socket {
     SocketResource s;
     sockaddr_in server_address;
-    char buffer[900];
     Socket(const char* host_name, unsigned short port=80) {
         // Set up the address
         server_address.sin_family= AF_INET;
         server_address.sin_port = htons(port);
         server_address.sin_addr.s_addr = inet_addr(host_name);
-        // Zero out the buffer
-        for (char* p=buffer; p < buffer + sizeof(buffer); ++p)
-            *p = 0;
     }
     void request(const char* req) {
+        // TODO: Add the ability to make up your own requests, like addHeader, etc.
         if(s < 0) {
             //throw std::runtime_error("Couldn't open socket");
             perror("socket(): ");
@@ -119,31 +116,35 @@ struct Socket {
         }
         shutdown(s, 1); // We will no longer transmit
     }
-    std::string receive() {
+    std::string getBody() {
         // Get the result
-        size_t got = recv(s, buffer, sizeof(buffer), 0);
+        std::string buffer(900, '\0');
+        size_t got = recv(s, &buffer[0], buffer.size(), 0);
         if(got < 0) {
             perror("error in receiving(): \n");
             exit(1);
         }
         // Get the body of the response
-        buffer[got] = 0;
-        const char* in = buffer;
-        const char* end = buffer + got;
-        const char marker[]="\r\n\r\n";
-        const char *start_of_body =
-            search(in, end, marker, marker + sizeof(marker) - 1) + sizeof(marker);
-        const char *end_of_body =
-            search(start_of_body, end, marker, marker + sizeof(marker) - 1);
-        ++start_of_body; // For some reason we get '0' in the reply
-        --end_of_body; // For some reason we get '0' at the end too
-        // Copy the result into a string
-        std::string body;
-        body.reserve(end_of_body - start_of_body);
-        copy(start_of_body, end_of_body, back_inserter(body));
-        return body;
+        buffer.resize(got);
+        size_t start_of_body = buffer.find("\r\n\r\n");
+        size_t end_of_body = buffer.find("\r\n\r\n", start_of_body);
+        // TODO: decode chunked encoding
+        return decodeChunkedEncoding(buffer.substr(start_of_body, end_of_body));
     }
-
+    std::string decodeChunkedEncoding(std::string body) {
+        std::stringstream data(body);
+        std::string output;
+        output.reserve(body.size());
+        int chunkSize;
+        data >> chunkSize;
+        data.get(); // \r
+        data.get(); // \n
+        while (chunkSize != 0) {
+            std::copy_n(std::istream_iterator<char>(data), chunkSize, std::back_inserter(output));
+            data >> chunkSize;
+        }
+        return output;
+    }
 };
 
 int main()
@@ -151,7 +152,7 @@ int main()
     Socket socket("127.0.0.1", 8000);
     socket.request("GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n");
 
-    std::string body = socket.receive();
+    std::string body = socket.getBody();
 
     cout << "BODY: " << endl << body << endl << "</BODY>" << endl;
 
