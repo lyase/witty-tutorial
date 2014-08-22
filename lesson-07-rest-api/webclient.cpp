@@ -70,59 +70,90 @@ SSL_set_fd(conn, sock);
 // now proceed with HTTP traffic, using SSL_read instead of recv() and
 // SSL_write instead of send(), and SSL_shutdown/SSL_free before close()
  */
+
+// RAII for a socket
+struct SocketResource {
+    int s;
+    SocketResource() : s(socket(PF_INET, SOCK_STREAM, 0)) {}
+    ~SocketResource() {
+        close(s);
+    }
+    /// Call this after you have sent your last bit to destroy
+    /// the transmit buffers and to allow the socket to close
+    void doneTransmitting() {
+        shutdown(s, 1);
+    }
+    operator int() const {
+        return s;
+    }
+};
+
+struct Socket {
+    SocketResource s;
+    sockaddr_in server_address;
+    char buffer[900];
+    Socket(const char* host_name, unsigned short port=80) {
+        // Set up the address
+        server_address.sin_family= AF_INET;
+        server_address.sin_port = htons(port);
+        server_address.sin_addr.s_addr = inet_addr(host_name);
+        // Zero out the buffer
+        for (char* p=buffer; p < buffer + sizeof(buffer); ++p)
+            *p = 0;
+    }
+    void request(const char* req) {
+        if(s < 0) {
+            //throw std::runtime_error("Couldn't open socket");
+            perror("socket(): ");
+            exit(1);
+        }
+        if (connect(s, (struct sockaddr *)&server_address, (socklen_t)sizeof(struct sockaddr_in))<0) {
+            perror("connect(): ");
+            exit(1);
+        }
+        printf("Now sending http request \n");
+
+        if(send(s, req, strlen(req), 0)<0) {
+            perror("send(): ");
+            exit(1);
+        }
+        shutdown(s, 1); // We will no longer transmit
+    }
+    std::string receive() {
+        // Get the result
+        size_t got = recv(s, buffer, sizeof(buffer), 0);
+        if(got < 0) {
+            perror("error in receiving(): \n");
+            exit(1);
+        }
+        // Get the body of the response
+        buffer[got] = 0;
+        const char* in = buffer;
+        const char* end = buffer + got;
+        const char marker[]="\r\n\r\n";
+        const char *start_of_body =
+            search(in, end, marker, marker + sizeof(marker) - 1) + sizeof(marker);
+        const char *end_of_body =
+            search(start_of_body, end, marker, marker + sizeof(marker) - 1);
+        ++start_of_body; // For some reason we get '0' in the reply
+        --end_of_body; // For some reason we get '0' at the end too
+        // Copy the result into a string
+        std::string body;
+        body.reserve(end_of_body - start_of_body);
+        copy(start_of_body, end_of_body, back_inserter(body));
+        return body;
+    }
+
+};
+
 int main()
 {
-     int s;
-     struct sockaddr_in serv;
-     char request[]="GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n";
-     char buffer[900];
-     for (char* p=buffer; p < buffer + sizeof(buffer); ++p)
-       *p = 0;
-     serv.sin_family= AF_INET;
-     serv.sin_port = htons(8000);
-     serv.sin_addr.s_addr = inet_addr("127.0.0.1");
-// should resolve for name preferably
-// pour ipv6 utiliser struct sockaddr_in6
-     printf(" now trying to connect \n");
-     if((s= socket(PF_INET, SOCK_STREAM, 0))<0) {
-          perror("socket(): ");
-          exit(1);
-     }
-     if (connect(s, (struct sockaddr *)&serv, (socklen_t)sizeof(struct sockaddr_in))<0) {
-          perror("connect(): ");
-          exit(1);
-     }
-     printf(" now sending http request \n");
+    Socket socket("127.0.0.1", 8000);
+    socket.request("GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n");
 
-     if(send(s, request, sizeof(request), 0)<0) {
-          perror("send(): ");
-          exit(1);
-     }
-     shutdown(s, 1); // We will no longer transmit
-     size_t got = recv(s, buffer, sizeof(buffer), 0);
-     if(got < 0) {
-          perror("error in receiving(): \n");
-          exit(1);
-     }
-     close(s);
+    std::string body = socket.receive();
 
-     // Get the body of the response
-     buffer[got] = 0;
-     const char* in = buffer;
-     const char* end = buffer + got;
-     const char marker[]="\r\n\r\n";
-     const char *start_of_body =
-         search(in, end, marker, marker + sizeof(marker) - 1) + sizeof(marker);
-     const char *end_of_body =
-         search(start_of_body, end, marker, marker + sizeof(marker) - 1);
-     ++start_of_body; // For some reason we get '0' in the reply
-     --end_of_body; // For some reason we get '0' at the end too
+    cout << "BODY: " << endl << body << endl << "</BODY>" << endl;
 
-     std::string body;
-     body.reserve(end_of_body - start_of_body);
-     copy(start_of_body, end_of_body, back_inserter(body));
-
-     cout << "BODY: " << endl << body << endl << "</BODY>" << endl;
-
-     return 0;
+    return 0;
 }
