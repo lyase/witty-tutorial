@@ -27,5 +27,8 @@ private:
      MainWindow* getMainWindow() ;
 };
 
-
+class DBCleaner {
+     ~DBCleaner() ;
+     DBCleaner() ;
+};
 #endif

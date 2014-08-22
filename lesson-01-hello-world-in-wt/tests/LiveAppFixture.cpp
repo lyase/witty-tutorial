@@ -27,3 +27,17 @@ MainWindow* LiveAppFixture::getMainWindow()
      Wt::WWidget* result = app->root()->widget(0);
      return dynamic_cast<MainWindow*>(result);
 }
+DBCleaner::~DBCleaner()
+{
+     boost::filesystem::remove("./blog.db");
+     // you can put here more cleaning instructions if needed
+     //Wt::Test::WTestEnvironment env("..", "../wt-config.xml");
+     //HelloApp app(env);
+     //    app.db().dropTables();
+}
+DBCleaner::DBCleaner()
+{
+     // you can put here cleaning instructions if needed
+     // Delete the sqlite db
+     boost::filesystem::remove("./blog.db");
+}
