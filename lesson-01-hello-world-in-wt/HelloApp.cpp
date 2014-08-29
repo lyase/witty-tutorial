@@ -40,6 +40,8 @@ HelloApp::HelloApp(const Wt::WEnvironment& env, const ::lesson01Auth::Services& 
      log("info") << "App created";
      setTheme(new Wt::WCssTheme("polished", this));
      setTitle("Hello world");
+     // Load our template strings we are using blog.xml
+     messageResourceBundle().use(appRoot() + "blog");
      // Set up the DB
      std::string dbConnString = "";
      readConfigurationProperty("DB", dbConnString); // Set in tests/CMakeLists.txt

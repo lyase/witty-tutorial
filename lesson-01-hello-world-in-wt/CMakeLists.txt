@@ -42,6 +42,7 @@ else()
     set(LOG_LINE "* -debug")
 endif()
 CONFIGURE_FILE(wt-config.xml wt-config.xml)
+file(COPY blog.xml DESTINATION .)
 
 
 # Models Library
