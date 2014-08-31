@@ -26,7 +26,7 @@
 
 Wt::WApplication* runApp(const Wt::WEnvironment& env)
 {
-     return new HelloApp(env, services);
+     return new HelloApp(env, *lesson01Auth::Services::instance());
 }
 
 int main(int argc, char** argv)

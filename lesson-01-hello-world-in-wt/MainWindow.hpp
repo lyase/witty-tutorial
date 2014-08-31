@@ -28,7 +28,7 @@ private:
      Wt::WAnchor* _askLink;
      Wt::WAnchor* _sayLink;
      Wt::WAnchor* _adminLink;
-     Wt::WTemplate *loginStatus_;
+     Wt::Auth::AuthWidget* loginStatus_;
 //         AppLoginWidget *loginWidget_;
 
      /*! \fn MainWindow::sayHi()

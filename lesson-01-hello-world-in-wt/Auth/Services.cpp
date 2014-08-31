@@ -6,11 +6,12 @@
 namespace lesson01Auth {
 
 // Initialize the static Singleton
-Services::_instance = NULL;
+Services* Services::_instance = NULL;
 
 Services::Services() : auth(), pword(auth)
 {
-    assert(!_instance); // We are a singleton
+    assert(!_instance); // There can be only one!
+    _instance = this;
      auth.setAuthTokensEnabled(true, "my-auth-token");
      auth.setEmailVerificationEnabled(true);
 
@@ -21,7 +22,8 @@ Services::Services() : auth(), pword(auth)
      pword.setStrengthValidator(new Wt::Auth::PasswordStrengthValidator());
 }
 
-Services* Services::instance() {
+const Services* Services::instance() {
+    assert(_instance); // If someone calls this, it had better exist
     return _instance;
 }
 

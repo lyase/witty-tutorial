@@ -9,13 +9,16 @@
 #include <Wt/WLink>
 #include <Wt/WAnchor>
 #include <Wt/WApplication>
+#include <Wt/Auth/AuthWidget>
 
 #include "HelloApp.hpp"
-#include "views/BlogLoginWidget.h"
+#include "Auth/Services.hpp"
 
 MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
-    loginStatus_ = new Wt::WTemplate(tr("blog-login-status"), this);
+    HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
+    ::Auth::Session& session = app->session();
+    loginStatus_ = new Wt::Auth::AuthWidget(lesson01Auth::Services::instance()->auth, session.users(), session.login(), this);
     _inputLabel = new Wt::WLabel("What is your name?", this);
     addWidget(new Wt::WBreak());
     _nameInput = new Wt::WLineEdit(this);
@@ -34,9 +37,8 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     _adminLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/admin"), "go to app admin ", this);
     _sayLink = new Wt::WAnchor(Wt::WLink(Wt::WLink::InternalPath, "/say"), "User List page:", this);
     addWidget(new Wt::WBreak());
-    HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
     new Wt::WAnchor(app->calc, "go calc xml ressource", this);
-    app->session().login().changed().connect(this, &MainWindow::onUserChanged);
+    session.login().changed().connect(this, &MainWindow::onUserChanged);
 
 //     loginWidget_ = new BlogLoginWidget(session_, basePath);
 
@@ -67,10 +69,6 @@ void MainWindow::loggedIn()
     Wt::WApplication::instance()->changeSessionId();
 
     //refresh(); // TODO: Refresh the display for the new user
-
-    //loginStatus_->resolveWidget("login")->show(); // TODO: Update the status widget
-    //loginStatus_->resolveWidget("login-link")->hide();
-    //loginStatus_->resolveWidget("register-link")->hide();
 
     Wt::WText *profileLink = new Wt::WText(tr("profile"));
     profileLink->setStyleClass("link");

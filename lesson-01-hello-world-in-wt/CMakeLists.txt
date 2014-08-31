@@ -42,7 +42,6 @@ else()
     set(LOG_LINE "* -debug")
 endif()
 CONFIGURE_FILE(wt-config.xml wt-config.xml)
-file(COPY blog.xml DESTINATION .)
 
 
 # Models Library
@@ -60,7 +59,7 @@ file(COPY timeseries.csv DESTINATION .)
 
 # This tells cmake that we want to create an executable called 'hellowt' and the source files are just 'main.cpp'
 #setting the source files of the project one by one.
-add_executable(hellowt main.cpp views/BlogLoginWidget.C)
+add_executable(hellowt main.cpp)
 configure_file(hellowt.xml.in hellowt.xml)
 target_link_libraries(hellowt
     helloWorld
