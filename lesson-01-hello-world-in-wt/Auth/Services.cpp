@@ -14,6 +14,7 @@ Services::Services() : auth(), pword(auth)
     _instance = this;
      auth.setAuthTokensEnabled(true, "my-auth-token");
      auth.setEmailVerificationEnabled(true);
+     auth.setIdentityPolicy(Wt::Auth::LoginNameIdentity);
 
      Wt::Auth::PasswordVerifier *verifier = new Wt::Auth::PasswordVerifier();
      verifier->addHashFunction(new Wt::Auth::BCryptHashFunction(7));

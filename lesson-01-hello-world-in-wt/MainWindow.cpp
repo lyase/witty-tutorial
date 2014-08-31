@@ -19,6 +19,8 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
     ::Auth::Session& session = app->session();
     loginStatus_ = new Wt::Auth::AuthWidget(lesson01Auth::Services::instance()->auth, session.users(), session.login(), this);
+    loginStatus_->setRegistrationEnabled(true);
+    loginStatus_->registerNewUser();
     _inputLabel = new Wt::WLabel("What is your name?", this);
     addWidget(new Wt::WBreak());
     _nameInput = new Wt::WLineEdit(this);
