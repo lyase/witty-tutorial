@@ -11,6 +11,7 @@ public:
      Wt::Auth::AuthService auth;
      Wt::Auth::PasswordService pword;
      Services();
+     ~Services();
      static const Services* instance();
 };
 

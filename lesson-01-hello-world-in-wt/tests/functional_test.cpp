@@ -36,6 +36,8 @@
 #include "../Auth/Session.hpp"
 #include "LiveAppFixture.hpp"
 #include <Wt/Dbo/backend/Sqlite3>
+#include <Wt/Auth/AuthWidget>
+#include <Wt/WLineEdit>
 #include <boost/filesystem.hpp>
 
 // we are testing here:
@@ -48,6 +50,17 @@ BOOST_AUTO_TEST_CASE( testMainWindowExists )
      BOOST_REQUIRE(main);
      cout<<"done checking main window\n";
 }
+
+// Test that the Login dialog is showing
+BOOST_AUTO_TEST_CASE( testLoginDialogIsShowing )
+{
+     MainWindow* main = getMainWindow();
+     BOOST_REQUIRE(main);
+     Wt::WLineEdit* username = dynamic_cast<Wt::WLineEdit*>(main->loginStatus_->resolveWidget("login"));
+     BOOST_REQUIRE(username);
+     cout<<"done checking login widget\n";
+}
+
 // we are testing here:
 //the application can change the name of the current user
 //this is mostly an developper test howto test a functionality of the app

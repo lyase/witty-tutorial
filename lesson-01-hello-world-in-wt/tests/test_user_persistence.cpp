@@ -14,11 +14,10 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
 {
      DBCleaner*cleaner = new DBCleaner; // When this obj goes out of scope, it'll drop the tables in the db
 
-     lesson01Auth::Services services;
      // Scope brackets so that app1 is deleted before session2 is created
      // Create an app
      Wt::Test::WTestEnvironment env1("..", "../wt-config.xml");
-     HelloApp app1(env1, services);
+     HelloApp app1(env1, *services);
      app1.initialize();
 
      cout<< " checking i can query database before any operation it sould be  empty \n";
@@ -49,10 +48,9 @@ BOOST_AUTO_TEST_CASE( testUserPersistence )
      // Kill the app
      app1.quit();
 
-     lesson01Auth::Services services2;
      // Start a app2 a new app checking now the user information were saved to database in earlier database operation
      Wt::Test::WTestEnvironment env2("..", "../wt-config.xml");
-     HelloApp app2(env2, services2);
+     HelloApp app2(env2, *services);
      app2.initialize();
      //    app2.Dbinitialize(); not required done as app starts dbconnection mapping by default
      // Create the second Session

@@ -36,5 +36,4 @@ void AskWindow::sayHi()
      Wt::WMessageBox::show("User Created",
                            std::string("Created User: ") + name,
                            Wt::Ok);
-
 }

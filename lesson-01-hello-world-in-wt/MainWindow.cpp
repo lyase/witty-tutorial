@@ -19,7 +19,12 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
     ::Auth::Session& session = app->session();
     loginStatus_ = new Wt::Auth::AuthWidget(lesson01Auth::Services::instance()->auth, session.users(), session.login(), this);
-    loginStatus_->setRegistrationEnabled(true);
+    //loginStatus_->setRegistrationEnabled(true);
+    loginStatus_->model()->addPasswordAuth(&lesson01Auth::Services::instance()->pword);
+    loginStatus_->processEnvironment();
+    //loginStatus_->resolveWidget("login")->hide();
+    //loginStatus_->resolveWidget("login-link")->show();
+    //loginStatus_->resolveWidget("register-link")->show();
     _inputLabel = new Wt::WLabel("What is your name?", this);
     addWidget(new Wt::WBreak());
     _nameInput = new Wt::WLineEdit(this);
@@ -43,9 +48,7 @@ MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(pare
 
     addWidget(new Wt::WBreak());
     Wt::WPushButton* reg = new Wt::WPushButton("Register as a new user", this);
-    reg->clicked().connect(loginStatus_, &Wt::Auth::AuthWidget::registerNewUser);
-
-//     loginWidget_ = new BlogLoginWidget(session_, basePath);
+    //reg->clicked().connect(loginStatus_, &Wt::Auth::AuthWidget::createLoginView);
 
 }
 void MainWindow::sayHi()

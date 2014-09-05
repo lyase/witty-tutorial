@@ -23,6 +23,10 @@ Services::Services() : auth(), pword(auth)
      pword.setStrengthValidator(new Wt::Auth::PasswordStrengthValidator());
 }
 
+Services::~Services () {
+    _instance = 0;
+}
+
 const Services* Services::instance() {
     assert(_instance); // If someone calls this, it had better exist
     return _instance;
