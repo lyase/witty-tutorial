@@ -475,6 +475,8 @@
     </application-settings>
     -->
         <property name="DB">blog.db</property>
+        <property name="smtp-self-host">mail.bigpond.com</property>
+        <property name="smtp-host">mail.bigpond.com</property>
         </properties>
     </application-settings>
 </server>
