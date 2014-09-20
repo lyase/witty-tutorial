@@ -12,8 +12,9 @@ Services::Services() : auth(), pword(auth)
 {
     assert(!_instance); // There can be only one!
     _instance = this;
+    auth.setAuthTokensEnabled(true, "logincookie");
      auth.setAuthTokensEnabled(true, "my-auth-token");
-     auth.setEmailVerificationEnabled(true);
+     auth.setEmailVerificationEnabled(false);
      auth.setIdentityPolicy(Wt::Auth::LoginNameIdentity);
 
      Wt::Auth::PasswordVerifier *verifier = new Wt::Auth::PasswordVerifier();
