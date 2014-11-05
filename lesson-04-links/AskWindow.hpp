@@ -13,7 +13,7 @@ class WButton;
 class WLink;
 }
 
-class AskWindow : public Wt::WContainerWidget {
+class InputWindow : public Wt::WContainerWidget {
 private:
      Wt::WLabel* _inputLabel;
      Wt::WLineEdit* _nameInput;
@@ -23,7 +23,7 @@ private:
      void sayHi();
      void handlePathChanged(const std::string& newPath);
 public:
-     AskWindow(Wt::WContainerWidget* parent=0);
+     InputWindow(Wt::WContainerWidget* parent=0);
 };
 
 #endif // ASKWINDOW_HPP

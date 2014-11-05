@@ -1,4 +1,4 @@
-#include "AskWindow.hpp"
+#include "InputWindow.hpp"
 #include "HelloApp.hpp"
 #include "Auth/Session.hpp"
 #include <Wt/WLineEdit>
@@ -11,7 +11,7 @@
 #include <Wt/WApplication>
 #include <Wt/WMessageBox>
 
-AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
+InputWindow::InputWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent)
 {
      _inputLabel = new Wt::WLabel("New User name", this);
      _nameInput = new Wt::WLineEdit(this);
@@ -24,10 +24,10 @@ AskWindow::AskWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent
 
      _btnCreateUser = new Wt::WPushButton("Create User", this);
      _nameOutput = new Wt::WText(this);
-     _btnCreateUser->clicked().connect(this, &AskWindow::sayHi);
+     _btnCreateUser->clicked().connect(this, &InputWindow::sayHi);
 }
 
-void AskWindow::sayHi()
+void InputWindow::sayHi()
 {
      Wt::WString name = _nameInput->valueText();
      Wt::WString pword = _pwordInput->valueText();

@@ -1,5 +1,5 @@
 #include "HelloApp.hpp"
-#include "AskWindow.hpp"
+#include "InputWindow.hpp"
 #include "SayWindow.hpp"
 #include "MainWindow.hpp"
 
@@ -16,7 +16,7 @@ void HelloApp::handlePathChanged(const std::string& newPath)
 {
      root()->clear();
      if (newPath == "/ask")
-          new AskWindow(root());
+          new InputWindow(root());
      else if (newPath == "/say")
           new SayWindow(root());
      else

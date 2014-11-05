@@ -1,5 +1,5 @@
-#ifndef ASKWINDOW_HPP
-#define ASKWINDOW_HPP
+#ifndef INPUTWINDOW_HPP
+#define INPUTWINDOW_HPP
 /// This window asks the user for their name, then stores it in the app object, then sends them to the "SayHi" page
 
 #include <Wt/WContainerWidget>
@@ -13,7 +13,7 @@ class WButton;
 class WLink;
 }
 
-class AskWindow : public Wt::WContainerWidget {
+class InputWindow : public Wt::WContainerWidget {
 private:
      Wt::WLabel* _inputLabel;
      Wt::WLineEdit* _nameInput;
@@ -24,7 +24,7 @@ private:
      void sayHi();
      void handlePathChanged(const std::string& newPath);
 public:
-     AskWindow(Wt::WContainerWidget* parent=0);
+     InputWindow(Wt::WContainerWidget* parent=0);
 };
 
 #endif // ASKWINDOW_HPP

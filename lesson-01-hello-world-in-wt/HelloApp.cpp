@@ -15,7 +15,7 @@
 #include "models/dbinfo.hpp"
 #include <Wt/WServer>
 #include <Wt/Dbo/backend/Sqlite3>
-#include "AskWindow.hpp"
+#include "InputWindow.hpp"
 #include "SayWindow.hpp"
 #include "MainWindow.hpp"
 #include "IWebPageFactory.h"
@@ -86,7 +86,7 @@ void HelloApp::handlePathChanged(const std::string& newPath)
      mPageFactory ->createWebPage(newPath, aroot);
      /* manual  way of doing things now implemented in the Factory ask the WebSiteFactory to create the required page
      if (newPath == "/ask")
-         new AskWindow(root());
+         new InputWindow(root());
      else if (newPath == "/say")
          new SayWindow(root());
      else

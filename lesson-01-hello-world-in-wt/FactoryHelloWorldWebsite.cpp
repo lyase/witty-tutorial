@@ -15,7 +15,7 @@
 #include "FactoryHelloWorldWebsite.hpp"
 #include <Wt/WApplication>
 #include"IWebPageFactory.h"
-#include "AskWindow.hpp"
+#include "InputWindow.hpp"
 #include "SayWindow.hpp"
 #include "AdminWindow.hpp"
 #include "MainWindow.hpp"
@@ -44,7 +44,7 @@ void FactoryHelloWorldWebsite::createWebPage(const std::string newPath, Wt::WCon
      Wt::WApplication::instance()->log("info") << "Create web page called: " << newPath;
      switch (hashit(newPath)) {
      case ask:
-          new AskWindow(aroot);
+          new InputWindow(aroot);
           break;
      case say:
           new SayWindow(aroot);

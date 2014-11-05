@@ -16,7 +16,7 @@
 #include <Wt/WObject>
 #include <Wt/WApplication>
 #include"IWebPageFactory.h"
-#include "AskWindow.hpp"
+#include "InputWindow.hpp"
 #include "SayWindow.hpp"
 #include "AdminWindow.hpp"
 #include "MainWindow.hpp"
