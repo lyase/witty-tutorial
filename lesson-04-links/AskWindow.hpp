@@ -23,7 +23,7 @@ private:
      void sayHi();
      void handlePathChanged(const std::string& newPath);
 public:
-     InputWindow(Wt::WContainerWidget* parent=0);
+     AskWindow(Wt::WContainerWidget* parent=0);
 };
 
 #endif // ASKWINDOW_HPP
