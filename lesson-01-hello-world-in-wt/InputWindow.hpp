@@ -27,4 +27,4 @@ public:
      InputWindow(Wt::WContainerWidget* parent=0);
 };
 
-#endif // ASKWINDOW_HPP
+#endif // INPUTWINDOW_HPP

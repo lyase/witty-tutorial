@@ -13,7 +13,7 @@ class WButton;
 class WLink;
 }
 
-class InputWindow : public Wt::WContainerWidget {
+class AskWindow : public Wt::WContainerWidget {
 private:
      Wt::WLabel* _inputLabel;
      Wt::WLineEdit* _nameInput;
