@@ -85,18 +85,22 @@ void MainWindow::loggedIn()
     HelloApp* app = dynamic_cast<HelloApp*>(Wt::WApplication::instance());
     dbo::ptr<User> user = app->session().user();
 
-    if (user->getRole() == Admin) {
-        Wt::WText *editUsersLink = new Wt::WText(tr("edit-users"));
-        editUsersLink->setStyleClass("link");
-        //editUsersLink->clicked().connect(SLOT(this, BlogImpl::editUsers));
-        //loginStatus_->bindWidget("userlist-link", editUsersLink);
-        Wt::WText *authorPanelLink = new Wt::WText(tr("author-post"));
-        authorPanelLink->setStyleClass("link");
-        //authorPanelLink->clicked().connect(SLOT(this, BlogImpl::authorPanel));
-        //loginStatus_->bindWidget("author-panel-link", authorPanelLink);
-    } else {
-        //loginStatus_->bindEmpty("userlist-link");
-        //loginStatus_->bindEmpty("author-panel-link");
+    if (user) {
+
+        if (user->getRole() == Admin) {
+            Wt::WText *editUsersLink = new Wt::WText(tr("edit-users"));
+            editUsersLink->setStyleClass("link");
+            //editUsersLink->clicked().connect(SLOT(this, BlogImpl::editUsers));
+            //loginStatus_->bindWidget("userlist-link", editUsersLink);
+            Wt::WText *authorPanelLink = new Wt::WText(tr("author-post"));
+            authorPanelLink->setStyleClass("link");
+            //authorPanelLink->clicked().connect(SLOT(this, BlogImpl::authorPanel));
+            //loginStatus_->bindWidget("author-panel-link", authorPanelLink);
+        } else {
+            //loginStatus_->bindEmpty("userlist-link");
+            //loginStatus_->bindEmpty("author-panel-link");
+        }
+
     }
 
     //loginStatus_->bindWidget("profile-link", profileLink);
