@@ -8,10 +8,16 @@ find_package(Boost COMPONENTS system thread signals unit_test_framework filesyst
 find_library(wt NAMES wtd wt)
 find_library(wthttp NAMES wthttpd wthttp)
 
+find_package(OpenSSL REQUIRED)
+
+include_directories(${OPENSSL_INCLUDE_DIR})
+
 set(ALL_LIBS ${wt} ${wthttp}
     ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} ${Boost_SIGNALS_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY})
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${OPENSSL_LIBRARIES}
+    )
 add_subdirectory(ressource)
 
 add_executable(client client.cpp)

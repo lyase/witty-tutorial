@@ -14,6 +14,13 @@
 #include <sstream>
 #include <iterator>
 #include <algorithm>
+#include <stdexcept>
+#include <iterator>
+
+#include <openssl/bio.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+
 using namespace std;
 
 // file from linux magazine hors serie 40
@@ -70,59 +77,86 @@ SSL_set_fd(conn, sock);
 // now proceed with HTTP traffic, using SSL_read instead of recv() and
 // SSL_write instead of send(), and SSL_shutdown/SSL_free before close()
  */
+
+struct SSLSocket {
+    /// To be run at the start of the program
+    static void init() {
+        SSL_load_error_strings();
+        ERR_load_BIO_strings();
+        OpenSSL_add_all_algorithms();
+        SSL_library_init();
+    }
+    BIO* bio;
+    SSL_CTX * ctx;
+    SSL* ssl;
+    char buf[256];
+    SSLSocket(const char* hostnamePort) {
+        ctx = SSL_CTX_new(SSLv23_client_method());
+        if (!ctx)
+            throw std::runtime_error(ERR_reason_error_string(ERR_get_error()));
+        bio = BIO_new_ssl_connect(ctx);
+        BIO_get_ssl(bio, & ssl);
+        SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
+        BIO_set_conn_hostname(bio, hostnamePort);
+        if(BIO_do_connect(bio) <= 0)
+            throw std::runtime_error("Couldn't connect");
+        // We don't verify the cert yet..
+        //if(! SSL_CTX_load_verify_locations(ctx, "/path/to/TrustStore.pem", NULL))
+        //if(SSL_get_verify_result(ssl) != X509_V_OK)
+    }
+    ~SSLSocket() {
+        SSL_CTX_free(ctx);
+        BIO_free_all(bio);
+    }
+    void read(std::string& out) {
+        int numBytes = BIO_read(bio, buf, sizeof(buf));
+        while (numBytes > 0) {
+            if(numBytes == 0)
+                throw std::runtime_error("Connection is closed");
+            else if(numBytes < 0) {
+                if(! BIO_should_retry(bio))
+                    throw std::runtime_error("Couldn't read");
+                else
+                    throw std::runtime_error("Couldn't read. Retry");
+            }
+            out.reserve(out.size() + numBytes);
+            std::copy(buf, buf + numBytes, std::back_inserter(out));
+            numBytes = BIO_read(bio, buf, sizeof(buf));
+        }
+    }
+    void write(const std::string& in) {
+        if(BIO_write(bio, in.c_str(), in.size()) <= 0)
+            if(! BIO_should_retry(bio))
+                throw std::runtime_error("Couldn't write");
+            else
+                throw std::runtime_error("Couldn't write. Retry");
+    }
+};
+
 int main()
 {
-     int s;
-     struct sockaddr_in serv;
-     char request[]="GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n";
-     char buffer[900];
-     for (char* p=buffer; p < buffer + sizeof(buffer); ++p)
-       *p = 0;
-     serv.sin_family= AF_INET;
-     serv.sin_port = htons(8000);
-     serv.sin_addr.s_addr = inet_addr("127.0.0.1");
-// should resolve for name preferably
-// pour ipv6 utiliser struct sockaddr_in6
-     printf(" now trying to connect \n");
-     if((s= socket(PF_INET, SOCK_STREAM, 0))<0) {
-          perror("socket(): ");
-          exit(1);
-     }
-     if (connect(s, (struct sockaddr *)&serv, (socklen_t)sizeof(struct sockaddr_in))<0) {
-          perror("connect(): ");
-          exit(1);
-     }
-     printf(" now sending http request \n");
+    // Prepare OpenSSL
+    SSLSocket::init();
 
-     if(send(s, request, sizeof(request), 0)<0) {
-          perror("send(): ");
-          exit(1);
-     }
-     shutdown(s, 1); // We will no longer transmit
-     size_t got = recv(s, buffer, sizeof(buffer), 0);
-     if(got < 0) {
-          perror("error in receiving(): \n");
-          exit(1);
-     }
-     close(s);
+    SSLSocket s("127.0.0.1:8443");
+    s.write("GET / HTTP/1.1\r\nUser-Agent: socketTester\r\nAccept: */*\r\n\r\n");
+    std::string msg;
+    s.read(msg);
 
-     // Get the body of the response
-     buffer[got] = 0;
-     const char* in = buffer;
-     const char* end = buffer + got;
-     const char marker[]="\r\n\r\n";
-     const char *start_of_body =
-         search(in, end, marker, marker + sizeof(marker) - 1) + sizeof(marker);
-     const char *end_of_body =
-         search(start_of_body, end, marker, marker + sizeof(marker) - 1);
-     ++start_of_body; // For some reason we get '0' in the reply
-     --end_of_body; // For some reason we get '0' at the end too
+    // Get the msg of the response
+    const std::string marker="\r\n\r\n";
+    auto start_of_body =
+        search(msg.begin(), msg.end(), marker.begin(), marker.end()) + marker.size();
+    auto end_of_body =
+        search(start_of_body, msg.end(), marker.begin(), marker.end());
+    ++start_of_body; // For some reason we get '0' in the reply
+    --end_of_body; // For some reason we get '0' at the end too
 
-     std::string body;
-     body.reserve(end_of_body - start_of_body);
-     copy(start_of_body, end_of_body, back_inserter(body));
+    std::string body;
+    body.reserve(msg.end() - start_of_body);
+    copy(start_of_body, msg.end(), back_inserter(body));
 
-     cout << "BODY: " << endl << body << endl << "</BODY>" << endl;
+    std::cout << "body: " << body << std::endl;
 
-     return 0;
+    return 0;
 }
