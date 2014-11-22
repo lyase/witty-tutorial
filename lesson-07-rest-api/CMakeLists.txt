@@ -25,5 +25,16 @@ add_executable(clientfromscratch webclient.cpp)
 target_link_libraries(clientfromscratch ${ALL_LIBS})
 
 enable_testing()
-file(COPY test.sh DESTINATION .)
+
+# server.key and server.crt were generated via SSL as shown here
+# http://www.akadia.com/services/ssh_test_certificate.html
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/server.key)
+    message(FATAL_ERROR "server.key does not exist. You must generate it with openssl as shown here: http://www.akadia.com/services/ssh_test_certificate.html. IT MUST BE CHMOD 0600")
+endif()
+
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/server.crt)
+    message(FATAL_ERROR "server.crt does not exist. You must generate it with openssl as shown here: http://www.akadia.com/services/ssh_test_certificate.html")
+endif()
+
+file(COPY test.sh server.key server.crt dh512.pem DESTINATION .)
 add_test(clientfromscratch ./test.sh)
